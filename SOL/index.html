@@ -34,7 +34,7 @@
 	  
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <a class="btn_Bro"  href=""> </a> <title>ICS-Team</title> <a class="btn_Bro"  href=""> </a>
+    <a class="btn_Bro"  href=""> </a> <title>Solico</title> <a class="btn_Bro"  href=""> </a>
      <link href="https://fonts.googleapis.com/css?family=Caveat|Montserrat:400,600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 	  
@@ -67,7 +67,30 @@
 
       
 
-        <img SRC="./Pictures/SolicoGroup.png" style="filter: opacity(88%); width: 10%; position:relative; left:41%">
+        <img id="S" SRC="./Pictures/SolicoGroup.png" style=" filter: opacity(25%);">
+        <script>
+          const image = document.getElementById('S');
+          const screenWidth = window.innerWidth;
+          const screenHeight = window.innerHeight;
+  
+          function moveImage() {
+              // Calculate the middle point
+              const middleX = screenWidth/2.5;
+              const middleY = screenHeight/3;
+  
+              // Calculate random offsets within -25% to +25%
+              const offsetX = (Math.random() * 0.25 ) * screenWidth;
+              const offsetY = (Math.random() * 0.25 ) * screenHeight;
+  
+              // Set the new position
+              image.style.left = `${middleX + offsetX}px`;
+              image.style.top = `${middleY + offsetY}px`;
+          }
+  
+          setInterval(moveImage, 100);
+      </script>
+        <img id="ScoreBoard" SRC="./Pictures/SolicoGroup.png" style="filter: opacity(88%); position:relative; left:50%; position:relative; top:50%">
+
 
 
         <!-- <a style="font-size: medium;" class="btn_Pro" href="">Our <span style="color: rgb(234, 234, 4);"> Team</span></a> 
