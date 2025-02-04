@@ -66,6 +66,71 @@
         <br>
         <a  href="https://hamidreza-mohammadiha.github.io/Work/SIC"><h2 style="color: rgb(34, 34, 34); font-size: xx-large;"> 3. <span class="auto-type">Saman Insurance</span> </h2></a>
         <br>
+
+
+
+
+
+
+          <br>
+          <br>
+          <h1>---</h1>
+          <br>
+
+
+<a><h2 style="color: rgb(34, 34, 34); font-size: xx-large;">Reinforcement Learning for Coffee-Mixing Sequence Optimization</h2></a>
+<br>
+<br>
+
+<h2 style="color: rgb(34, 34, 34); font-size: x-large;">1. Markov Decision Process (MDP) Formulation</h2>
+<h2 style="color: rgb(34, 34, 34); font-size: large;">
+- <strong>States (𝒮):</strong> Partial ingredient sequences (e.g., ∅, milk, milk-coffee). Terminal states 𝒮<sub>𝒯</sub> are permutations of {milk, coffee, syrup}.<br>
+- <strong>Actions (𝒜):</strong> Adding unused ingredients (e.g., 𝒜(milk) = {coffee, syrup}).<br>
+- <strong>Transitions:</strong> Deterministic; appending action-ingredient to current state.<br>
+- <strong>Reward (𝑹):</strong> User satisfaction score 𝑟 ∈ [0,1] received <em>only</em> at terminal states.<br>
+</h2>
+<br>
+
+<h2 style="color: rgb(34, 34, 34); font-size: x-large;">2. Dynamic Programming Framework</h2>
+<h2 style="color: rgb(34, 34, 34); font-size: large;">
+- <strong>Value Function:</strong><br>
+  𝑉(𝑠) = max<sub>𝑎∈𝒜(𝑠)</sub> 𝑄(𝑠,𝑎)<br>
+- <strong>Bellman Equation (Deterministic):</strong><br>
+  𝑄(𝑠,𝑎) = 𝑅(𝑠') + 𝛾𝑉(𝑠')<br>
+  For terminal 𝑠', 𝑉(𝑠') = 𝑅(𝑠'), with discount 𝛾=1 (episodic task).<br>
+</h2>
+<br>
+
+<h2 style="color: rgb(34, 34, 34); font-size: x-large;">3. Q-Learning Algorithm</h2>
+<h2 style="color: rgb(34, 34, 34); font-size: large;">
+- <strong>Update Rule:</strong><br>
+  𝑄(𝑠,𝑎) ← (1−𝛼)𝑄(𝑠,𝑎) + 𝛼[𝑟 + 𝛾 max<sub>𝑎'</sub>𝑄(𝑠',𝑎')]<br>
+  Simplified for terminal rewards: 𝑄(𝑠,𝑎) ← (1−𝛼)𝑄(𝑠,𝑎) + 𝛼𝑟<br>
+- <strong>Policy:</strong> 𝜖-greedy selection:<br>
+  𝜋(𝑠) = argmax<sub>𝑎</sub>𝑄(𝑠,𝑎) with probability 1−𝜖, else random action.<br>
+</h2>
+<br>
+
+<h2 style="color: rgb(34, 34, 34); font-size: x-large;">4. Implementation Steps</h2>
+<h2 style="color: rgb(34, 34, 34); font-size: large;">
+1. Initialize 𝑄-table with zeros<br>
+2. For each user interaction:<br>
+   &nbsp;&nbsp;a. Build ingredient sequence via 𝜖-greedy actions<br>
+   &nbsp;&nbsp;b. Observe terminal reward 𝑟 (user feedback)<br>
+   &nbsp;&nbsp;c. Update all 𝑄(𝑠,𝑎) along trajectory<br>
+3. Converge to optimal policy: π*(𝑠) = preferred ingredient sequence<br>
+</h2>
+<br>
+
+<h2 style="color: rgb(34, 34, 34); font-size: x-large;">5. Example: Optimal Sequence Learning</h2>
+<h2 style="color: rgb(34, 34, 34); font-size: large;">
+If users prefer <em>milk → coffee → syrup</em>:<br>
+- 𝑄(milk-coffee, syrup) ≈ 0.9 (high reward)<br>
+- 𝑄(milk, coffee) > 𝑄(milk, syrup) due to downstream rewards<br>
+- Exploration ensures all permutations are tested initially<br>
+</h2>
+
+    
         <!-- <a class="btn_Pro" href="AI/index.html">Our <span style="color: rgb(234, 234, 4);"> <span>Collection</span></span></a>
         <a class="btn_Pro" href="https://icsxai.github.io/Team/Banks/">Our <span style="color: rgb(234, 234, 4);"> Suppliers</span></a>
         <a class="btn_Pro" href="Reports/index.html">Our <span style="color: rgb(234, 234, 4);"> Reports</span></a> -->
@@ -75,6 +140,7 @@
         <br>
         <br>
         <div>
+        
           
           
         </div>
