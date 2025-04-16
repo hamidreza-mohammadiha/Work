@@ -49,6 +49,42 @@
   </script> -->
 
   <script>
+    function toggleContent_1() {
+        var content = document.getElementById("1");
+  
+        if (content.style.display === "none") {
+            content.style.display = "block";
+        } else {
+            content.style.display = "none";
+        }
+    }
+  </script>
+
+  <script>
+    function toggleContent_2() {
+        var content = document.getElementById("2");
+  
+        if (content.style.display === "none") {
+            content.style.display = "block";
+        } else {
+            content.style.display = "none";
+        }
+    }
+  </script>
+
+  <script>
+    function toggleContent_3() {
+        var content = document.getElementById("3");
+  
+        if (content.style.display === "none") {
+            content.style.display = "block";
+        } else {
+            content.style.display = "none";
+        }
+    }
+  </script>
+
+  <script>
     function toggleContent_4() {
         var content = document.getElementById("4");
   
@@ -134,10 +170,11 @@
 
 
 
-        <strong><p style="text-align-last: right; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; font-size: larger;">
+        <strong><p onclick="toggleContent_1()" style="text-align-last: right; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; font-size: larger;">
           پرسش اول: صنعت بیمه در ایران چه وضعیتی دارد؟
         </strong>
         <br>
+        <div id="1">
         </p>
         <br>
         <figcaption style="text-align: center; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; font-size: larger;"> منبع: سالنامه آماری سال 1402 - بیمه مرکزی </figcaption>
@@ -146,10 +183,27 @@
         <br>
         <br>
 
-        <strong><p style="text-align-last: right; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; font-size: larger;">
+        <strong><p  style="text-align-last: right; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; font-size: larger;">
+        <strong><p  style="text-align-last: right; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; font-size: larger;">
+        
+        </div>
+        
+          <!-- <strong><p onclick="toggleContent_2()"  style="text-align-last: right; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; font-size: larger;">
           پرسش دوم: وضعیت بیمه سامان بین شرکت های بیمه داخلی چگونه است؟
-        </p></strong>
+        </p></strong> -->
+
+        <strong><p onclick="toggleContent_2()" style="text-align-last: right; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; font-size: x-large;">
+          «<span  style="color: rgb(4, 84, 109);">           پرسش دوم: وضعیت بیمه سامان بین شرکت های بیمه داخلی چگونه است؟
+          </span>» 
+      </p></strong>
+
+        
+        <!-- <strong><p onclick="toggleContent_2()" style="text-align-last: right; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; font-size: larger;">
+          پرسش دوم: وضعیت بیمه سامان بین شرکت های بیمه داخلی چگونه است؟
+        </p>
+        </strong> -->
         <br>
+        <div id="2">
         <figcaption style="text-align: center; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; font-size: larger;">   منبع: گزارش عملکرد شرکت های بیمه در 4 ماه ابتدایی سال 1403   </figcaption>
         <figure><img class="pic" width="800px" SRC="../SIC/Pictures/Screenshot (17).png" style="filter: opacity(100%);"></figure>
 
@@ -168,14 +222,17 @@
         <br>
         <br>
         <br>
+      </div>
 
-        <strong><p style="text-align-last: right; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; font-size: larger;">
+        <strong><p onclick="toggleContent_3()" style="text-align-last: right; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; font-size: larger;">
           پرسش سوم: عملکرد 9 ماهه اول سال 1403 در رشته بیمه های مختلف چگونه بوده است؟
         </p></strong>
+        <div id="3">
         <br>
-        <iframe class="porsline" src="../SIC/Portfolio/1403 first 9 month.mp4" frameborder="1" allowfullscreen=""></iframe> 
+        <!-- <iframe class="porsline" src="../SIC/Portfolio/1403 first 9 month.mp4" frameborder="1" allowfullscreen=""></iframe>  -->
         <br>
         <br>
+      </div>
 
         <strong><p onclick="toggleContent_4()" style="text-align-last: right; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; font-size: larger;">
           پرسش چهارم: مهمترین شاخص هایی که موفقیت یک شرکت بیمه را نشان می دهند چه مواردی هستند؟
