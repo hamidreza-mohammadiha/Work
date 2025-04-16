@@ -159,6 +159,10 @@ h2 {
   display: none;
 }
 
+#ref :hover {
+  font-size: large;
+}
+
 #ref {
   display: none;
 }
