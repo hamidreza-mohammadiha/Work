@@ -72,6 +72,12 @@ body {
   padding-bottom: 20px;
 }
 
+.Q:hover {
+  cursor: pointer;        /* Changes cursor to hand pointer */
+  text-decoration: underline; /* Adds underline */
+  color: darkblue;        /* Changes text color to dark blue */
+}
+
 .wrapper1 {
   display: grid;
   grid-template-columns: 100%;
@@ -127,6 +133,30 @@ h1 {
 }
 h2 {
   font-size: 45px;
+}
+
+#q1 {
+  display: none;
+}
+
+#q2 {
+  display: none;
+}
+
+#q3 {
+  display: none;
+}
+
+#q4 {
+  display: none;
+}
+
+#q5 {
+  display: none;
+}
+
+#q6 {
+  display: none;
 }
 
 
