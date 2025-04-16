@@ -159,6 +159,10 @@ h2 {
   display: none;
 }
 
+#ref {
+  display: none;
+}
+
 
 .content-wrap {
   max-width: 800px;

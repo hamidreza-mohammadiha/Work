@@ -120,6 +120,30 @@
   }
 </script>
 
+<script>
+  function toggleContent_f() {
+      var content = document.getElementById("ref");
+
+      if (content.style.display === "none") {
+          content.style.display = "block";
+      } else {
+          content.style.display = "none";
+      }
+  }
+</script>
+
+<!-- <script>
+  function toggleContent_m() {
+      var content = document.getElementById("m");
+
+      if (content.style.display === "none") {
+          content.style.display = "block";
+      } else {
+          content.style.display = "none";
+      }
+  }
+</script> -->
+
 
 
 
@@ -172,7 +196,7 @@
 
 
         <strong class="Q"><p onclick="toggleContent_1()" style="text-align-last: right; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; font-size: larger;">
-          پرسش اول: صنعت بیمه در ایران چه وضعیتی دارد؟
+           <span style="color: #343434;">پرسش اول</span>: صنعت بیمه در ایران چه وضعیتی دارد؟ ➤
         </strong>
         <br>
         <div id="q1">
@@ -187,7 +211,7 @@
         </div>
 
         <strong class="Q"><p onclick="toggleContent_2()" style="text-align-last: right; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; font-size: larger;">
-          پرسش دوم: وضعیت بیمه سامان بین شرکت های بیمه داخلی چگونه است؟
+          <span style="color: #343434;">پرسش دوم</span>: وضعیت بیمه سامان بین شرکت های بیمه داخلی چگونه است؟ ➤
         </strong>
         <br>
         <div id="q2">
@@ -212,7 +236,7 @@
       </div>
 
         <strong class="Q"><p onclick="toggleContent_3()" style="text-align-last: right; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; font-size: larger;">
-          پرسش سوم: عملکرد 9 ماهه اول سال 1403 در رشته بیمه های مختلف چگونه بوده است؟
+          <span style="color: #343434;">پرسش سوم</span>: عملکرد 9 ماهه اول سال 1403 در رشته بیمه های مختلف چگونه بوده است؟ ➤
         </p></strong>
         <div id="q3">
         <br>
@@ -222,7 +246,7 @@
       </div>
 
         <strong class="Q"><p onclick="toggleContent_4()" style="text-align-last: right; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; font-size: larger;">
-          پرسش چهارم: مهمترین شاخص هایی که موفقیت یک شرکت بیمه را نشان می دهند چه مواردی هستند؟
+          <span style="color: #343434;">پرسش چهارم</span>: مهمترین شاخص هایی که موفقیت یک شرکت بیمه را نشان می دهند چه مواردی هستند؟ ➤
         </p></strong>
         <div id="q4">
         <!-- Combined Ratio -->
@@ -284,7 +308,7 @@
 
 </div>
         <strong class="Q"><p onclick="toggleContent_5()" style="text-align-last: right; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; font-size: larger;">
-          پرسش پنجم: مهمترین فرآیندهای مدیریت ریسک در یک شرکت بیمه چه مواردی هستند؟
+          <span style="color: #343434;">پرسش پنجم</span>: مهمترین فرآیندهای مدیریت ریسک در یک شرکت بیمه چه مواردی هستند؟ ➤
         </p></strong>
         <div  id="q5">
         <div >
@@ -323,7 +347,7 @@
       </div>
 
         <strong class="Q"><p  onclick="toggleContent_6()" style="text-align-last: right; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; font-size: larger;">
-          پرسش ششم: مثلث توسعه خسارت چیست و چه کمکی به پایش و گزارش ریسک بیمه گری می کند؟
+          <span style="color: #343434;">پرسش ششم</span>: مثلث توسعه خسارت چیست و چه کمکی به پایش و گزارش ریسک بیمه گری می کند؟ ➤
         </p></strong>
         <div id="q6">
         <p>
@@ -425,14 +449,10 @@
         <br>
         <br>
         <br>
-
-        <strong><p style="text-align-last: right; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; font-size: larger;">
-          :مراجع
-        </strong>
-        </p>
         <br>
-        <h2>Books:</h2>
+        <h2 class="Q" onclick="toggleContent_f()" style="font-size: xx-large;"> <span style="color: #343434;">➤</span>  References:</h2>
         <br>
+        <div id="ref">
         <br>
 <i>Cummins, J. D., & Venard, B. (2007). <br><a href="https://www.researchgate.net/publication/321620025_Handbook_of_International_Insurance_Between_Global_Dynamics_and_Local_Contingencies">Handbook of International Insurance: Between Governments and Markets</a> (2nd ed.).<br> Springer.</i><br><br>
 <i>Doherty, N. A. (2000). <br><a href="https://www.amazon.com/Integrated-Risk-Management-Techniques-Strategies/dp/B010IK4GPQ">Integrated Risk Management: Techniques and Strategies for Reducing Risk</a>.<br> McGraw-Hill.</i><br><br>
@@ -440,21 +460,24 @@
 <br><br>
 <h2>Articles:</h2>
 <br>
-<i>Browne, M. J., & Hoyt, R. E. (2000). The Impact of Regulation on the Insurance Industry. Journal of Insurance Regulation, 19(2), 147-164.</i>
-<i>Cummins, J. D., & Weiss, M. A. (2013). Analyzing Firm Performance in the Insurance Industry: A Frontier Efficiency and Productivity Approach. Journal of Productivity Analysis, 40(2), 141-153.</i><br><br>
-<i>Dionne, G., & Spaeter, S. (2003). Environmental Risk and Extended Liability: The Case of the Green Tax. Journal of Public Economics, 87(5-6), 1027-1059.</i><br><br>
-<i>Outreville, J. F. (2013). The Relationship Between Insurance and Economic Development: A Theoretical and Empirical Review. The Geneva Papers on Risk and Insurance - Issues and Practice, 38(3), 439-454.</i><br><br>
-<i>Schlesinger, H. (2000). The Theory of Insurance Demand. <i>In G. Dionne (Ed.), Handbook of Insurance</i> (pp. 131-151). Kluwer Academic Publishers.</i><br><br>
-<i>Swiss Re. (2019). Insurance Market Outlook: Trends, Challenges, and Opportunities. Sigma, 2, 1-24.</i><br><br>
-<i>Wang, J. L., & Elliott, R. J. (2007). Stochastic Mortality Modelling for Two Related Populations: A Bayesian Approach. North American Actuarial Journal, 11(4), 338-355.</i><br><br>
-<i>Ghosh, S. (2025). Developing artificial intelligence (AI) capabilities for data-driven business model innovation: Roles of organizational adaptability and leadership. Journal of Engineering and Technology Management, 75, 101851.</i>
-        <br>
-        <br>
+<ul>
+<li>Browne, M. J., & Hoyt, R. E. (2000). The Impact of Regulation on the Insurance Industry. Journal of Insurance Regulation, 19(2), 147-164.</i>
+<li>Cummins, J. D., & Weiss, M. A. (2013). Analyzing Firm Performance in the Insurance Industry: A Frontier Efficiency and Productivity Approach. Journal of Productivity Analysis, 40(2), 141-153.</i><br><br>
+<li>Dionne, G., & Spaeter, S. (2003). Environmental Risk and Extended Liability: The Case of the Green Tax. Journal of Public Economics, 87(5-6), 1027-1059.</i><br><br>
+<li>Outreville, J. F. (2013). The Relationship Between Insurance and Economic Development: A Theoretical and Empirical Review. The Geneva Papers on Risk and Insurance - Issues and Practice, 38(3), 439-454.</i><br><br>
+<li>Schlesinger, H. (2000). The Theory of Insurance Demand. <i>In G. Dionne (Ed.), Handbook of Insurance</i> (pp. 131-151). Kluwer Academic Publishers.</i><br><br>
+<li>Swiss Re. (2019). Insurance Market Outlook: Trends, Challenges, and Opportunities. Sigma, 2, 1-24.</i><br><br>
+<li>Wang, J. L., & Elliott, R. J. (2007). Stochastic Mortality Modelling for Two Related Populations: A Bayesian Approach. North American Actuarial Journal, 11(4), 338-355.</i><br><br>
+<li>Ghosh, S. (2025). Developing artificial intelligence (AI) capabilities for data-driven business model innovation: Roles of organizational adaptability and leadership. Journal of Engineering and Technology Management, 75, 101851.</i>
+</ul>        
+<br>
+<br>
 
-        <strong><p style="text-align-last: right; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; font-size: larger;">
+
+        <strong onclick="toggleContent_m"><p  style="text-align-last: right; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; font-size: larger;">
           :منابع
         </p></strong>
-
+          <div id="m">
         <p style="text-align: right; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; font-size: larger;">
           گزارش عملکرد 9 ماهه به همراه معرفی اهداف پیش‌بینی شده 9 ماهه‌ی فروش سال 1403 - داخلی
         </p>
@@ -466,6 +489,9 @@
           سالنامه آماری سال 1402 - <a href="https://www.centinsur.ir/fa-IR/Portal/5493/page/%D8%B3%D8%A7%D9%84%D9%86%D8%A7%D9%85%D9%87-%D8%A2%D9%85%D8%A7%D8%B1%DB%8C-1402"> بیمه مرکزی </a>
         </p>
         
+      </div>
+
+    </div>
  
           <!-- <video controls="" autoplay="false" name="media"><source src="../SIC/Portfolio/1403 first 9 month.mp4" type="video/mp4"></video> -->
           
