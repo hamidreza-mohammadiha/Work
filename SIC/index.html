@@ -39,6 +39,54 @@
     <link rel="stylesheet" href="styles.css">
 	  
   </head>
+
+  <!-- <script type="text/javascript">
+    // Just to save a new log :)
+    var password = prompt("Enter Password:");
+    if(password !== "Si25") { 
+      window.location.href = "error.html";
+    }
+  </script> -->
+
+  <script>
+    function toggleContent_4() {
+        var content = document.getElementById("4");
+  
+        if (content.style.display === "none") {
+            content.style.display = "block";
+        } else {
+            content.style.display = "none";
+        }
+    }
+  </script>
+  
+  <script>
+    function toggleContent_5() {
+        var content = document.getElementById("risk");
+
+        if (content.style.display === "none") {
+            content.style.display = "block";
+        } else {
+            content.style.display = "none";
+        }
+    }
+  </script>
+
+<script>
+  function toggleContent_6() {
+      var content = document.getElementById("6");
+
+      if (content.style.display === "none") {
+          content.style.display = "block";
+      } else {
+          content.style.display = "none";
+      }
+  }
+</script>
+
+
+
+
   <body>
     <main>
       <!-- *** ABOUT / PROFILE *** -->
@@ -129,10 +177,11 @@
         <br>
         <br>
 
-        <strong><p style="text-align-last: right; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; font-size: larger;">
+        <strong><p onclick="toggleContent_4()" style="text-align-last: right; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; font-size: larger;">
           پرسش چهارم: مهمترین شاخص هایی که موفقیت یک شرکت بیمه را نشان می دهند چه مواردی هستند؟
         </p></strong>
         <br>
+        <div id="4">
         <!-- Combined Ratio -->
     <div>
       <h2 style="font-size: xx-large;">1. Combined Ratio (CR)</h2>
@@ -188,13 +237,17 @@
       <br>
       <!-- <img src="expense_ratio.png" alt="Expense Ratio Gauge" width="100" height="100"> -->
   </div>
+  </div>
+
+</div>
         <br>
 
-        <strong><p style="text-align-last: right; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; font-size: larger;">
+        <strong><p onclick="toggleContent_5()" style="text-align-last: right; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; font-size: larger;">
           پرسش پنجم: مهمترین فرآیندهای مدیریت ریسک در یک شرکت بیمه چه مواردی هستند؟
         </p></strong>
         <br>
-        <div>
+        <div  id="risk">
+        <div >
           <h3 style="text-align-last: right; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; font-size: larger;">شناسایی ریسک</h3>
           <p style="text-justify: auto;  text-align: right; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; font-size: large;">
             این فرایند شامل شناسایی خطرات بالقوه ای است که می توانند بر عملیات، ثبات مالی یا اعتبار شرکت تأثیر بگذارند. خطرات می توانند شامل خطرات اعطای بیمه، خطرات بازار، خطرات عملیاتی و خطرات قانونی باشند. ابزارهایی مانند ارزیابی ریسک، تحلیل سناریو و بررسی داده های تاریخی برای شناسایی خطرات استفاده می شوند
@@ -227,21 +280,26 @@
           </p>
       </div>
         <br>
+      </div>
 
-        <strong><p style="text-align-last: right; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; font-size: larger;">
+        <strong><p onclick="toggleContent_6()" style="text-align-last: right; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; font-size: larger;">
           پرسش ششم: مثلث توسعه خسارت چیست و چه کمکی به پایش و گزارش ریسک بیمه گری می کند؟
         </p></strong>
         <br>
+        <div id="6">
+        <p>
+          The <strong>loss development triangle</strong> is a fundamental tool used in actuarial science and risk management, particularly in the insurance industry, to analyze and predict the development of losses over time. It is a structured way to organize and track historical loss data, enabling actuaries and risk managers to estimate future liabilities and monitor risk exposure.
+      </p>
+      <br>
         <h1 style="font-size: xx-large;">What is the Loss Development Triangle?</h1>
         <br>
         <br>
         <img src="./Pictures/loss developement triangle.png" width="300px">
         <br>
-    <p>
-        The <strong>loss development triangle</strong> is a fundamental tool used in actuarial science and risk management, particularly in the insurance industry, to analyze and predict the development of losses over time. It is a structured way to organize and track historical loss data, enabling actuaries and risk managers to estimate future liabilities and monitor risk exposure.
-    </p>
+      </div>
+
     
-    <p style="text-justify: auto;  text-align: right; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; font-size: large;">
+    <!-- <p style="text-justify: auto;  text-align: right; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; font-size: large;">
       مثلث توسعه خسارت، ابزاری اساسی در علم آمار بیمه و مدیریت ریسک، به‌ویژه در صنعت بیمه، برای تحلیل و پیش‌بینی توسعه خسارت‌ها در طول زمان است. این ابزار، روشی ساختاریافته برای سازماندهی و ردیابی داده‌های تاریخی خسارت است که به بیمه گران و مدیران ریسک امکان برآورد بدهی‌های آینده و پایش ریسک را می‌دهد
     </p>
     <br>
@@ -280,7 +338,7 @@
     </ol>
 
     <p style="text-justify: auto;  text-align: right; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; font-size: large;">
-      پیگیری الگوهای ضرر: این کمک می‌کند تا روندهای مربوط به چگونگی توسعه خسارات در طول زمان شناسایی شوند، مانند تأخیر در گزارش‌گیری یا تسویه مطالبات <br><br>برآورد خسارات نهایی: با تجزیه و تحلیل الگوهای تاریخی، کارشناسان می‌توانند خسارات نهایی هر سال حادثه را حتی قبل از تسویه تمامی مطالبات برآورد کنند<br><br> محاسبه ذخایر: بیمه‌گذاران از مثلث برای تعیین ذخایر مناسب (بدهی‌ها) که باید برای پوشش پرداخت‌های آتی مطالبات نگه دارند، استفاده می‌کنند<br><br> پایش ریسک: این بینش‌هایی درباره نوسانات و عدم قطعیت توسعه خسارت ارائه می‌دهد و به بیمه‌گذاران در ارزیابی معرض ریسک خود کمک می‌کند    <br>
+      پیگیری الگوهای ضرر: این کمک می‌کند تا روندهای مربوط به چگونگی توسعه خسارات در طول زمان شناسایی شوند، مانند تأخیر در گزارش‌گیری یا تسویه مطالبات <br><br>برآورد خسارات نهایی: با تجزیه و تحلیل الگوهای تاریخی، کارشناسان می‌توانند خسارات نهایی هر سال حادثه را حتی قبل از تسویه تمامی مطالبات برآورد کنند<br><br> محاسبه ذخایر: بیمه‌گذاران از مثلث برای تعیین ذخایر مناسب (بدهی‌ها) که باید برای پوشش پرداخت‌های آتی مطالبات نگه دارند، استفاده می‌کنند<br><br> پایش ریسک: این بینش‌هایی درباره نوسانات و عدم قطعیت توسعه خسارت ارائه می‌دهد و به بیمه‌گذاران در ارزیابی معرض ریسک خود کمک می‌کند    <br> -->
 
     <!-- <h2 style="font-size: x-large;">How It Assists in Risk Monitoring and Reporting</h2>
 
