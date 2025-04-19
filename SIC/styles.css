@@ -113,14 +113,12 @@ body {
   font-size: 100%;
 }
 
-/* img {
-  width: 100px;
-} */
 a {
   color: #FFE66D;
 }
 a:hover {
   text-decoration: none;
+  font-size: 95%;
 }
 h1, h2 {
   font-family: 'Caveat', cursive;
@@ -159,17 +157,36 @@ h2 {
   display: none;
 }
 
-#ref :hover {
-  font-size: large;
-}
-
 #ref {
   display: none;
 }
 
 
+@keyframes harmonicMotionleft {
+  0%, 100% {
+    left: calc(var(--midpoint) - var(--amplitude));
+  }
+  25% {
+    left: var(--midpoint);
+  }
+  50% {
+    left: calc(var(--midpoint) + var(--amplitude));
+  }
+  75% {
+    left: var(--midpoint);
+  }
+}
+
+.moving-btn{
+  position: relative;
+  transform: translateY(-50%);
+  --midpoint: 0%;
+  --amplitude: 5.5%;
+  animation: harmonicMotionleft 8s linear infinite;
+}
+
 .content-wrap {
-  max-width: 800px;
+  max-width: 1000px;
   width: 85%;
   margin: 0 auto;
   padding: 45px 0;
