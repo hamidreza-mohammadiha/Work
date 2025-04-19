@@ -313,6 +313,152 @@
       <br>
       <!-- <img src="expense_ratio.png" alt="Expense Ratio Gauge" width="100" height="100"> -->
   </div>
+
+  <img SRC="./Pictures/ins compass.png" style="filter: opacity(100%);width: 40%; position: relative; left: 40%;">
+  <!-- Python code
+  import numpy as np
+import matplotlib.pyplot as plt
+
+class InsuranceCompany:
+    def __init__(self, name, incurred_losses, expenses, earned_premiums, net_income, shareholders_equity):
+        self.name = name
+        self.incurred_losses = incurred_losses
+        self.expenses = expenses
+        self.earned_premiums = earned_premiums
+        self.net_income = net_income
+        self.shareholders_equity = shareholders_equity
+        
+    def calculate_cr(self):
+        """Calculate Combined Ratio (CR)"""
+        return (self.incurred_losses + self.expenses) / self.earned_premiums * 100
+    
+    def calculate_lr(self):
+        """Calculate Loss Ratio (LR)"""
+        return self.incurred_losses / self.earned_premiums * 100
+    
+    def calculate_roe(self):
+        """Calculate Return on Equity (ROE)"""
+        return self.net_income / self.shareholders_equity * 100
+    
+    def calculate_er(self):
+        """Calculate Expense Ratio (ER)"""
+        return self.expenses / self.earned_premiums * 100
+
+def create_compass_plot(companies):
+    # Define our compass points (North: ROE, East: LR, South: ER, West: CR)
+    categories = ['ROE', 'LR', 'ER', 'CR']
+    num_vars = len(categories)
+    
+    # Adjust angles to place ROE at top (north), LR right (east), etc.
+    angles = np.linspace(0, 2 * np.pi, num_vars, endpoint=False)
+    angles = np.roll(angles, -1)  # Shift to start at north
+    angles = angles.tolist()
+    angles += angles[:1]  # Complete the loop
+    
+    fig, ax = plt.subplots(figsize=(8, 8), subplot_kw=dict(polar=True))
+    
+    # Scale data function (ROE higher better, others lower better)
+    def scale_data(data):
+        roe_scaled = min(data[0], 30) * 3.333  # ROE (cap at 30%)
+        lr_scaled = 100 - min(data[1], 150) * 0.6667  # LR (cap at 150%)
+        er_scaled = 100 - min(data[2], 150) * 0.6667  # ER (cap at 150%)
+        cr_scaled = 100 - min(data[3], 150) * 0.6667  # CR (cap at 150%)
+        return [roe_scaled, lr_scaled, er_scaled, cr_scaled]
+    
+    # Plot each company
+    colors = ['#2ecc71', '#3498db', '#e74c3c']  # Green, blue, red
+    for idx, company in enumerate(companies):
+        # Get raw values
+        roe = company.calculate_roe()
+        lr = company.calculate_lr()
+        er = company.calculate_er()
+        cr = company.calculate_cr()
+        
+        # Scale and complete loop
+        scaled = scale_data([roe, lr, er, cr])
+        scaled += scaled[:1]
+        
+        # Plot with company label
+        ax.plot(angles, scaled, color=colors[idx], linewidth=2, label=f'Company {company.name}')
+        ax.fill(angles, scaled, color=colors[idx], alpha=0.2)
+    
+    # Set compass orientation (ROE at top)
+    ax.set_theta_offset(np.pi/2)  # North at top
+    ax.set_theta_direction(-1)    # Clockwise
+    
+    # Set axis labels at compass points
+    ax.set_xticks(angles[:-1])
+    ax.set_xticklabels(['(ROE)', '(LR)', '(ER)', '(CR)\n'])
+    
+    # Radial grid
+    ax.set_rlabel_position(0)
+    ax.set_yticks([25, 50, 75, 100])
+    ax.set_yticklabels(["25", "50", "75", "100"])
+    ax.set_ylim(0, 100)
+    
+    # Add legend and title
+    plt.legend(loc='upper right', bbox_to_anchor=(1.3, 1.1))
+    # plt.title('Insurance Company Compass Plot\n(Good = Tall North, Short Elsewhere)', y=1.1)
+    
+    plt.tight_layout()
+    plt.show()
+
+def generate_text_report(company):
+    """Generate a text report for a single company"""
+    cr = company.calculate_cr()
+    lr = company.calculate_lr()
+    roe = company.calculate_roe()
+    er = company.calculate_er()
+    
+    report = f"\nCompany {company.name} Report:\n"
+    report += "="*40 + "\n"
+    report += f"Combined Ratio (CR): {cr:.1f}%\n"
+    report += f"Loss Ratio (LR): {lr:.1f}%\n"
+    report += f"Return on Equity (ROE): {roe:.1f}%\n"
+    report += f"Expense Ratio (ER): {er:.1f}%\n"
+    return report
+
+# Sample companies
+if __name__ == "__main__":
+    # Company A (Good performer - tall north)
+    company_a = InsuranceCompany(
+        name="A",
+        incurred_losses=40_000_000,
+        expenses=20_000_000,
+        earned_premiums=100_000_000,
+        net_income=18_000_000,
+        shareholders_equity=100_000_000
+    )
+    
+    # Company B (Average performer)
+    company_b = InsuranceCompany(
+        name="B",
+        incurred_losses=60_000_000,
+        expenses=30_000_000,
+        earned_premiums=100_000_000,
+        net_income=12_000_000,
+        shareholders_equity=100_000_000
+    )
+    
+    # Company C (Poor performer - short north)
+    company_c = InsuranceCompany(
+        name="C",
+        incurred_losses=80_000_000,
+        expenses=40_000_000,
+        earned_premiums=100_000_000,
+        net_income=5_000_000,
+        shareholders_equity=100_000_000
+    )
+    
+    # Generate text reports
+    print(generate_text_report(company_a))
+    print(generate_text_report(company_b))
+    print(generate_text_report(company_c))
+    
+    # Create the compass plot
+    create_compass_plot([company_a, company_b, company_c]) 
+  -->
+
   </div>
 
 </div>
