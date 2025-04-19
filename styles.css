@@ -30,6 +30,29 @@ body {
   line-height: 1.5;
 }
 
+@keyframes harmonicMotionleft {
+  0%, 100% {
+    left: calc(var(--midpoint) - var(--amplitude));
+  }
+  25% {
+    left: var(--midpoint);
+  }
+  50% {
+    left: calc(var(--midpoint) + var(--amplitude));
+  }
+  75% {
+    left: var(--midpoint);
+  }
+}
+
+.moving-btn{
+  position: relative;
+  transform: translateY(-50%);
+  --midpoint: 1%;
+  --amplitude: 1%;
+  animation: harmonicMotionleft 1s linear infinite;
+}
+
 
 #clock {
   font-size: 2em;
