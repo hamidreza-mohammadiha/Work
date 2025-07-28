@@ -334,48 +334,69 @@
                             <th>Report</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
+                    <tbody id="dashboard-table-body">
+                        <tr data-year="2025" data-month="01" data-field="Health Insurance" data-type="Business Analytics">
                             <td>2025</td>
                             <td>01</td>
                             <td><div class="field-cell"><span class="field-tag health-insurance">Health Insurance</span></div></td>
                             <td class="type-cell business-analytics">Business Analytics</td>
                             <td><a href="#" class="report-link"><i class="fas fa-external-link-alt"></i> Health Coverage Dashboard</a></td>
                         </tr>
-                        <tr>
+                        <tr data-year="2025" data-month="02" data-field="Life Insurance" data-type="Product Analytics">
                             <td>2025</td>
                             <td>02</td>
                             <td><div class="field-cell"><span class="field-tag life-insurance">Life Insurance</span></div></td>
                             <td class="type-cell product-analytics">Product Analytics</td>
                             <td><a href="#" class="report-link"><i class="fas fa-external-link-alt"></i> Life Product Performance</a></td>
                         </tr>
-                        <tr>
+                        <tr data-year="2025" data-month="03" data-field="Car Insurance" data-type="Business Analytics">
                             <td>2025</td>
                             <td>03</td>
                             <td><div class="field-cell"><span class="field-tag car-insurance">Car Insurance</span></div></td>
                             <td class="type-cell business-analytics">Business Analytics</td>
                             <td><a href="#" class="report-link"><i class="fas fa-external-link-alt"></i> Auto Insurance Metrics</a></td>
                         </tr>
-                        <tr>
+                        <tr data-year="2025" data-month="04" data-field="Health Insurance" data-type="Product Analytics">
                             <td>2025</td>
                             <td>04</td>
                             <td><div class="field-cell"><span class="field-tag health-insurance">Health Insurance</span></div></td>
                             <td class="type-cell product-analytics">Product Analytics</td>
                             <td><a href="#" class="report-link"><i class="fas fa-external-link-alt"></i> Health Plan Analysis</a></td>
                         </tr>
-                        <tr>
+                        <tr data-year="2025" data-month="05" data-field="Life Insurance" data-type="Business Analytics">
                             <td>2025</td>
                             <td>05</td>
                             <td><div class="field-cell"><span class="field-tag life-insurance">Life Insurance</span></div></td>
                             <td class="type-cell business-analytics">Business Analytics</td>
                             <td><a href="#" class="report-link"><i class="fas fa-external-link-alt"></i> Life Portfolio Overview</a></td>
                         </tr>
-                        <tr>
+                        <tr data-year="2025" data-month="06" data-field="Car Insurance" data-type="Product Analytics">
                             <td>2025</td>
                             <td>06</td>
                             <td><div class="field-cell"><span class="field-tag car-insurance">Car Insurance</span></div></td>
                             <td class="type-cell product-analytics">Product Analytics</td>
                             <td><a href="#" class="report-link"><i class="fas fa-external-link-alt"></i> Auto Claims Analysis</a></td>
+                        </tr>
+                        <tr data-year="2024" data-month="11" data-field="Health Insurance" data-type="Business Analytics">
+                            <td>2024</td>
+                            <td>11</td>
+                            <td><div class="field-cell"><span class="field-tag health-insurance">Health Insurance</span></div></td>
+                            <td class="type-cell business-analytics">Business Analytics</td>
+                            <td><a href="#" class="report-link"><i class="fas fa-external-link-alt"></i> Annual Health Review</a></td>
+                        </tr>
+                        <tr data-year="2024" data-month="08" data-field="Life Insurance" data-type="Product Analytics">
+                            <td>2024</td>
+                            <td>08</td>
+                            <td><div class="field-cell"><span class="field-tag life-insurance">Life Insurance</span></div></td>
+                            <td class="type-cell product-analytics">Product Analytics</td>
+                            <td><a href="#" class="report-link"><i class="fas fa-external-link-alt"></i> Life Policy Trends</a></td>
+                        </tr>
+                        <tr data-year="2023" data-month="07" data-field="Car Insurance" data-type="Business Analytics">
+                            <td>2023</td>
+                            <td>07</td>
+                            <td><div class="field-cell"><span class="field-tag car-insurance">Car Insurance</span></div></td>
+                            <td class="type-cell business-analytics">Business Analytics</td>
+                            <td><a href="#" class="report-link"><i class="fas fa-external-link-alt"></i> Mid-Year Auto Report</a></td>
                         </tr>
                     </tbody>
                 </table>
@@ -385,23 +406,23 @@
         <div class="stats-container">
             <div class="stat-card">
                 <h3>Total Dashboards</h3>
-                <div class="value">18</div>
+                <div class="value" id="total-dashboards">9</div>
                 <div class="trend"><i class="fas fa-arrow-up"></i> 22% from last year</div>
             </div>
             <div class="stat-card">
                 <h3>Active This Month</h3>
-                <div class="value">6</div>
+                <div class="value" id="active-this-month">6</div>
                 <div class="trend"><i class="fas fa-arrow-up"></i> 2 new dashboards</div>
             </div>
             <div class="stat-card">
                 <h3>Most Active Field</h3>
-                <div class="value">Health</div>
-                <div class="trend">8 dashboards</div>
+                <div class="value" id="most-active-field">Health</div>
+                <div class="trend" id="most-active-count">3 dashboards</div>
             </div>
             <div class="stat-card">
                 <h3>Business Analytics</h3>
-                <div class="value">11</div>
-                <div class="trend">61% of total</div>
+                <div class="value" id="business-analytics-count">5</div>
+                <div class="trend">56% of total</div>
             </div>
         </div>
         
@@ -411,28 +432,104 @@
     </div>
     
     <script>
-        // Simple filter functionality for demo purposes
-        document.querySelectorAll('.filters select').forEach(select => {
-            select.addEventListener('change', function() {
-                const year = document.getElementById('year-filter').value;
-                const month = document.getElementById('month-filter').value;
-                const field = document.getElementById('field-filter').value;
-                const type = document.getElementById('type-filter').value;
-                
-                // In a real application, this would make an API call
-                // For this demo, we'll just show an alert
-                alert(`Filtering by:\nYear: ${year}\nMonth: ${month}\nField: ${field}\nType: ${type}`);
-            });
-        });
-        
-        // Add hover effects to table rows
-        document.querySelectorAll('tbody tr').forEach(row => {
-            row.addEventListener('mouseenter', function() {
-                this.style.backgroundColor = '#f0f7ff';
+        document.addEventListener('DOMContentLoaded', function() {
+            const yearFilter = document.getElementById('year-filter');
+            const monthFilter = document.getElementById('month-filter');
+            const fieldFilter = document.getElementById('field-filter');
+            const typeFilter = document.getElementById('type-filter');
+            const tableBody = document.getElementById('dashboard-table-body');
+            const rows = tableBody.querySelectorAll('tr');
+            
+            // Initialize stats
+            updateStats();
+            
+            // Add event listeners to all filters
+            [yearFilter, monthFilter, fieldFilter, typeFilter].forEach(filter => {
+                filter.addEventListener('change', function() {
+                    filterTable();
+                    updateStats();
+                });
             });
             
-            row.addEventListener('mouseleave', function() {
-                this.style.backgroundColor = '';
+            function filterTable() {
+                const yearValue = yearFilter.value;
+                const monthValue = monthFilter.value;
+                const fieldValue = fieldFilter.value;
+                const typeValue = typeFilter.value;
+                
+                rows.forEach(row => {
+                    const yearMatch = yearValue === 'all' || row.getAttribute('data-year') === yearValue;
+                    const monthMatch = monthValue === 'all' || row.getAttribute('data-month') === monthValue;
+                    const fieldMatch = fieldValue === 'all' || row.getAttribute('data-field') === fieldValue;
+                    const typeMatch = typeValue === 'all' || row.getAttribute('data-type') === typeValue;
+                    
+                    if (yearMatch && monthMatch && fieldMatch && typeMatch) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+            }
+            
+            function updateStats() {
+                const visibleRows = Array.from(rows).filter(row => row.style.display !== 'none');
+                
+                // Update total dashboards count
+                document.getElementById('total-dashboards').textContent = visibleRows.length;
+                
+                // Update active this month (assuming current month is 07 for this demo)
+                const currentMonthRows = Array.from(rows).filter(row => 
+                    row.getAttribute('data-month') === '07' && row.style.display !== 'none'
+                );
+                document.getElementById('active-this-month').textContent = currentMonthRows.length;
+                
+                // Update most active field
+                const fieldCounts = {};
+                visibleRows.forEach(row => {
+                    const field = row.getAttribute('data-field');
+                    fieldCounts[field] = (fieldCounts[field] || 0) + 1;
+                });
+                
+                let mostActiveField = '';
+                let maxCount = 0;
+                for (const field in fieldCounts) {
+                    if (fieldCounts[field] > maxCount) {
+                        mostActiveField = field;
+                        maxCount = fieldCounts[field];
+                    }
+                }
+                
+                if (mostActiveField) {
+                    const shortFieldName = mostActiveField.split(' ')[0]; // "Health Insurance" -> "Health"
+                    document.getElementById('most-active-field').textContent = shortFieldName;
+                    document.getElementById('most-active-count').textContent = `${maxCount} dashboards`;
+                }
+                
+                // Update business analytics count
+                const businessAnalyticsRows = Array.from(visibleRows).filter(row => 
+                    row.getAttribute('data-type') === 'Business Analytics'
+                );
+                document.getElementById('business-analytics-count').textContent = businessAnalyticsRows.length;
+                
+                // Update percentage
+                const percentage = visibleRows.length > 0 
+                    ? Math.round((businessAnalyticsRows.length / visibleRows.length) * 100) 
+                    : 0;
+                document.querySelector('#business-analytics-count + .trend').textContent = `${percentage}% of total`;
+            }
+            
+            // Add hover effects to table rows
+            rows.forEach(row => {
+                row.addEventListener('mouseenter', function() {
+                    this.style.backgroundColor = '#f0f7ff';
+                });
+                
+                row.addEventListener('mouseleave', function() {
+                    if (this.style.display !== 'none') {
+                        const index = Array.from(this.parentNode.children).indexOf(this);
+                        this.style.backgroundColor = index % 2 === 0 ? '' : '#f9fbfd';
+                    }
+                });
             });
         });
     </script>
