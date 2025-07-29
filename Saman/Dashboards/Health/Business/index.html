@@ -11,7 +11,7 @@
                 line-height: 1.6;
             }
             .container {
-                max-width: 1600px;
+                max-width: 1200px;
                 margin: 0 auto;
             }
             .header {
@@ -169,19 +169,11 @@
                                onclick="switchLanguage('fa')"> فارسی
                     </label>
                 </div> -->
-                <div class="chart-switch">
-                    <span>Date:</span>
-                    <label>
-                        <input type="radio" name="chart" value="gregorian" 
-                               onclick="switchChart('gregorian')" checked> Gregorian
-                    </label>
-                    <label>
-                        <input type="radio" name="chart" value="persian" 
-                               onclick="switchChart('persian')"> شمسی
-                    </label>
-                </div>
+
                 <h1>DarmanNet Monthly Payable Amount Report</h1>
             </div>
+
+
             
             <div class="report-date">
                 Report generated on: 2025-07-26
@@ -225,6 +217,18 @@
                     </div>
                 </div>
             </div>
+
+                <span class="chart-switch">
+                    <span>Date:</span>
+                    <label>
+                        <input type="radio" name="chart" value="gregorian" 
+                               onclick="switchChart('gregorian')" checked> Gregorian
+                    </label>
+                    <label>
+                        <input type="radio" name="chart" value="persian" 
+                               onclick="switchChart('persian')"> شمسی
+                    </label>
+                </span>
             
             <div class="chart-container" id="gregorian-chart">
                 <h2 class="chart-title">Monthly Trends (Gregorian Calendar)</h2>
