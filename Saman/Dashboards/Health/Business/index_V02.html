@@ -129,6 +129,7 @@
                 min-width: 100px;
                 text-align: center;
                 font-weight: bold;
+                padding: 30px;
             }
             .toggle-btn {
                 padding: 8px 16px;
@@ -181,7 +182,7 @@
             function updateExchangeRate(value) {
                 exchangeRate = parseInt(value);
                 document.getElementById('exchangeRateValue').textContent = 
-                    exchangeRate.toLocaleString('en-US') + ' IRR = $1';
+                    exchangeRate.toLocaleString('en-US') + ' Rial = $1';
                 
                 if (showDollars) {
                     updateCurrencyDisplay();
@@ -191,7 +192,7 @@
             document.addEventListener('DOMContentLoaded', function() {
                 document.getElementById('exchangeRateSlider').value = exchangeRate;
                 document.getElementById('exchangeRateValue').textContent = 
-                    exchangeRate.toLocaleString('en-US') + ' IRR = $1';
+                    exchangeRate.toLocaleString('en-US') + ' Rial = $1';
                 
                 // Mark payable amount cells
                 document.querySelectorAll('td').forEach(td => {
@@ -276,8 +277,8 @@
                     <input type="range" min="500000" max="1500000" value="500000" class="slider" id="exchangeRateSlider" 
                            oninput="updateExchangeRate(this.value)">
                 </div>
-                <div class="slider-value" id="exchangeRateValue">500,000 IRR = $1</div>
-                <button class="toggle-btn" id="toggleCurrencyBtn" onclick="toggleCurrency()">
+                <div class="slider-value" id="exchangeRateValue">500,000 Rial = $1 </div>
+                <button style="font-size: large;" class="toggle-btn" id="toggleCurrencyBtn" onclick="toggleCurrency()">
                     نمایش به دلار
                 </button>
             </div>
