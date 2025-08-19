@@ -5,6 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BI Dashboard Tracker</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+    // Replace 'yourPassword' with your actual password
+    const correctPassword = "$aman"; 
+
+    let userInput = prompt("Enter password to access this page:");
+    
+    if (userInput !== correctPassword) {
+        alert("Incorrect password. Access denied.");
+        window.location.href = "about:blank"; // Redirect to blank page
+        // OR redirect to another URL:
+        // window.location.href = "https://example.com";
+    }
+    </script>
     <style>
         :root {
             --primary: #2c3e50;
