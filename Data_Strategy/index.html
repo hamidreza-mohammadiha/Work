@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Simulated Interview Summary – Head of Data</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      margin: 0;
+      background: #f4f6f8;
+      color: #333;
+    }
+    header, footer {
+      background: #1e2a38;
+      color: #fff;
+      text-align: center;
+      padding: 1rem 0;
+    }
+    main {
+      max-width: 1200px;
+      margin: 2rem auto;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      padding: 2rem;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+      font-size: 0.9rem;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 0.75rem;
+      text-align: left;
+      vertical-align: top;
+    }
+    th {
+      background: #32475b;
+      color: #fff;
+      position: sticky;
+      top: 0;
+    }
+    tr:nth-child(even) {
+      background: #f9fafb;
+    }
+    .classification {
+      font-weight: bold;
+      font-size: 0.8rem;
+    }
+    .storage { background-color: #e3f2fd; }
+    .integration { background-color: #e8f5e8; }
+    .governance { background-color: #fff3e0; }
+    .orchestration { background-color: #fce4ec; }
+    .bi { background-color: #f3e5f5; }
+    .quality { background-color: #e0f2f1; }
+    .collaboration { background-color: #fff8e1; }
+    .monitoring { background-color: #e8eaf6; }
+    footer p {
+      margin: 0.5rem;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1 style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">Data Platform Componants</h1>
+  <p>Prepared by <a style="color: #0770e9;" href="https://hamidreza-mohammadiha.github.io/Me/">H. Reza</a></p>
+</header>
+
+<main>
+  <h2>Data Platform Tools Classification</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Tool Name</th>
+        <th>Classification</th>
+        <th>Developer & Release Year</th>
+        <th>Problem Solved & Function</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Storage & Processing -->
+      <tr>
+        <td>AWS S3</td>
+        <td><span class="classification storage">Storage & Processing</span></td>
+        <td>Amazon (2006)</td>
+        <td>Stores raw data files securely and cost-effectively. Serves as the foundation data lake.</td>
+      </tr>
+      <tr>
+        <td>Amazon Redshift</td>
+        <td><span class="classification storage">Storage & Processing</span></td>
+        <td>Amazon (2012)</td>
+        <td>Analyzes large datasets quickly using SQL. Optimized for data warehouse workloads.</td>
+      </tr>
+      <tr>
+        <td>Azure Synapse</td>
+        <td><span class="classification storage">Storage & Processing</span></td>
+        <td>Microsoft (2019)</td>
+        <td>Combines data warehouse and big data analytics in one service.</td>
+      </tr>
+      <tr>
+        <td>Google BigQuery</td>
+        <td><span class="classification storage">Storage & Processing</span></td>
+        <td>Google (2011)</td>
+        <td>Analyzes massive datasets using fast SQL queries without managing infrastructure.</td>
+      </tr>
+
+      <!-- Integration & ETL -->
+      <tr>
+        <td>AWS Glue</td>
+        <td><span class="classification integration">Integration & ETL</span></td>
+        <td>Amazon (2017)</td>
+        <td>Extracts, transforms, and loads data between sources. Serverless ETL service.</td>
+      </tr>
+      <tr>
+        <td>Azure Data Factory</td>
+        <td><span class="classification integration">Integration & ETL</span></td>
+        <td>Microsoft (2015)</td>
+        <td>Creates data workflows to move and transform data across systems.</td>
+      </tr>
+      <tr>
+        <td>Google Dataflow</td>
+        <td><span class="classification integration">Integration & ETL</span></td>
+        <td>Google (2015)</td>
+        <td>Processes streaming and batch data with unified programming model.</td>
+      </tr>
+      <tr>
+        <td>Apache Airflow</td>
+        <td><span class="classification orchestration">Orchestration & Scheduling</span></td>
+        <td>Apache (2015)</td>
+        <td>Schedules and monitors complex data workflows as directed graphs.</td>
+      </tr>
+      <tr>
+        <td>Databricks</td>
+        <td><span class="classification storage">Storage & Processing</span></td>
+        <td>Databricks (2013)</td>
+        <td>Provides unified analytics platform for data engineering and machine learning.</td>
+      </tr>
+
+      <!-- Governance & Catalog -->
+      <tr>
+        <td>Collibra</td>
+        <td><span class="classification governance">Governance & Catalog</span></td>
+        <td>Collibra (2008)</td>
+        <td>Manages data policies, definitions, and ownership across the organization.</td>
+      </tr>
+      <tr>
+        <td>Alation</td>
+        <td><span class="classification governance">Governance & Catalog</span></td>
+        <td>Alation (2012)</td>
+        <td>Creates searchable data catalog with automatic data discovery and lineage.</td>
+      </tr>
+      <tr>
+        <td>Informatica Axon</td>
+        <td><span class="classification governance">Governance & Catalog</span></td>
+        <td>Informatica (2016)</td>
+        <td>Centralizes data governance with business glossary and stewardship workflows.</td>
+      </tr>
+      <tr>
+        <td>IBM Data Governance</td>
+        <td><span class="classification governance">Governance & Catalog</span></td>
+        <td>IBM (2000s)</td>
+        <td>Ensures data quality, privacy, and compliance across enterprise data.</td>
+      </tr>
+
+      <!-- Data Modeling -->
+      <tr>
+        <td>ER/Studio</td>
+        <td><span class="classification governance">Governance & Catalog</span></td>
+        <td>IDERA (1993)</td>
+        <td>Designs and documents database structures and relationships.</td>
+      </tr>
+      <tr>
+        <td>Erwin</td>
+        <td><span class="classification governance">Governance & Catalog</span></td>
+        <td>Quest (1999)</td>
+        <td>Models data architectures and generates database scripts automatically.</td>
+      </tr>
+
+      <!-- BI & Visualization -->
+      <tr>
+        <td>Tableau</td>
+        <td><span class="classification bi">BI & Visualization</span></td>
+        <td>Salesforce (2003)</td>
+        <td>Creates interactive dashboards and visualizations for business intelligence.</td>
+      </tr>
+      <tr>
+        <td>Power BI</td>
+        <td><span class="classification bi">BI & Visualization</span></td>
+        <td>Microsoft (2015)</td>
+        <td>Builds reports and dashboards with drag-and-drop interface and AI insights.</td>
+      </tr>
+
+      <!-- Data Quality -->
+      <tr>
+        <td>Great Expectations</td>
+        <td><span class="classification quality">Data Quality</span></td>
+        <td>Open-source (2018)</td>
+        <td>Validates data quality with automated testing and documentation.</td>
+      </tr>
+      <tr>
+        <td>Soda Core</td>
+        <td><span class="classification quality">Data Quality</span></td>
+        <td>Open-source (2020)</td>
+        <td>Checks data reliability with customizable quality checks and monitoring.</td>
+      </tr>
+      <tr>
+        <td>Informatica DQ</td>
+        <td><span class="classification quality">Data Quality</span></td>
+        <td>Informatica (2000s)</td>
+        <td>Profiles data and monitors quality across multiple systems and formats.</td>
+      </tr>
+      <tr>
+        <td>Apache Atlas</td>
+        <td><span class="classification governance">Governance & Catalog</span></td>
+        <td>Apache (2015)</td>
+        <td>Tracks data lineage and manages metadata for governance and compliance.</td>
+      </tr>
+
+      <!-- Collaboration -->
+      <tr>
+        <td>Jira</td>
+        <td><span class="classification collaboration">Collaboration</span></td>
+        <td>Atlassian (2002)</td>
+        <td>Manages data team projects, sprints, and tasks with agile methodologies.</td>
+      </tr>
+      <tr>
+        <td>Confluence</td>
+        <td><span class="classification collaboration">Collaboration</span></td>
+        <td>Atlassian (2004)</td>
+        <td>Documents data definitions, processes, and governance policies collaboratively.</td>
+      </tr>
+
+      <!-- Monitoring -->
+      <tr>
+        <td>Datadog</td>
+        <td><span class="classification monitoring">Monitoring</span></td>
+        <td>Datadog (2010)</td>
+        <td>Monitors data pipeline performance, errors, and infrastructure health.</td>
+      </tr>
+      <tr>
+        <td>dbt tests</td>
+        <td><span class="classification quality">Data Quality</span></td>
+        <td>dbt Labs (2016)</td>
+        <td>Tests data transformations for accuracy and business logic validation.</td>
+      </tr>
+    </tbody>
+  </table>
+</main>
+
+<footer>
+  <p>&copy; 2025 Data Leadership Insights</p>
+  <p>Prepared for: Head of Strategy</p>
+</footer>
+
+</body>
+</html>
