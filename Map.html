@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Step-by-Step: Cross-Service Recommendation Engine (Prototype)</title>
+  <style>
+    :root{--accent:#2563eb;--muted:#6b7280;--card:#ffffff}
+    body{font-family:Inter,ui-sans-serif,system-ui,Segoe UI,Roboto,"Helvetica Neue",Arial;background:#f3f4f6;color:#111;padding:24px}
+    header,footer{max-width:1000px;margin:0 auto}
+    .container{max-width:1000px;margin:18px auto;padding:20px;background:linear-gradient(180deg,#ffffff,#fbfdff);border-radius:12px;box-shadow:0 6px 18px rgba(15,23,42,0.06)}
+    h1{font-size:22px;margin:0 0 8px}
+    h2{font-size:18px;margin-top:18px}
+    p.lead{color:var(--muted);margin-bottom:12px}
+    ol.steps{padding-left:20px}
+    .code{background:#0f172a;color:#e6eef8;padding:12px;border-radius:8px;font-family:monospace;font-size:13px;overflow:auto}
+    .row{display:flex;gap:16px}
+    .col{flex:1}
+    label{display:block;margin:8px 0 6px;color:#374151;font-weight:600}
+    input[type=text],select,textarea{width:100%;padding:10px;border-radius:8px;border:1px solid #e5e7eb}
+    button{background:var(--accent);color:white;padding:10px 14px;border-radius:8px;border:0;cursor:pointer}
+    .muted{color:var(--muted);font-size:13px}
+    .card{padding:14px;background:var(--card);border-radius:10px;border:1px solid #e6eef8}
+    .flex{display:flex;gap:12px;align-items:center}
+    .tag{background:#eef2ff;padding:6px 8px;border-radius:999px;font-size:13px;color:#1e293b}
+    pre{white-space:pre-wrap}
+    .results{margin-top:12px}
+    footer{color:var(--muted);text-align:center;margin-top:18px}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Step-by-Step: Build a Cross-Service Recommendation Engine</h1>
+    <p class="lead">Prototype HTML — collects user selections, runs a local "computing session", and returns cross-service recommendation results. This file is a self-contained starting point: expand with backend services, authentication, and real models later.</p>
+  </header>
+
+  <main class="container">
+    <section>
+      <h2>Goal</h2>
+      <p>Build a platform that: <strong>stores user selections</strong>, executes a computing session (batch or real-time), and returns a <strong>search & recommendation</strong> experience across services (e.g., music, video, shopping, travel).</p>
+    </section>
+
+    <section>
+      <h2>Step-by-step guide</h2>
+      <ol class="steps">
+        <li><strong>Define scope & product hypothesis</strong>
+          <p class="muted">What cross-service experiences? Which services will you integrate at MVP? Define success metrics (CTR, conversion, lift in engagement).</p>
+        </li>
+        <li><strong>Design product data model</strong>
+          <p class="muted">User profile, selections, item metadata, service connectors, sessions, impressions, feedback.</p>
+        </li>
+        <li><strong>Choose storage & infra</strong>
+          <p class="muted">Short-term: localStorage/IndexedDB for prototyping. Production: event store (Kafka), data lake, vector DB, and relational DB for metadata.</p>
+        </li>
+        <li><strong>Implement collection UI</strong>
+          <p class="muted">Lightweight form to capture user intent + selection tags.</p>
+        </li>
+        <li><strong>Compute session model</strong>
+          <p class="muted">Run matching, embeddings, or graph traversal on the collected data to produce cross-service recommendations.</p>
+        </li>
+        <li><strong>Expose recommendation API & search</strong>
+          <p class="muted">REST/gRPC endpoints that return ranked results and explanation metadata.</p>
+        </li>
+        <li><strong>Evaluate & iterate</strong>
+          <p class="muted">AB tests, offline metrics (NDCG, MAP), qualitative feedback.</p>
+        </li>
+        <li><strong>Privacy & compliance</strong>
+          <p class="muted">Data minimization, consent, opt-out; document retention and anonymization.</p>
+        </li>
+      </ol>
+    </section>
+
+    <section>
+      <h2>Interactive prototype (collect selections → compute → recommend)</h2>
+      <div class="row">
+        <div class="col card">
+          <h3>1) Capture user selections</h3>
+          <p class="muted">Choose tags and rate interest. Stored locally (simulates user storage).</p>
+          <label for="username">Name</label>
+          <input id="username" type="text" placeholder="Your name (optional)" />
+
+          <label for="service">Service</label>
+          <select id="service">
+            <option value="music">Music</option>
+            <option value="video">Video</option>
+            <option value="shopping">Shopping</option>
+            <option value="travel">Travel</option>
+            <option value="book">Books</option>
+          </select>
+
+          <label for="tags">Tags (comma separated)</label>
+          <input id="tags" type="text" placeholder="e.g. lo-fi, jazz, chill" />
+
+          <label for="notes">Notes (optional)</label>
+          <textarea id="notes" rows="3" placeholder="Anything else..."></textarea>
+
+          <div style="margin-top:10px;display:flex;gap:8px">
+            <button id="saveBtn">Save selection</button>
+            <button id="clearBtn" style="background:#ef4444">Clear all</button>
+          </div>
+
+          <p class="muted" style="margin-top:12px">Saved selections (local prototype):</p>
+          <div id="savedList" class="muted"></div>
+        </div>
+
+        <div class="col card">
+          <h3>2) Computing session (simulate)</h3>
+          <p class="muted">This simulates processing the saved selections to produce recommendations across services. Replace this with a server-side job for production (embeddings, vector DB, cross-service graph walk, or hybrid ranking).</p>
+
+          <label>Algorithm</label>
+          <select id="algo">
+            <option value="tag-sim">Tag similarity (prototype)</option>
+            <option value="popular">Popularity boost</option>
+            <option value="hybrid">Hybrid (sim + popularity)</option>
+          </select>
+
+          <div style="margin-top:10px;display:flex;gap:8px">
+            <button id="computeBtn">Run computing session</button>
+            <button id="exportBtn" style="background:#10b981">Export selections (JSON)</button>
+          </div>
+
+          <div class="results" id="computeStatus"></div>
+        </div>
+      </div>
+
+      <div style="margin-top:14px" class="card">
+        <h3>3) Recommendation results</h3>
+        <p class="muted">Results are generated from a small in-page sample dataset (for demo). In production, query your cross-service index / embedding store.</p>
+        <div id="resultsArea"></div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Architecture notes & production checklist</h2>
+      <ul>
+        <li>Data connectors (OAuth, rate limits, incremental sync)</li>
+        <li>Event bus for sessions (Kafka, Kinesis)</li>
+        <li>Feature store (user features, session features)</li>
+        <li>Vector DB for embeddings (Pinecone, Milvus, Weaviate)</li>
+        <li>Online store for fast responses (Redis, ElasticSearch)</li>
+        <li>Explainability & logging for recommendations</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Sample code & comments (client-side prototype)</h2>
+      <div class="code">
+<pre>// This prototype stores selections in localStorage and runs a simple tag-similarity recommender.
+// Replace computeRecommendations(...) with server-side call to your ranking/embedding service.
+
+</pre>
+      </div>
+
+      <div class="card" style="margin-top:10px">
+        <h3>Client-side logic (embedded)</h3>
+        <pre id="embeddedCode" class="muted"></pre>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>Prototype created for product planning — expand with backend, auth, and scalable compute. © Your Team</p>
+  </footer>
+
+  <script>
+    // ---------- sample dataset of cross-service items (in production this lives on server) ----------
+    const SAMPLE_ITEMS = [
+      {id:'m1',service:'music',title:'Lo-Fi Chill Mix',tags:['lo-fi','chill','beats'],pop:95},
+      {id:'m2',service:'music',title:'Jazz Evening',tags:['jazz','instrumental'],pop:70},
+      {id:'v1',service:'video',title:'Relaxing Travel Vlog',tags:['travel','relaxing'],pop:60},
+      {id:'s1',service:'shopping',title:'Noise Cancelling Headphones',tags:['audio','focus'],pop:80},
+      {id:'t1',service:'travel',title:'Weekend Escape Guide',tags:['travel','shorttrip'],pop:55},
+      {id:'b1',service:'book',title:'Mindfulness for Busy People',tags:['mindfulness','selfhelp'],pop:50}
+    ];
+
+    // ---------- local storage helpers ----------
+    const STORAGE_KEY = 'crs_selections_v1';
+    function loadSelections(){ try{ return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]') }catch(e){return []} }
+    function saveSelections(arr){ localStorage.setItem(STORAGE_KEY, JSON.stringify(arr)) }
+
+    // ---------- UI wiring ----------
+    const username = document.getElementById('username');
+    const service = document.getElementById('service');
+    const tags = document.getElementById('tags');
+    const notes = document.getElementById('notes');
+    const saveBtn = document.getElementById('saveBtn');
+    const clearBtn = document.getElementById('clearBtn');
+    const savedList = document.getElementById('savedList');
+    const computeBtn = document.getElementById('computeBtn');
+    const computeStatus = document.getElementById('computeStatus');
+    const resultsArea = document.getElementById('resultsArea');
+    const exportBtn = document.getElementById('exportBtn');
+    const algo = document.getElementById('algo');
+
+    function renderSaved(){
+      const list = loadSelections();
+      if(list.length===0){ savedList.innerHTML = '<div class="muted">(no selections yet)</div>'; return }
+      savedList.innerHTML = '';
+      list.forEach((s,idx)=>{
+        const d = document.createElement('div');
+        d.className = 'flex';
+        d.style.justifyContent = 'space-between';
+        d.innerHTML = `<div><strong>${s.service}</strong> — <span class="tag">${s.tags.join(', ')}</span> <div class="muted">${s.notes||''}</div></div><div><button data-idx="${idx}" style="background:#ef4444;padding:6px;border-radius:6px">Del</button></div>`;
+        savedList.appendChild(d);
+      })
+      // attach delete handlers
+      savedList.querySelectorAll('button[data-idx]').forEach(b=> b.onclick = ()=>{
+        const idx = Number(b.getAttribute('data-idx'));
+        const arr = loadSelections(); arr.splice(idx,1); saveSelections(arr); renderSaved();
+      })
+    }
+
+    saveBtn.onclick = ()=>{
+      const t = tags.value.split(',').map(x=>x.trim()).filter(x=>x);
+      if(t.length===0){ alert('Add at least one tag'); return }
+      const arr = loadSelections();
+      arr.push({name: username.value||'anonymous', service: service.value, tags: t, notes: notes.value||'', created: new Date().toISOString()});
+      saveSelections(arr); renderSaved(); tags.value=''; notes.value='';
+    }
+
+    clearBtn.onclick = ()=>{ if(confirm('Clear all local selections?')){ saveSelections([]); renderSaved(); } }
+
+    exportBtn.onclick = ()=>{
+      const data = JSON.stringify(loadSelections(), null, 2);
+      const blob = new Blob([data],{type:'application/json'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a'); a.href = url; a.download = 'selections.json'; a.click(); URL.revokeObjectURL(url);
+    }
+
+    // ---------- simple recommender (tag similarity + popularity) ----------
+    function computeRecommendations(selections, opts={algo:'tag-sim',topK:6}){
+      // Flatten user tags
+      const userTags = Array.from(new Set(selections.flatMap(s=>s.tags)));
+      // Score items by #shared tags and popularity
+      return SAMPLE_ITEMS.map(item=>{
+        const shared = item.tags.filter(t=>userTags.includes(t)).length;
+        let score = shared;
+        if(opts.algo==='popular') score = item.pop / 50; // normalize
+        if(opts.algo==='hybrid') score = shared * 1.0 + (item.pop/100);
+        return {...item,score}
+      }).filter(i=>i.score>0).sort((a,b)=>b.score-a.score).slice(0,opts.topK);
+    }
+
+    computeBtn.onclick = async ()=>{
+      const sel = loadSelections();
+      if(sel.length===0){ alert('No saved selections. Please save at least one selection.'); return }
+      computeStatus.innerHTML = '<div class="muted">Computing session running...</div>';
+      resultsArea.innerHTML = '';
+      // simulate compute time
+      await new Promise(r=>setTimeout(r,900));
+
+      // In production: call your server endpoint
+      const recs = computeRecommendations(sel, {algo: algo.value, topK:8});
+      computeStatus.innerHTML = `<div class="muted">Found ${recs.length} recommendation(s)</div>`;
+      if(recs.length===0){ resultsArea.innerHTML = '<div class="muted">No recommendations found. Try broader tags.</div>'; return }
+
+      const list = document.createElement('div');
+      list.innerHTML = recs.map(r=>`<div class="card" style="margin-bottom:8px"><div style="display:flex;justify-content:space-between"><div><strong>${r.title}</strong> <span class="muted">(${r.service})</span><div class="muted">tags: ${r.tags.join(', ')}</div></div><div style="text-align:right"><div class="tag">score ${r.score.toFixed(2)}</div><div style="margin-top:6px"><button onclick=showDetail('${r.id}')>View</button></div></div></div></div>`).join('\n');
+      resultsArea.appendChild(list);
+    }
+
+    function showDetail(id){
+      const it = SAMPLE_ITEMS.find(x=>x.id===id);
+      if(!it) return alert('Not found');
+      alert(`${it.title} — service: ${it.service}\nTags: ${it.tags.join(', ')}\nPopularity: ${it.pop}`);
+    }
+
+    // ---------- embed sample client code to the page for copy/paste ----------
+    document.getElementById('embeddedCode').textContent = `// Example: call server to compute recommendations (pseudo)
+// POST /api/compute { userId, selections }
+// Response: [{id, service, title, score, explanation}]
+
+async function computeServerSelections(userId, selections){
+  const res = await fetch('/api/compute', {method:'POST', headers:{'content-type':'application/json'}, body:JSON.stringify({userId, selections})});
+  return await res.json();
+}
+
+// In production: server will run embedding + ranking pipeline, e.g.:
+// 1) Intake selections → map to embedding vectors
+// 2) Query vector DB across service indexes
+// 3) Re-rank with business rules & personalization
+// 4) Return top-K results with explanations (why recommended)
+`;
+
+    // initial render
+    renderSaved();
+  </script>
+</body>
+</html>
