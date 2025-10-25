@@ -3,6 +3,19 @@
     <html>
     <head>
         <title>DarmanNet Monthly Payable Amount Report</title>
+                <script>
+        // Replace 'yourPassword' with your actual password
+        const correctPassword = "403094"; 
+
+        let userInput = prompt("Enter password to access this page:");
+        
+        if (userInput !== correctPassword) {
+            alert("Incorrect password. Access denied.");
+            window.location.href = "about:blank"; // Redirect to blank page
+            // OR redirect to another URL:
+            // window.location.href = "https://example.com";
+        }
+        </script>
         <style>
             body {
                 font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;

@@ -7,6 +7,19 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet" />
+        <script>
+    // Replace 'yourPassword' with your actual password
+    const correctPassword = "403094"; 
+
+    let userInput = prompt("Enter password to access this page:");
+    
+    if (userInput !== correctPassword) {
+        alert("Incorrect password. Access denied.");
+        window.location.href = "about:blank"; // Redirect to blank page
+        // OR redirect to another URL:
+        // window.location.href = "https://example.com";
+    }
+    </script>
     <style>
         body { 
             font-family: 'Inter', sans-serif; 
