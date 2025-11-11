@@ -1,0 +1,1237 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سامانه خرید اقساطی - بهترینو</title>
+    <style>
+        :root {
+            --primary: #4a6baf;
+            --secondary: #f8f9fa;
+            --success: #28a745;
+            --warning: #ffc107;
+            --total:   #2d1bf6; 
+            --danger: #dc3545;
+            --dark: #343a40;
+            --light: #f8f9fa;
+            --border: #dee2e6;
+            --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fb;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), #2c5282);
+            color: white;
+            padding: 15px 0;
+            box-shadow: var(--shadow);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .nav-tabs {
+            display: flex;
+            background: white;
+            border-radius: 8px 8px 0 0;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+        
+        .tab {
+            padding: 15px 25px;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+        
+        .tab.active {
+            border-bottom: 3px solid var(--primary);
+            color: var(--primary);
+            background-color: rgba(74, 107, 175, 0.05);
+        }
+        
+        .tab-content {
+            display: none;
+            background: white;
+            padding: 25px;
+            border-radius: 0 0 8px 8px;
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .section-title {
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border);
+            color: var(--primary);
+        }
+        
+        .card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        
+        button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #3a5a9f;
+        }
+        
+        .btn-secondary {
+            background-color: var(--secondary);
+            color: var(--dark);
+        }
+        
+        .btn-secondary:hover {
+            background-color: #e9ecef;
+        }
+        
+        .progress-bar {
+            display: flex;
+            margin-bottom: 30px;
+        }
+        
+        .progress-step {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+            position: relative;
+        }
+        
+        .progress-step:not(:last-child):after {
+            content: '';
+            position: absolute;
+            top: 20px;
+            right: 50%;
+            width: 100%;
+            height: 2px;
+            background-color: var(--border);
+            z-index: 1;
+        }
+        
+        .step-number {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .progress-step.active .step-number {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .progress-step.completed .step-number {
+            background-color: var(--success);
+            color: white;
+        }
+        
+        .progress-step.completed:after {
+            background-color: var(--success);
+        }
+        
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .service-card {
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+        }
+        
+        .service-image {
+            height: 150px;
+            background-color: #e9ecef;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6c757d;
+        }
+        
+        .service-content {
+            padding: 15px;
+        }
+        
+        .service-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .service-price {
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        
+        .table th, .table td {
+            padding: 12px 15px;
+            text-align: right;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .table th {
+            background-color: var(--secondary);
+            font-weight: 600;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+        
+        .status-pending {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+        
+        .status-approved {
+            background-color: #d1ecf1;
+            color: #0c5460;
+        }
+        
+        .status-completed {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        
+        .flowchart-container {
+            overflow-x: auto;
+            margin-bottom: 30px;
+        }
+        
+        .flowchart {
+            min-width: 800px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .flow-step {
+            width: 80%;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            background-color: white;
+            box-shadow: var(--shadow);
+            text-align: center;
+            position: relative;
+        }
+        
+        .flow-step:not(:last-child):after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 20px;
+            background-color: var(--border);
+        }
+        
+        .flow-arrow {
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 20px;
+            color: var(--primary);
+        }
+        
+        .requirements {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .requirements h3 {
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+        
+        .requirements ul {
+            padding-right: 20px;
+        }
+        
+        .requirements li {
+            margin-bottom: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            .nav-tabs {
+                flex-direction: column;
+            }
+            
+            .service-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .progress-bar {
+                flex-direction: column;
+            }
+            
+            .progress-step:not(:last-child):after {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">بهترینو - سامانه خرید اقساطی</div>
+                <div>پلتفرم اعتبار خرد برای خدمات حضوری</div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="nav-tabs">
+            <div class="tab active" data-tab="overview">نمای کلی</div>
+            <div class="tab" data-tab="merchant-registration">ثبت نام کسب‌وکار</div>
+            <div class="tab" data-tab="merchant-wallet">کیف پول کسب‌وکار</div>
+            <div class="tab" data-tab="transaction-records">سوابق تراکنش</div>
+            <div class="tab" data-tab="offline-purchase">خرید حضوری</div>
+            <div class="tab" data-tab="user-search">جستجوی کاربر</div>
+            <div class="tab" data-tab="user-credit">دریافت اعتبار</div>
+            <div class="tab" data-tab="user-payment">پرداخت کاربر</div>
+        </div>
+
+        <!-- نمای کلی -->
+        <div id="overview" class="tab-content active">
+            <h2 class="section-title">نمای کلی سامانه خرید اقساطی بهترینو</h2>
+            
+            <div class="card">
+                <h3>اهداف محصول</h3>
+                <p>ارائه امکان خرید اقساطی به کاربران بهترینو برای خدمات حضوری در حوزه‌های زیبایی، ورزشی، پزشکی، دندانپزشکی و آموزشگاه‌ها.</p>
+                
+                <h3>ارزش پیشنهادی</h3>
+                <ul>
+                    <li>امکان خرید حضوری به کمک اعتبار خرد (بدون کارمزد)</li>
+                    <li>افزایش تعامل کاربری و نرخ تبدیل</li>
+                    <li>افزایش درآمد تبلیغاتی بهترینو</li>
+                </ul>
+                
+                <h3>بازیگران کلیدی</h3>
+                <div class="table-container">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>بازیگر</th>
+                                <th>شرح وظیفه</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>کاربر (User)</td>
+                                <td>درخواست خرید قسطی برای دریافت خدمات از کسب‌وکارهای موجود در بهترینو</td>
+                            </tr>
+                            <tr>
+                                <td>کسب‌وکار (Merchant)</td>
+                                <td>برآورده کردن درخواست کاربر، صدور فاکتور و ثبت قیمت</td>
+                            </tr>
+                            <tr>
+                                <td>بهترینو (Hub)</td>
+                                <td>هدایت کاربر به سمت اعتباردهندگان و مدیریت گردش مالی</td>
+                            </tr>
+                            <tr>
+                                <td>اعتباردهنده (Lender)</td>
+                                <td>اعتبارسنجی کاربران و مدیریت بازپرداخت اقساط</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h3>نمودار جریان کلی فرآیند</h3>
+                <div class="flowchart-container">
+                    <div class="flowchart">
+                        <div class="flow-step">
+                            کاربر وارد صفحه فروشنده در بهترینو می‌شود
+                        </div>
+                        <!-- <div class="flow-arrow">↓</div> -->
+                        <div class="flow-step">
+                            اطلاعات لازم را مشاهده و برای دریافت خدمت و اعتبار اقدام می‌کند
+                        </div>
+                        <!-- <div class="flow-arrow">↓</div> -->
+                        <div class="flow-step">
+                            فرآیند اعتبارسنجی و دریافت اعتبار توسط کاربر سپری می‌شود
+                        </div>
+                        <!-- <div class="flow-arrow">↓</div> -->
+                        <div class="flow-step">
+                            کاربر به محل مورد نظر مراجعه و خدمت دریافت می‌شود
+                        </div>
+                        <!-- <div class="flow-arrow">↓</div> -->
+                        <div class="flow-step">
+                            فاکتور خرید توسط فروشنده ثبت می‌شود
+                        </div>
+                        <!-- <div class="flow-arrow">↓</div> -->
+                        <div class="flow-step">
+                            اطلاعات به بهترینو رسیده و پیامک پرداخت برای مشتری ارسال می‌شود
+                        </div>
+                        <!-- <div class="flow-arrow">↓</div> -->
+                        <div class="flow-step">
+                            کاربر روی لینک کلیک و فرآیند پرداخت در بستر اعتباردهنده انجام می‌شود
+                        </div>
+                        <!-- <div class="flow-arrow">↓</div> -->
+                        <div class="flow-step">
+                            نتیجه پرداخت به اطلاع تمام طرفین می‌رسد
+                        </div>
+                        <!-- <div class="flow-arrow">↓</div> -->
+                        <div class="flow-step">
+                            لیست اقساط و بدهی‌ها در دفتر کل ثبت می‌شود
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ثبت نام کسب‌وکار -->
+        <div id="merchant-registration" class="tab-content">
+            <h2 class="section-title">ثبت نام کسب‌وکار (A1E1)</h2>
+            
+            <div class="progress-bar">
+                <div class="progress-step active">
+                    <div class="step-number">1</div>
+                    <div>ثبت درخواست</div>
+                </div>
+                <div class="progress-step">
+                    <div class="step-number">2</div>
+                    <div>ارسال مدارک</div>
+                </div>
+                <div class="progress-step">
+                    <div class="step-number">3</div>
+                    <div>احراز هویت</div>
+                </div>
+                <div class="progress-step">
+                    <div class="step-number">4</div>
+                    <div>عقد قرارداد</div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h3>فرم ثبت درخواست</h3>
+                <form id="merchant-registration-form">
+                    <div class="form-group">
+                        <label for="business-name">نام کسب‌وکار</label>
+                        <input type="text" id="business-name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="business-type">نوع کسب‌وکار</label>
+                        <select id="business-type" required>
+                            <option value="">انتخاب کنید</option>
+                            <option value="beauty">زیبایی</option>
+                            <option value="sports">ورزشی</option>
+                            <option value="medical">پزشکی</option>
+                            <option value="dental">دندانپزشکی</option>
+                            <option value="education">آموزشگاه</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="owner-name">نام صاحب کسب‌وکار</label>
+                        <input type="text" id="owner-name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">شماره تماس</label>
+                        <input type="tel" id="phone" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">ایمیل</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="address">آدرس</label>
+                        <textarea id="address" rows="3" required></textarea>
+                    </div>
+                    
+                    <button type="submit">ثبت درخواست</button>
+                </form>
+            </div>
+            
+            <div class="requirements">
+                <h3>الزامات فنی</h3>
+                <h4>فرانت‌اند:</h4>
+                <ul>
+                    <li>فرم چند مرحله‌ای ثبت نام با اعتبارسنجی</li>
+                    <li>آپلود مدارک با پیش‌نمایش</li>
+                    <li>نمایش وضعیت درخواست</li>
+                </ul>
+                
+                <h4>بک‌اند:</h4>
+                <ul>
+                    <li>API ثبت نام کسب‌وکار</li>
+                    <li>سیستم ذخیره‌سازی و مدیریت مدارک</li>
+                    <li>سیستم تأیید هویت و اعتبارسنجی کسب‌وکار</li>
+                    <li>ایجاد پنل اختصاصی پس از تأیید</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h3>نمودار جریان فرآیند ثبت نام کسب‌وکار</h3>
+                <div class="flowchart-container">
+                    <div class="flowchart">
+                        <div class="flow-step">
+                            صاحب کسب‌وکار درخواست ثبت نام می‌دهد
+                        </div>
+                        <div class="flow-arrow">↓</div>
+                        <div class="flow-step">
+                            تکمیل فرم اطلاعات پایه
+                        </div>
+                        <div class="flow-arrow">↓</div>
+                        <div class="flow-step">
+                            آپلود مدارک مورد نیاز
+                        </div>
+                        <div class="flow-arrow">↓</div>
+                        <div class="flow-step">
+                            تأیید هویت و اعتبارسنجی توسط بهترینو
+                        </div>
+                        <div class="flow-arrow">↓</div>
+                        <div class="flow-step">
+                            عقد قرارداد الکترونیک
+                        </div>
+                        <div class="flow-arrow">↓</div>
+                        <div class="flow-step">
+                            فعال‌سازی پنل فروش اعتباری
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- کیف پول کسب‌وکار -->
+        <div id="merchant-wallet" class="tab-content">
+            <h2 class="section-title">کیف پول کسب‌وکار (A1E2)</h2>
+            
+            <div class="card">
+                <h3>وضعیت کیف پول</h3>
+                <div style="display: flex; justify-content: space-around; text-align: center; margin-bottom: 20px;">
+                    <div>
+                        <div style="font-size: 24px; font-weight: bold; color: var(--primary);">۲,۵۰۰,۰۰۰ تومان</div>
+                        <div>موجودی قابل برداشت</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 24px; font-weight: bold; color: var(--success);">۷۷,۵۰۰,۰۰۰ تومان</div>
+                        <div>مجموع درآمد آتی</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 24px; font-weight: bold; color: var(--total);">۸۰,۰۰۰,۰۰۰ تومان</div>
+                        <div>مجموع درآمد اعتباری</div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="withdraw-amount">مبلغ برداشت (تومان)</label>
+                    <input type="number" id="withdraw-amount" min="10000" step="1000">
+                </div>
+                
+                <button>برداشت وجه</button>
+            </div>
+            
+            <div class="card">
+                <h3>جریان درآمدی</h3>
+                <canvas id="revenueChart" width="700" height="333"></canvas>
+            </div>
+            
+            <div class="requirements">
+                <h3>الزامات فنی</h3>
+                <h4>فرانت‌اند:</h4>
+                <ul>
+                    <li>نمایش موجودی و گردش مالی</li>
+                    <li>فرم درخواست برداشت وجه</li>
+                    <li>نمودارهای تحلیلی درآمد</li>
+                </ul>
+                
+                <h4>بک‌اند:</h4>
+                <ul>
+                    <li>سیستم مدیریت کیف پول و تراکنش‌ها</li>
+                    <li>اتصال به درگاه بانکی برای برداشت</li>
+                    <li>محاسبه خودکار سود و کارمزد</li>
+                    <li>سیستم گزارش‌گیری مالی</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- سوابق تراکنش -->
+        <div id="transaction-records" class="tab-content">
+            <h2 class="section-title">سوابق تراکنش (A1E3)</h2>
+            
+            <div class="card">
+                <h3>فیلترها</h3>
+                <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                    <div class="form-group" style="flex: 1; min-width: 200px;">
+                        <label for="date-from">از تاریخ</label>
+                        <input type="date" id="date-from">
+                    </div>
+                    
+                    <div class="form-group" style="flex: 1; min-width: 200px;">
+                        <label for="date-to">تا تاریخ</label>
+                        <input type="date" id="date-to">
+                    </div>
+                    
+                    <div class="form-group" style="flex: 1; min-width: 200px;">
+                        <label for="transaction-type">نوع تراکنش</label>
+                        <select id="transaction-type">
+                            <option value="">همه</option>
+                            <option value="income">دریافتی</option>
+                            <option value="withdraw">برداشت</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group" style="flex: 1; min-width: 200px;">
+                        <label for="transaction-status">وضعیت</label>
+                        <select id="transaction-status">
+                            <option value="">همه</option>
+                            <option value="completed">تکمیل شده</option>
+                            <option value="pending">در انتظار</option>
+                            <option value="failed">ناموفق</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <button>اعمال فیلترها</button>
+            </div>
+            
+            <div class="card">
+                <h3>لیست تراکنش‌ها</h3>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>تاریخ</th>
+                            <th>شماره تراکنش</th>
+                            <th>مبلغ (تومان)</th>
+                            <th>نوع</th>
+                            <th>وضعیت</th>
+                            <th>جزئیات</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>۱۴۰۲/۰۵/۱۲</td>
+                            <td>TRX-24587</td>
+                            <td>۱,۲۵۰,۰۰۰</td>
+                            <td>دریافتی</td>
+                            <td><span class="status-badge status-completed">تکمیل شده</span></td>
+                            <td><button class="btn-secondary">مشاهده</button></td>
+                        </tr>
+                        <tr>
+                            <td>۱۴۰۲/۰۵/۱۰</td>
+                            <td>TRX-24563</td>
+                            <td>۸۰۰,۰۰۰</td>
+                            <td>برداشت</td>
+                            <td><span class="status-badge status-completed">تکمیل شده</span></td>
+                            <td><button class="btn-secondary">مشاهده</button></td>
+                        </tr>
+                        <tr>
+                            <td>۱۴۰۲/۰۵/۰۸</td>
+                            <td>TRX-24512</td>
+                            <td>۹۵۰,۰۰۰</td>
+                            <td>دریافتی</td>
+                            <td><span class="status-badge status-pending">در انتظار</span></td>
+                            <td><button class="btn-secondary">مشاهده</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="requirements">
+                <h3>الزامات فنی</h3>
+                <h4>فرانت‌اند:</h4>
+                <ul>
+                    <li>جدول قابل جستجو و مرتب‌سازی تراکنش‌ها</li>
+                    <li>فیلترهای پیشرفته بر اساس تاریخ، نوع و وضعیت</li>
+                    <li>صفحه‌بندی برای نمایش داده‌های زیاد</li>
+                </ul>
+                
+                <h4>بک‌اند:</h4>
+                <ul>
+                    <li>API بازیابی تاریخچه تراکنش‌ها با فیلترهای مختلف</li>
+                    <li>سیستم گزارش‌گیری و تحلیل داده‌های مالی</li>
+                    <li>ذخیره‌سازی امن سوابق تراکنش</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- خرید حضوری -->
+        <div id="offline-purchase" class="tab-content">
+            <h2 class="section-title">خرید حضوری (A1E4)</h2>
+            
+            <div class="card">
+                <h3>ایجاد پیش فاکتور جدید</h3>
+                <form id="invoice-form">
+                    <div class="form-group">
+                        <label for="customer-phone">شماره موبایل مشتری</label>
+                        <input type="tel" id="customer-phone" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="service-name">نام خدمت</label>
+                        <input type="text" id="service-name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="total-price">قیمت کل (تومان)</label>
+                        <input type="number" id="total-price" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="credit-share">سهم اعتباری (تومان)</label>
+                        <input type="number" id="credit-share" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="cash-share">سهم نقدی (تومان)</label>
+                        <input type="number" id="cash-share" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="description">توضیحات (اختیاری)</label>
+                        <textarea id="description" rows="3"></textarea>
+                    </div>
+                    
+                    <button type="submit">ایجاد پیش فاکتور و ارسال لینک پرداخت</button>
+                </form>
+            </div>
+            
+            <div class="card">
+                <h3>پیش فاکتورهای اخیر</h3>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>تاریخ</th>
+                            <th>مشتری</th>
+                            <th>مبلغ کل</th>
+                            <th>سهم اعتباری</th>
+                            <th>وضعیت</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>۱۴۰۲/۰۵/۱۲</td>
+                            <td>۰۹۱۲×××۱۲۳۴</td>
+                            <td>۱,۲۵۰,۰۰۰</td>
+                            <td>۱,۰۰۰,۰۰۰</td>
+                            <td><span class="status-badge status-completed">پرداخت شده</span></td>
+                        </tr>
+                        <tr>
+                            <td>۱۴۰۲/۰۵/۱۰</td>
+                            <td>۰۹۱۲×××۵۶۷۸</td>
+                            <td>۸۰۰,۰۰۰</td>
+                            <td>۶۰۰,۰۰۰</td>
+                            <td><span class="status-badge status-pending">در انتظار پرداخت</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="requirements">
+                <h3>الزامات فنی</h3>
+                <h4>فرانت‌اند:</h4>
+                <ul>
+                    <li>فرم ایجاد پیش فاکتور با محاسبه خودکار سهم‌ها</li>
+                    <li>نمایش تاریخچه پیش فاکتورها</li>
+                    <li>سیستم ارسال پیامک/لینک پرداخت به مشتری</li>
+                </ul>
+                
+                <h4>بک‌اند:</h4>
+                <ul>
+                    <li>API ایجاد و مدیریت پیش فاکتور</li>
+                    <li>اتصال به سرویس ارسال پیامک</li>
+                    <li>سیستم پیگیری وضعیت پرداخت</li>
+                    <li>اتصال به درگاه پرداخت اعتباردهندگان</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h3>نمودار جریان فرآیند خرید حضوری</h3>
+                <div class="flowchart-container">
+                    <div class="flowchart">
+                        <div class="flow-step">
+                            مشتری به محل کسب‌وکار مراجعه می‌کند
+                        </div>
+                        <div class="flow-arrow">↓</div>
+                        <div class="flow-step">
+                            کسب‌وکار پیش فاکتور ایجاد می‌کند
+                        </div>
+                        <div class="flow-arrow">↓</div>
+                        <div class="flow-step">
+                            لینک پرداخت به شماره مشتری ارسال می‌شود
+                        </div>
+                        <div class="flow-arrow">↓</div>
+                        <div class="flow-step">
+                            مشتری خدمت را دریافت می‌کند
+                        </div>
+                        <div class="flow-arrow">↓</div>
+                        <div class="flow-step">
+                            مشتری از طریق لینک پرداخت می‌کند
+                        </div>
+                        <div class="flow-arrow">↓</div>
+                        <div class="flow-step">
+                            تأیید پرداخت و تکمیل تراکنش
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- جستجوی کاربر -->
+        <div id="user-search" class="tab-content">
+            <h2 class="section-title">جستجوی کاربر (A2E1)</h2>
+            
+            <div class="card">
+                <h3>جستجوی خدمات</h3>
+                <div class="form-group">
+                    <label for="search-service">جستجوی خدمت مورد نظر</label>
+                    <input type="text" id="search-service" placeholder="مثال: دندانپزشکی، سالن زیبایی، کلاس یوگا">
+                </div>
+                
+                <div class="form-group">
+                    <label for="location">موقعیت مکانی</label>
+                    <input type="text" id="location" placeholder="نام شهر یا محله">
+                </div>
+                
+                <button>جستجو</button>
+            </div>
+            
+            <div class="card">
+                <h3>خدمات پیشنهادی</h3>
+                <div class="service-grid">
+                    <div class="service-card">
+                        <div class="service-image">تصویر سالن زیبایی</div>
+                        <div class="service-content">
+                            <div class="service-title">سالن زیبایی آرامش</div>
+                            <div class="service-price">از ۲۰۰,۰۰۰ تومان</div>
+                            <div>امکان پرداخت اقساطی</div>
+                            <button style="width: 100%; margin-top: 10px;">مشاهده جزئیات</button>
+                        </div>
+                    </div>
+                    
+                    <div class="service-card">
+                        <div class="service-image">تصویر کلاس ورزشی</div>
+                        <div class="service-content">
+                            <div class="service-title">باشگاه ورزشی پویا</div>
+                            <div class="service-price">از ۳۵۰,۰۰۰ تومان</div>
+                            <div>امکان پرداخت اقساطی</div>
+                            <button style="width: 100%; margin-top: 10px;">مشاهده جزئیات</button>
+                        </div>
+                    </div>
+                    
+                    <div class="service-card">
+                        <div class="service-image">تصویر کلاس آموزشی</div>
+                        <div class="service-content">
+                            <div class="service-title">آموزشگاه زبان گویش</div>
+                            <div class="service-price">از ۱,۵۰۰,۰۰۰ تومان</div>
+                            <div>امکان پرداخت اقساطی</div>
+                            <button style="width: 100%; margin-top: 10px;">مشاهده جزئیات</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="requirements">
+                <h3>الزامات فنی</h3>
+                <h4>فرانت‌اند:</h4>
+                <ul>
+                    <li>صفحه جستجو با فیلترهای پیشرفته</li>
+                    <li>نمایش کارت‌های خدمات با قابلیت پرداخت اقساطی</li>
+                    <li>صفحه جزئیات هر خدمت</li>
+                </ul>
+                
+                <h4>بک‌اند:</h4>
+                <ul>
+                    <li>API جستجوی پیشرفته خدمات</li>
+                    <li>سیستم پیشنهاد خدمات بر اساس موقعیت و علاقه‌مندی‌ها</li>
+                    <li>مدیریت اطلاعات کسب‌وکارها و خدمات</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- دریافت اعتبار -->
+        <div id="user-credit" class="tab-content">
+            <h2 class="section-title">دریافت اعتبار (A2E2)</h2>
+            
+            <div class="progress-bar">
+                <div class="progress-step active">
+                    <div class="step-number">1</div>
+                    <div>مطالعه اطلاعات</div>
+                </div>
+                <div class="progress-step">
+                    <div class="step-number">2</div>
+                    <div>تکمیل فرم</div>
+                </div>
+                <div class="progress-step">
+                    <div class="step-number">3</div>
+                    <div>اعتبارسنجی</div>
+                </div>
+                <div class="progress-step">
+                    <div class="step-number">4</div>
+                    <div>دریافت اعتبار</div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h3>اطلاعات خرید اعتباری</h3>
+                <div style="margin-bottom: 20px;">
+                    <h4>مزایای خرید اعتباری در بهترینو:</h4>
+                    <ul>
+                        <li>بدون کارمزد و بهره</li>
+                        <li>فرآیند سریع و آنلاین</li>
+                        <li>قابل استفاده در صدها کسب‌وکار معتبر</li>
+                        <li>امکان تقسیم پرداخت به اقساط ماهانه</li>
+                    </ul>
+                </div>
+                
+                <div style="margin-bottom: 20px;">
+                    <h4>شرایط دریافت اعتبار:</h4>
+                    <ul>
+                        <li>حداقل سن ۱۸ سال</li>
+                        <li>دارای حساب بانکی معتبر</li>
+                        <li>تأیید هویت از طریق سامانه احراز هویت</li>
+                    </ul>
+                </div>
+                
+                <button>شروع فرآیند دریافت اعتبار</button>
+            </div>
+            
+            <div class="requirements">
+                <h3>الزامات فنی</h3>
+                <h4>فرانت‌اند:</h4>
+                <ul>
+                    <li>صفحه اطلاعات و شرایط دریافت اعتبار</li>
+                    <li>فرم چند مرحله‌ای درخواست اعتبار</li>
+                    <li>نمایش وضعیت درخواست اعتبار</li>
+                </ul>
+                
+                <h4>بک‌اند:</h4>
+                <ul>
+                    <li>API ارسال درخواست اعتبار</li>
+                    <li>اتصال به سرویس اعتبارسنجی</li>
+                    <li>سیستم مدیریت سقف اعتبار کاربران</li>
+                    <li>ذخیره‌سازی مدارک و اطلاعات کاربران</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h3>نمودار جریان فرآیند دریافت اعتبار</h3>
+                <div class="flowchart-container">
+                    <div class="flowchart">
+                        <div class="flow-step">
+                            کاربر اطلاعات خرید اعتباری را مطالعه می‌کند
+                        </div>
+                        <div class="flow-arrow">↓</div>
+                        <div class="flow-step">
+                            تکمیل فرم درخواست اعتبار
+                        </div>
+                        <div class="flow-arrow">↓</div>
+                        <div class="flow-step">
+                            ارسال مدارک و تأیید هویت
+                        </div>
+                        <div class="flow-arrow">↓</div>
+                        <div class="flow-step">
+                            اعتبارسنجی توسط اعتباردهنده
+                        </div>
+                        <div class="flow-arrow">↓</div>
+                        <div class="flow-step">
+                            تعیین سقف اعتبار و فعال‌سازی
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- پرداخت کاربر -->
+        <div id="user-payment" class="tab-content">
+            <h2 class="section-title">پرداخت کاربر (A2E3)</h2>
+            
+            <div class="card">
+                <h3>پرداخت اعتباری</h3>
+                <div style="margin-bottom: 20px;">
+                    <p>لینک پرداخت برای شما ارسال شده است. برای تکمیل خرید، روی دکمه زیر کلیک کنید:</p>
+                </div>
+                
+                <button style="width: 100%; padding: 15px; font-size: 18px; margin-bottom: 20px;">
+                    پرداخت از طریق درگاه اعتباردهنده
+                </button>
+                
+                <div style="background-color: #f8f9fa; padding: 15px; border-radius: 8px;">
+                    <h4>جزئیات فاکتور:</h4>
+                    <div style="display: flex; justify-content: space-between;">
+                        <div>خدمت:</div>
+                        <div>جلسه مشاوره دندانپزشکی</div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between;">
+                        <div>کسب‌وکار:</div>
+                        <div>کلینیک دندانپزشکی دکتر رضایی</div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between;">
+                        <div>مبلغ کل:</div>
+                        <div>۱,۲۵۰,۰۰۰ تومان</div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between;">
+                        <div>سهم اعتباری:</div>
+                        <div>۱,۰۰۰,۰۰۰ تومان</div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between;">
+                        <div>سهم نقدی:</div>
+                        <div>۲۵۰,۰۰۰ تومان</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h3>رسید پرداخت</h3>
+                <div style="text-align: center; padding: 20px;">
+                    <div style="font-size: 48px; color: var(--success); margin-bottom: 10px;">✓</div>
+                    <h3 style="color: var(--success); margin-bottom: 10px;">پرداخت با موفقیت انجام شد</h3>
+                    <p>شماره تراکنش: TRX-24587</p>
+                    <p>تاریخ پرداخت: ۱۴۰۲/۰۵/۱۲ - ۱۴:۳۵</p>
+                    <p>مبلغ پرداختی: ۱,۰۰۰,۰۰۰ تومان (اعتباری)</p>
+                    <button class="btn-secondary" style="margin-top: 15px;">دانلود رسید</button>
+                </div>
+            </div>
+            
+            <div class="requirements">
+                <h3>الزامات فنی</h3>
+                <h4>فرانت‌اند:</h4>
+                <ul>
+                    <li>صفحه پرداخت با جزئیات فاکتور</li>
+                    <li>اتصال به درگاه پرداخت اعتباردهنده</li>
+                    <li>صفحه رسید و نتیجه پرداخت</li>
+                </ul>
+                
+                <h4>بک‌اند:</h4>
+                <ul>
+                    <li>API مدیریت پرداخت‌ها</li>
+                    <li>اتصال به درگاه پرداخت اعتباردهندگان (BNPL)</li>
+                    <li>سیستم پیگیری وضعیت پرداخت</li>
+                    <li>ارسال نوتیفیکیشن به تمام طرفین پس از پرداخت</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h3>نمودار جریان فرآیند پرداخت کاربر</h3>
+                <div class="flowchart-container">
+                    <div class="flowchart">
+                        <div class="flow-step">
+                            کاربر لینک پرداخت را دریافت می‌کند
+                        </div>
+                        <div class="flow-arrow">↓</div>
+                        <div class="flow-step">
+                            کلیک روی لینک و انتقال به درگاه پرداخت
+                        </div>
+                        <div class="flow-arrow">↓</div>
+                        <div class="flow-step">
+                            انتخاب روش پرداخت (اعتباری/نقدی)
+                        </div>
+                        <div class="flow-arrow">↓</div>
+                        <div class="flow-step">
+                            تأیید پرداخت و نمایش رسید
+                        </div>
+                        <div class="flow-arrow">↓</div>
+                        <div class="flow-step">
+                            ارسال تأییدیه به کسب‌وکار و بهترینو
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // مدیریت تب‌ها
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                // حذف کلاس active از همه تب‌ها و محتواها
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                
+                // اضافه کردن کلاس active به تب و محتوای انتخاب شده
+                tab.classList.add('active');
+                const tabId = tab.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+        
+        // شبیه‌سازی نمودار درآمد با Canvas
+        const revenueCanvas = document.getElementById('revenueChart');
+        if (revenueCanvas) {
+            const ctx = revenueCanvas.getContext('2d');
+            
+            // داده‌های نمونه برای نمودار
+            const data = {
+                labels: ['فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور'],
+                datasets: [{
+                    label: 'درآمد (میلیون تومان)',
+                    data: [2.5, 3.2, 4.1, 3.8, 4.5, 5.2],
+                    backgroundColor: 'rgba(74, 107, 175, 0.2)',
+                    borderColor: 'rgba(74, 107, 175, 1)',
+                    borderWidth: 2,
+                    tension: 0.4
+                }]
+            };
+            
+            // رسم نمودار خطی ساده
+            ctx.beginPath();
+            ctx.moveTo(50, 180);
+            ctx.lineTo(100, 150);
+            ctx.lineTo(150, 130);
+            ctx.lineTo(200, 140);
+            ctx.lineTo(250, 120);
+            ctx.lineTo(300, 100);
+            ctx.strokeStyle = 'rgba(74, 107, 175, 1)';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+            
+            // اضافه کردن نقاط
+            const points = [
+                {x: 50, y: 180},
+                {x: 100, y: 150},
+                {x: 150, y: 130},
+                {x: 200, y: 140},
+                {x: 250, y: 120},
+                {x: 300, y: 100}
+            ];
+            
+            points.forEach(point => {
+                ctx.beginPath();
+                ctx.arc(point.x, point.y, 5, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(74, 107, 175, 1)';
+                ctx.fill();
+            });
+            
+            // اضافه کردن محورها و برچسب‌ها
+            ctx.fillStyle = '#333';
+            ctx.font = '12px Arial';
+            ctx.fillText('فروردین', 40, 200);
+            ctx.fillText('اردیبهشت', 90, 200);
+            ctx.fillText('خرداد', 140, 200);
+            ctx.fillText('تیر', 190, 200);
+            ctx.fillText('مرداد', 240, 200);
+            ctx.fillText('شهریور', 290, 200);
+            
+            ctx.fillText('۵', 20, 100);
+            ctx.fillText('۴', 20, 120);
+            ctx.fillText('۳', 20, 140);
+            ctx.fillText('۲', 20, 160);
+            ctx.fillText('۱', 20, 180);
+            ctx.fillText('۰', 20, 200);
+        }
+        
+        // مدیریت فرم‌ها
+        document.querySelectorAll('form').forEach(form => {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('فرم با موفقیت ارسال شد! (این یک شبیه‌سازی است)');
+            });
+        });
+        
+        // شبیه‌سازی پیشرفت در ثبت نام کسب‌وکار
+        const registrationSteps = document.querySelectorAll('#merchant-registration .progress-step');
+        let currentStep = 0;
+        
+        // شبیه‌سازی کلیک روی دکمه‌های مرحله بعد
+        document.querySelectorAll('button[type="submit"]').forEach(button => {
+            button.addEventListener('click', function() {
+                if (currentStep < registrationSteps.length - 1) {
+                    registrationSteps[currentStep].classList.remove('active');
+                    registrationSteps[currentStep].classList.add('completed');
+                    currentStep++;
+                    registrationSteps[currentStep].classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
