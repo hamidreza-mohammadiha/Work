@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لیست فروشگاه‌های اعتباری - بهترینو</title>
+    <link rel="stylesheet" href="https://cdn.fontcdn.ir/Font/Persian/Vazir/Vazir.css">
+    <style>
+        :root {
+            --color-primary: #31694E;
+            --color-secondary: #658C58;
+            --color-accent: #BBC863;
+            --color-background: #F0E491;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Vazir', sans-serif;
+        }
+        
+        body {
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(to left, var(--color-primary), var(--color-secondary));
+            color: white;
+            padding: 30px 20px;
+            border-radius: 0 0 15px 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 15px;
+        }
+        
+        .epic-summary {
+            background-color: rgba(255, 255, 255, 0.15);
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+            border-right: 4px solid var(--color-accent);
+        }
+        
+        .controls {
+            background-color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 25px 0;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            border: 1px solid #eee;
+        }
+        
+        .filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .filter-group label {
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: var(--color-primary);
+        }
+        
+        select, .location-btn {
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            background-color: white;
+        }
+        
+        .location-btn {
+            background-color: var(--color-accent);
+            color: #333;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .location-btn:hover {
+            background-color: var(--color-secondary);
+            color: white;
+        }
+        
+        .wallet-filter {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .wallet-btn {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 20px;
+            background-color: #f0f0f0;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .wallet-btn.active {
+            background-color: var(--color-primary);
+            color: white;
+        }
+        
+        .wallet-btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .main-content {
+            display: flex;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+        
+        .shop-list {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .shop-card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            border-right: 5px solid var(--color-primary);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+        }
+        
+        .shop-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12);
+        }
+        
+        .shop-card.credit-shop {
+            border-right-color: var(--color-secondary);
+        }
+        
+        .shop-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+        
+        .shop-name {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--color-primary);
+        }
+        
+        .credit-badge {
+            background-color: var(--color-accent);
+            color: #333;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+        }
+        
+        .shop-category {
+            color: var(--color-secondary);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .shop-wallets {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 15px 0;
+        }
+        
+        .wallet-tag {
+            background-color: #f0f0f0;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.85rem;
+        }
+        
+        .shop-distance {
+            color: #666;
+            font-size: 0.9rem;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .map-container {
+            flex: 1;
+            min-width: 300px;
+            background-color: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            height: fit-content;
+        }
+        
+        .map-placeholder {
+            background-color: #e9e9e9;
+            border-radius: 8px;
+            height: 400px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            margin-top: 10px;
+        }
+        
+        .map-marker {
+            width: 20px;
+            height: 20px;
+            background-color: var(--color-primary);
+            border-radius: 50%;
+            position: relative;
+            margin: 10px;
+        }
+        
+        .map-marker.credit {
+            background-color: var(--color-secondary);
+        }
+        
+        .legend {
+            display: flex;
+            margin-top: 20px;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.9rem;
+        }
+        
+        .legend-color {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+        }
+        
+        .legend-color.normal {
+            background-color: var(--color-primary);
+        }
+        
+        .legend-color.credit {
+            background-color: var(--color-secondary);
+        }
+        
+        .stats {
+            background-color: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 25px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 15px;
+            border-radius: 10px;
+            flex: 1;
+            min-width: 150px;
+        }
+        
+        .stat-item:nth-child(1) {
+            background-color: rgba(49, 105, 78, 0.1);
+        }
+        
+        .stat-item:nth-child(2) {
+            background-color: rgba(101, 140, 88, 0.1);
+        }
+        
+        .stat-item:nth-child(3) {
+            background-color: rgba(187, 200, 99, 0.1);
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--color-primary);
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            margin-top: 5px;
+            color: #555;
+        }
+        
+        @media (max-width: 768px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .filters {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>لیست فروشگاه‌های اعتباری</h1>
+            <!-- <p class="subtitle">اپیک خدمات اعتباری بهترینو</p> -->
+            <div class="epic-summary">
+                <p>این اپیک قرار است فروشگاه‌هایی که خدمات اعتباری به مخاطبان بهترینو ارائه می‌دهند را در فرمت لیست و نقشه نمایش دهد.</p>
+            </div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="controls">
+            <div class="filters">
+                <div class="filter-group">
+                    <label for="city">انتخاب شهر / منطقه</label>
+                    <select id="city">
+                        <option value="tehran">تهران</option>
+                        <option value="mashhad">مشهد</option>
+                        <option value="isfahan">اصفهان</option>
+                        <option value="shiraz">شیراز</option>
+                        <option value="tabriz">تبریز</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="category">دسته‌بندی خدمات</label>
+                    <select id="category">
+                        <option value="all">همه دسته‌ها</option>
+                        <option value="beauty">زیبایی و سلامت</option>
+                        <option value="medical">پزشکی و درمانی</option>
+                        <option value="repair">تعمیرات</option>
+                        <option value="education">آموزشی</option>
+                        <option value="other">سایر</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label>موقعیت‌یابی</label>
+                    <button class="location-btn">
+                        <span>نزدیک‌ترین‌ها به من</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
+                        </svg>
+                    </button>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="credit-filter">فیلتر اعتباری</label>
+                    <select id="credit-filter">
+                        <option value="all">همه فروشگاه‌ها</option>
+                        <option value="credit-only">فقط فروشگاه‌های اعتباری</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div>
+                <label>فیلتر بر اساس کیف‌پول</label>
+                <div class="wallet-filter">
+                    <button class="wallet-btn active">همه</button>
+                    <button class="wallet-btn">تارا</button>
+                    <button class="wallet-btn">دیجی‌پی</button>
+                    <button class="wallet-btn">اسنپ‌پی</button>
+                    <button class="wallet-btn">زرین‌پلاس</button>
+                    <button class="wallet-btn">به‌پی</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="main-content">
+            <div class="shop-list">
+                <h2>فروشگاه‌های اعتباری (<span id="shop-count">25</span> مورد)</h2>
+                
+                <div class="shop-list-container" id="shop-list-container">
+                    <!-- فروشگاه‌ها به صورت دینامیک اضافه می‌شوند -->
+                </div>
+            </div>
+            
+            <div class="map-container">
+                <h2>نقشه فروشگاه‌های اعتباری</h2>
+                <div class="map-placeholder">
+                    <p>نقشه تعاملی موقعیت فروشگاه‌ها</p>
+                    <div style="display: flex; margin-top: 20px;">
+                        <div class="map-marker"></div>
+                        <div class="map-marker credit"></div>
+                        <div class="map-marker"></div>
+                        <div class="map-marker credit"></div>
+                    </div>
+                    <p style="margin-top: 20px;">فروشگاه‌های اعتباری با رنگ سبز تیره نمایش داده می‌شوند</p>
+                </div>
+                
+                <div class="legend">
+                    <div class="legend-item">
+                        <div class="legend-color normal"></div>
+                        <span>فروشگاه عادی</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color credit"></div>
+                        <span>فروشگاه اعتباری</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="stats">
+            <div class="stat-item">
+                <div class="stat-number">25+</div>
+                <div class="stat-label">فروشگاه فعال اعتباری</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">6</div>
+                <div class="stat-label">کیف پول پشتیبانی شده</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">15</div>
+                <div class="stat-label">دسته‌بندی خدماتی</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // اطلاعات فروشگاه‌ها
+        const shops = [
+            { id: 1, name: "سالن زیبایی رویای آبی", category: "زیبایی و سلامت", credit: true, wallets: ["تارا", "اسنپ‌پی"], distance: "1.2 کیلومتر" },
+            { id: 2, name: "سالن زیبایی لیان", category: "زیبایی و سلامت", credit: true, wallets: ["دیجی‌پی", "زرین‌پلاس"], distance: "2.5 کیلومتر" },
+            { id: 3, name: "فیزیوتراپی فاطیما (دکتر فرزانه سکوتی)", category: "پزشکی و درمانی", credit: true, wallets: ["تارا", "اسنپ‌پی", "زرین‌پلاس"], distance: "3.1 کیلومتر" },
+            { id: 4, name: "کلینیک لیزر و زیبایی دنیز", category: "زیبایی و سلامت", credit: false, wallets: [], distance: "0.8 کیلومتر" },
+            { id: 5, name: "کلینیک دامپزشکی و پت شاپ آریستو", category: "پزشکی و درمانی", credit: true, wallets: ["دیجی‌پی", "به‌پی"], distance: "4.2 کیلومتر" },
+            { id: 6, name: "مرکز تصویربرداری سونوگرافی حکیمان", category: "پزشکی و درمانی", credit: true, wallets: ["تارا", "زرین‌پلاس"], distance: "2.7 کیلومتر" },
+            { id: 7, name: "باشگاه ورزشی بانوان اَبری", category: "ورزشی", credit: false, wallets: [], distance: "1.5 کیلومتر" },
+            { id: 8, name: "مرکز شنوایی و سمعک لابیرنت", category: "پزشکی و درمانی", credit: true, wallets: ["اسنپ‌پی", "به‌پی"], distance: "3.8 کیلومتر" },
+            { id: 9, name: "مجموعه لیزر و زیبایی کارنا", category: "زیبایی و سلامت", credit: true, wallets: ["تارا", "دیجی‌پی", "اسنپ‌پی"], distance: "2.1 کیلومتر" },
+            { id: 10, name: "کلینیک تخصصی فیشال شهره", category: "زیبایی و سلامت", credit: true, wallets: ["زرین‌پلاس"], distance: "1.9 کیلومتر" },
+            { id: 11, name: "نجاری امید", category: "تعمیرات", credit: true, wallets: ["تارا"], distance: "5.2 کیلومتر" },
+            { id: 12, name: "خیاطی ماهور", category: "سایر", credit: false, wallets: [], distance: "2.3 کیلومتر" },
+            { id: 13, name: "تعمیرات لپ‌تاپ همراه", category: "تعمیرات", credit: true, wallets: ["اسنپ‌پی", "به‌پی"], distance: "3.5 کیلومتر" },
+            { id: 14, name: "تعمیرات خودرو پویا", category: "تعمیرات", credit: true, wallets: ["تارا", "دیجی‌پی", "زرین‌پلاس"], distance: "4.8 کیلومتر" },
+            { id: 15, name: "آموزشگاه زبان پردیسان", category: "آموزشی", credit: true, wallets: ["تارا", "اسنپ‌پی"], distance: "2.0 کیلومتر" }
+        ];
+        
+        // دسته‌بندی‌های اضافی
+        const additionalCategories = [
+            "نجاری", "خیاطی", "سالن ماساژ", "تعمیرات لپ‌تاپ", 
+            "تعمیرات خودرو", "استخر و سونا", "آرایشگاه مردانه", 
+            "تعمیرات لوازم خانگی", "داروخانه", "لوازم یدکی", 
+            "آموزشگاه زبان", "آموزشگاه موسیقی", "گل فروشی", 
+            "تراشکاری", "شیشه بری"
+        ];
+        
+        // تابع برای ایجاد کارت فروشگاه
+        function createShopCard(shop) {
+            const shopCard = document.createElement('div');
+            shopCard.className = `shop-card ${shop.credit ? 'credit-shop' : ''}`;
+            
+            const walletTags = shop.wallets.map(wallet => 
+                `<span class="wallet-tag">${wallet}</span>`
+            ).join('');
+            
+            const creditBadge = shop.credit ? 
+                `<div class="credit-badge">فروشگاه اعتباری</div>` : '';
+            
+            shopCard.innerHTML = `
+                <div class="shop-header">
+                    <div class="shop-name">${shop.name}</div>
+                    ${creditBadge}
+                </div>
+                <div class="shop-category">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M5.5 7a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5z"/>
+                        <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2zm10-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1z"/>
+                    </svg>
+                    ${shop.category}
+                </div>
+                ${shop.credit && walletTags ? `
+                <div>
+                    <span>پذیرنده: </span>
+                    <div class="shop-wallets">
+                        ${walletTags}
+                    </div>
+                </div>
+                ` : ''}
+                <div class="shop-distance">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
+                    </svg>
+                    فاصله: ${shop.distance}
+                </div>
+            `;
+            
+            return shopCard;
+        }
+        
+        // تابع برای نمایش فروشگاه‌ها
+        function renderShops(filteredShops = shops) {
+            const shopListContainer = document.getElementById('shop-list-container');
+            shopListContainer.innerHTML = '';
+            
+            filteredShops.forEach(shop => {
+                shopListContainer.appendChild(createShopCard(shop));
+            });
+            
+            document.getElementById('shop-count').textContent = filteredShops.length;
+        }
+        
+        // تابع فیلتر کردن فروشگاه‌ها
+        function filterShops() {
+            const city = document.getElementById('city').value;
+            const category = document.getElementById('category').value;
+            const creditFilter = document.getElementById('credit-filter').value;
+            const activeWallet = document.querySelector('.wallet-btn.active').textContent;
+            
+            let filtered = shops;
+            
+            // فیلتر بر اساس دسته‌بندی
+            if (category !== 'all') {
+                const categoryMap = {
+                    'beauty': 'زیبایی و سلامت',
+                    'medical': 'پزشکی و درمانی',
+                    'repair': 'تعمیرات',
+                    'education': 'آموزشی',
+                    'other': 'سایر'
+                };
+                
+                if (categoryMap[category]) {
+                    filtered = filtered.filter(shop => shop.category === categoryMap[category]);
+                }
+            }
+            
+            // فیلتر بر اساس اعتباری بودن
+            if (creditFilter === 'credit-only') {
+                filtered = filtered.filter(shop => shop.credit);
+            }
+            
+            // فیلتر بر اساس کیف پول
+            if (activeWallet !== 'همه') {
+                filtered = filtered.filter(shop => shop.wallets.includes(activeWallet));
+            }
+            
+            renderShops(filtered);
+        }
+        
+        // رویدادها
+        document.addEventListener('DOMContentLoaded', () => {
+            renderShops();
+            
+            // اضافه کردن رویداد به فیلترها
+            document.getElementById('city').addEventListener('change', filterShops);
+            document.getElementById('category').addEventListener('change', filterShops);
+            document.getElementById('credit-filter').addEventListener('change', filterShops);
+            
+            // رویداد برای دکمه‌های کیف پول
+            document.querySelectorAll('.wallet-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.wallet-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    filterShops();
+                });
+            });
+            
+            // رویداد برای دکمه موقعیت‌یابی
+            document.querySelector('.location-btn').addEventListener('click', function() {
+                this.innerHTML = '<span>در حال یافتن موقعیت...</span>';
+                setTimeout(() => {
+                    this.innerHTML = '<span>موقعیت یابی شد</span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></svg>';
+                    
+                    // شبیه‌سازی مرتب‌سازی بر اساس نزدیکی
+                    const sortedShops = [...shops].sort((a, b) => {
+                        const distA = parseFloat(a.distance);
+                        const distB = parseFloat(b.distance);
+                        return distA - distB;
+                    });
+                    
+                    renderShops(sortedShops);
+                    
+                    // بازگرداندن متن دکمه بعد از 2 ثانیه
+                    setTimeout(() => {
+                        this.innerHTML = '<span>نزدیک‌ترین‌ها به من</span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></svg>';
+                    }, 2000);
+                }, 1000);
+            });
+        });
+    </script>
+</body>
+</html>
