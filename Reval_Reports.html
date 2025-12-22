@@ -3,98 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>گزارش درآمد ارائه‌دهندگان خدمات اعتباری</title>
+    <title>گزارش درآمد ارائه‌دهندگان خدمات اعتباری - نسخه نهایی</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700&display=swap');
-        
-        body {
-            font-family: 'Vazirmatn', sans-serif;
-        }
-        
-        .card {
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            margin-bottom: 20px;
-        }
-        
-        .chart-container {
-            position: relative;
-            height: 400px;
-            width: 100%;
-        }
-        
-        .persian-number {
-            font-family: 'Vazirmatn', sans-serif;
-        }
-        
-        .tooltip {
-            position: absolute;
-            background: rgba(0, 0, 0, 0.8);
-            color: white;
-            padding: 5px 10px;
-            border-radius: 5px;
-            font-size: 12px;
-            pointer-events: none;
-            z-index: 100;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-        
-        .btn-primary {
-            background-color: #3B82F6;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 8px;
-            border: none;
-            cursor: pointer;
-            font-weight: 500;
-            transition: background-color 0.3s;
-        }
-        
-        .btn-primary:hover {
-            background-color: #2563EB;
-        }
-        
-        .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 30px 20px;
-            border-radius: 10px;
-            margin-bottom: 30px;
-        }
-        
-        .month-label {
-            font-size: 14px;
-            font-weight: 500;
-        }
-        
-        .prediction-line {
-            border-style: dashed !important;
-            border-width: 2px;
-        }
+        body { font-family: 'Vazirmatn', sans-serif; }
+        .card { background: white; border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); padding: 20px; margin-bottom: 20px; }
+        .chart-container { position: relative; height: 400px; width: 100%; }
+        .btn-primary { background-color: #3B82F6; color: white; padding: 10px 20px; border-radius: 8px; border: none; cursor: pointer; font-weight: 500; transition: background-color 0.3s; }
+        .btn-primary:hover { background-color: #2563EB; }
+        .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px 20px; border-radius: 10px; margin-bottom: 30px; }
+        .prediction-line { border-style: dashed !important; border-width: 2px; }
+        .toggle-btn { background-color: #e5e7eb; border: none; padding: 8px 16px; cursor: pointer; font-weight: 500; }
+        .toggle-btn.active { background-color: #3B82F6; color: white; }
+        .tab-btn { background-color: #f3f4f6; border: none; padding: 10px 20px; cursor: pointer; font-weight: 500; border-radius: 8px 8px 0 0; margin-left: 2px; }
+        .tab-btn.active { background-color: white; color: #3B82F6; border-bottom: 3px solid #3B82F6; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
     </style>
 </head>
 <body class="bg-gray-50">
-    <div class="container mx-auto px-4 py-8">
-        <!-- هدر -->
-        <div class="header">
-            <div class="flex justify-between items-center">
-                <div>
-                    <h1 class="text-2xl font-bold">گزارش درآمد ارائه‌دهندگان خدمات اعتباری</h1>
-                    <p class="mt-2 opacity-90">بررسی و برآورد درآمد محقق شده و در راه</p>
-                </div>
-                <div class="text-left">
-                    <p class="text-lg">تاریخ حال: <span class="font-bold">30 آذر 1402</span></p>
-                    <p class="text-sm opacity-90">بازه شبیه‌سازی: 1 مهر تا 1 اسفند 1402</p>
-                </div>
+<div class="container mx-auto px-4 py-8">
+    
+    <!-- هدر -->
+    <div class="header">
+        <div class="flex justify-between items-center">
+            <div>
+                <h1 class="text-2xl font-bold">پنل گزارشات - پروتوتایپ</h1>
+                <p class="mt-2 opacity-90">مدیریت یکپارچه درآمدهای اعتباری</p>
+            </div>
+            <div class="text-left">
+                <p class="text-lg">تاریخ حال: <span class="font-bold">30 آذر 1402</span></p>
+                <p class="text-sm opacity-90">پایگاه داده: 18 ماه (فروردین 1401 تا شهریور 1403)</p>
             </div>
         </div>
-        
+    </div>
+    
+    <!-- تب‌های اصلی -->
+    <div class="mb-6">
+        <button class="tab-btn active" data-tab="tab1">ورژن اول</button>
+        <button class="tab-btn" data-tab="tab2">ورژن دوم</button>
+    </div>
+    
+    <!-- تب ۱: گزارش‌های اصلی نسخه اول -->
+    <div id="tab1" class="tab-content active">
         <!-- دکمه به‌روزرسانی -->
         <div class="flex justify-end mb-6">
             <button id="refreshBtn" class="btn-primary flex items-center">
@@ -103,10 +57,10 @@
             </button>
         </div>
         
-        <!-- نمودار خطی -->
+        <!-- نمودار خطی درآمد روزانه -->
         <div class="card">
             <h2 class="text-xl font-bold mb-4 text-gray-800">روند روزانه درآمد موفق</h2>
-            <p class="text-gray-600 mb-6">نمودار خطی نمایش‌دهنده مبالغ دریافتی موفق روزانه از 1 مهر تا 30 آذر  </p>
+            <p class="text-gray-600 mb-6">نمودار خطی نمایش‌دهنده مبالغ دریافتی موفق روزانه از 1 مهر تا 30 آذر</p>
             <div class="chart-container">
                 <canvas id="lineChart"></canvas>
             </div>
@@ -122,7 +76,7 @@
             </div>
         </div>
         
-        <!-- نمودار میله‌ای -->
+        <!-- نمودار میله‌ای درآمدهای قابل واریز -->
         <div class="card">
             <h2 class="text-xl font-bold mb-4 text-gray-800">درآمدهای قابل واریز ماهانه</h2>
             <p class="text-gray-600 mb-6">درآمدهای موفق هر ماه که در تاریخ 20 ماه بعد واریز می‌شوند. رنگ پررنگ نشان‌دهنده واریز شده است.</p>
@@ -140,414 +94,755 @@
                 </div>
             </div>
         </div>
+    </div>
+    
+    <!-- تب ۲: گزارش‌های جدید یوزر استوری‌ها -->
+    <div id="tab2" class="tab-content">
+        <!-- گزارش ۱: نمودار تراکنش‌های روزانه -->
+        <div class="card mb-8">
+            <h2 class="text-xl font-bold mb-4 text-gray-800"><i class="fas fa-chart-line ml-2"></i>گزارش روزانه تراکنش‌های موفق و ناموفق</h2>
+            <p class="text-gray-600 mb-6">روند تعداد تراکنش‌های موفق و ناموفق را در طول روزهای یک ماه مشاهده و مقایسه کنید.</p>
+            
+            <div class="flex flex-wrap gap-4 mb-6">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">انتخاب ماه</label>
+                    <select id="monthSelector" class="border border-gray-300 rounded-lg p-2 min-w-[150px]">
+                        <!-- تمام ۱۲ ماه شمسی -->
+                        <option value="0">فروردین</option>
+                        <option value="1">اردیبهشت</option>
+                        <option value="2">خرداد</option>
+                        <option value="3">تیر</option>
+                        <option value="4">مرداد</option>
+                        <option value="5">شهریور</option>
+                        <option value="6">مهر</option>
+                        <option value="7">آبان</option>
+                        <option value="8">آذر</option>
+                        <option value="9">دی</option>
+                        <option value="10">بهمن</option>
+                        <option value="11">اسفند</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">انتخاب سال</label>
+                    <select id="yearSelector1" class="border border-gray-300 rounded-lg p-2 min-w-[150px]">
+                        <option value="1401">۱۴۰۱</option>
+                        <option value="1402" selected>۱۴۰۲</option>
+                        <option value="1403">۱۴۰۳</option>
+                    </select>
+                </div>
+                <div class="flex items-end gap-4">
+                    <label class="flex items-center">
+                        <input type="checkbox" id="toggleSuccessful" class="ml-2 h-5 w-5 text-green-600" checked>
+                        <span class="text-sm font-medium text-gray-700">نمایش تراکنش‌های موفق</span>
+                    </label>
+                    <label class="flex items-center">
+                        <input type="checkbox" id="toggleFailed" class="ml-2 h-5 w-5 text-red-600" checked>
+                        <span class="text-sm font-medium text-gray-700">نمایش تراکنش‌های ناموفق</span>
+                    </label>
+                </div>
+            </div>
+            
+            <div class="chart-container">
+                <canvas id="dailyTransactionsChart"></canvas>
+            </div>
+        </div>
         
-        <!-- توضیحات -->
-        <div class="card">
-            <h3 class="text-lg font-bold mb-3 text-gray-800">نحوه محاسبه و منطق گزارش</h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                    <h4 class="font-bold mb-2 text-blue-600">نمودار خطی:</h4>
-                    <ul class="list-disc pr-5 text-gray-700 space-y-2">
-                        <li>داده‌ها با توزیع نرمال با میانگین 2 میلیون تومان و انحراف معیار 200 هزار تومان تولید شده‌اند</li>
-                        <li>بازه تاریخی: 90 روز از 1 مهر تا 30 آذر 1402</li>
-                        <li>پیش‌بینی: 7 روز آینده (1 تا 7 دی) با خطچین نمایش داده شده است</li>
-                        <li>با هر بار کلیک روی دکمه "به‌روزرسانی داده‌ها"، اعداد تصادفی جدید تولید می‌شوند</li>
-                    </ul>
+        <!-- گزارش ۲: نمودار درآمد ماهانه -->
+        <div class="card mb-8">
+            <h2 class="text-xl font-bold mb-4 text-gray-800"><i class="fas fa-chart-bar ml-2"></i>گزارش مجموع درآمد ماهانه</h2>
+            <p class="text-gray-600 mb-6">مرور درآمد گذشته و پیش‌بینی دریافتی ماه آینده.</p>
+            
+            <div class="mb-6">
+                <label class="block text-sm font-medium text-gray-700 mb-1">انتخاب سال شمسی</label>
+                <select id="yearSelector2" class="border border-gray-300 rounded-lg p-2 min-w-[150px]">
+                    <option value="1401">۱۴۰۱</option>
+                    <option value="1402" selected>۱۴۰۲</option>
+                    <option value="1403">۱۴۰۳</option>
+                </select>
+            </div>
+            
+            <div class="chart-container">
+                <canvas id="monthlyRevenueChart"></canvas>
+            </div>
+            <p class="text-sm text-gray-500 mt-4"><span class="font-medium">نکته:</span> میله نارنجی رنگ نشان‌دهنده پیش‌بینی درآمد <span class="font-medium">ماه آینده</span> است.</p>
+        </div>
+        
+        <!-- گزارش ۳: هیستوگرام کیف پول -->
+        <div class="card mb-8">
+            <h2 class="text-xl font-bold mb-4 text-gray-800"><i class="fas fa-wallet ml-2"></i>هیستوگرام پرداخت بر اساس کیف پول</h2>
+            <p class="text-gray-600 mb-6">بررسی سهم هر کیف پول اعتباری از تراکنش‌ها بر اساس تعداد یا مبلغ.</p>
+            
+            <div class="flex flex-wrap gap-4 mb-6 items-center">
+                <div class="flex border border-gray-300 rounded-lg overflow-hidden">
+                    <button id="toggleCount" class="toggle-btn active">نمایش بر اساس تعداد</button>
+                    <button id="toggleAmount" class="toggle-btn">نمایش بر اساس مبلغ</button>
                 </div>
-                <div>
-                    <h4 class="font-bold mb-2 text-blue-600">نمودار میله‌ای:</h4>
-                    <ul class="list-disc pr-5 text-gray-700 space-y-2">
-                        <li>جمع درآمدهای موفق هر ماه شمسی محاسبه شده است</li>
-                        <li>هر ماه در تاریخ 20 ماه بعد واریز می‌شود (مثلاً درآمد مهر در 20 آبان واریز می‌شود)</li>
-                        <li>رنگ آبی پررنگ: ماه‌هایی که تاریخ واریز آنها گذشته است (مهر و آبان)</li>
-                        <li>رنگ آبی کمرنگ: ماه‌هایی که هنوز تاریخ واریز آنها نرسیده است (آذر تا اسفند)</li>
-                        <li>تاریخ حال: 30 آذر 1402 در نظر گرفته شده است</li>
-                    </ul>
-                </div>
+                <p class="text-sm text-gray-600">(این گزارش بر اساس تمامی تراکنش‌های ثبت‌شده تولید می‌شود)</p>
+            </div>
+            
+            <div class="chart-container">
+                <canvas id="walletHistogramChart"></canvas>
             </div>
         </div>
     </div>
+</div>
 
-    <script>
-        // تنظیمات اولیه
-        const mean = 2000000; // میانگین 2 میلیون تومان
-        const stdDev = 1000000; // انحراف معیار 1 میلیون تومان
-        const historicalDays = 90; // از 1 مهر تا 30 آذر (3 ماه 30 روزه)
-        const predictionDays = 7; // 7 روز آینده
-        const months = ['مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند'];
+<script>
+    // ---------- پیکربندی و داده‌های اولیه ----------
+    const wallets = ['دکترپی', 'اسنپ‌پی', 'دیجی‌پی', 'تارا', 'گرین‌پی', 'زرین‌پلاس'];
+    const persianMonths = ['فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور', 
+                          'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند'];
+    const currentPersianMonth = 8; // آذر = ماه ۸ (شمارش از ۰)
+    const currentYear = 1402;
+    
+    // تنظیمات برای نمودارهای نسخه اول
+    const mean = 2000000;
+    const stdDev = 1000000;
+    const historicalDays = 90;
+    const predictionDays = 7;
+    const payoutMonths = ['مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند'];
+    
+    // شیء اصلی برای ذخیره تمام داده‌های تولیدشده
+    let allTransactionsDB = [];
+    let dailyData = [];
+    let monthlyData = [];
+    let lineChartInstance = null;
+    let barChartInstance = null;
+    let dailyTransactionsChart = null;
+    let monthlyRevenueChart = null;
+    let walletChart = null;
+    let currentWalletView = 'count';
+
+    // ---------- توابع کمکی ----------
+    // تولید عدد تصادفی با توزیع نرمال
+    function generateNormalRandom(mean, stdDev) {
+        let u = 0, v = 0;
+        while(u === 0) u = Math.random();
+        while(v === 0) v = Math.random();
+        let num = Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);
+        return num * stdDev + mean;
+    }
+
+    // انتخاب رندوم کیف‌پول با احتمال بیشتر برای "تارا"
+    function getRandomWallet() {
+        const weightedWallets = [
+            ...Array(10).fill('دکترپی'),
+            ...Array(20).fill('اسنپ‌پی'),
+            ...Array(22).fill('دیجی‌پی'),
+            ...Array(25).fill('تارا'),
+            ...Array(5).fill('گرین‌پی'),
+            ...Array(2).fill('زرین‌پلاس')
+        ];
+        return weightedWallets[Math.floor(Math.random() * weightedWallets.length)];
+    }
+
+    // تولید وضعیت تراکنش: 90% موفق، 10% ناموفق
+    function getRandomStatus() {
+        return Math.random() < 0.9 ? 'success' : 'failed';
+    }
+
+    // تولید داده‌های اولیه برای تمام تراکنش‌ها (18 ماه)
+    function generateAllTransactions() {
+        const transactions = [];
+        const daysInMonth = 30;
+        const totalMonths = 18; // 18 ماه داده
         
-        // تاریخ‌های واریز برای هر ماه (20م ماه بعد)
-        const payoutDates = {
-            'مهر': '20 آبان',
-            'آبان': '20 آذر', 
-            'آذر': '20 دی',
-            'دی': '20 بهمن',
-            'بهمن': '20 اسفند',
-            'اسفند': '20 فروردین'
-        };
-        
-        // وضعیت واریز هر ماه بر اساس تاریخ حال (30 آذر)
-        const payoutStatus = {
-            'مهر': true,   // واریز شده (20 آبان < 30 آذر)
-            'آبان': true,  // واریز شده (20 آذر < 30 آذر)
-            'آذر': true,  // واریز نشده (20 دی > 30 آذر)
-            'دی': false,   // واریز نشده
-            'بهمن': false, // واریز نشده
-            'اسفند': false // واریز نشده
-        };
-        
-        // تولید عدد تصادفی با توزیع نرمال (Box-Muller transform)
-        function generateNormalRandom(mean, stdDev) {
-            let u = 0, v = 0;
-            while(u === 0) u = Math.random();
-            while(v === 0) v = Math.random();
-            let num = Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);
-            return num * stdDev + mean;
-        }
-        
-        // تولید داده‌های روزانه
-        function generateDailyData(days) {
-            const data = [];
-            for(let i = 0; i < days; i++) {
-                // تولید عدد تصادفی با توزیع نرمال
-                let randomValue = generateNormalRandom(mean, stdDev);
-                
-                // جلوگیری از اعداد منفی
-                if(randomValue < 0) randomValue = mean * 0.1;
-                
-                data.push(Math.round(randomValue));
-            }
-            return data;
-        }
-        
-        // محاسبه درآمد ماهانه از داده‌های روزانه
-        function calculateMonthlyData(dailyData) {
-            const monthlyData = [];
+        for(let monthOffset = 0; monthOffset < totalMonths; monthOffset++) {
+            const currentMonth = monthOffset % 12;
+            const year = 1401 + Math.floor(monthOffset / 12);
             
-            // هر ماه 30 روز است
-            for(let month = -1; month < 6; month++) {
-                let monthlySum = 0;
-                const startIdx = month * 30;
-                const endIdx = startIdx + 30;
+            for(let day = 1; day <= daysInMonth; day++) {
+                // تعداد تراکنش روز (بین ۵ تا ۱۵)
+                const dailyCount = 5 + Math.floor(Math.random() * 10);
                 
-                // اگر داده کافی وجود دارد، جمع بزن
-                if(startIdx < dailyData.length) {
-                    const actualEndIdx = Math.min(endIdx, dailyData.length);
-                    for(let i = startIdx; i < actualEndIdx; i++) {
-                        monthlySum += dailyData[i];
-                    }
+                for(let i = 0; i < dailyCount; i++) {
+                    const wallet = getRandomWallet();
+                    const status = getRandomStatus();
+                    const amount = Math.max(10000, generateNormalRandom(mean, stdDev));
                     
-                    // اگر داده کافی نداریم، برای روزهای باقیمانده میانگین بگیر
-                    if(actualEndIdx < endIdx) {
-                        const remainingDays = endIdx - actualEndIdx;
-                        const avg = monthlySum / (actualEndIdx - startIdx);
-                        monthlySum += avg * remainingDays;
+                    transactions.push({
+                        id: transactions.length + 1,
+                        date: { year, month: currentMonth, day },
+                        wallet: wallet,
+                        status: status,
+                        amount: Math.round(amount),
+                        timestamp: new Date().getTime() - (monthOffset * 30 + (day-1)) * 24 * 60 * 60 * 1000
+                    });
+                }
+            }
+        }
+        return transactions;
+    }
+
+    // تولید داده‌های روزانه برای نمودارهای نسخه اول
+    function generateDailyDataForVersion1(days) {
+        const data = [];
+        for(let i = 0; i < days; i++) {
+            let randomValue = generateNormalRandom(mean, stdDev);
+            if(randomValue < 0) randomValue = mean * 0.1;
+            data.push(Math.round(randomValue));
+        }
+        return data;
+    }
+
+    // محاسبه درآمد ماهانه از داده‌های روزانه برای نسخه اول
+    function calculateMonthlyDataForVersion1(dailyData) {
+        const monthlyData = [];
+        for(let month = 0; month < 6; month++) {
+            let monthlySum = 0;
+            const startIdx = month * 30;
+            const endIdx = startIdx + 30;
+            
+            if(startIdx < dailyData.length) {
+                const actualEndIdx = Math.min(endIdx, dailyData.length);
+                for(let i = startIdx; i < actualEndIdx; i++) {
+                    monthlySum += dailyData[i];
+                }
+                
+                if(actualEndIdx < endIdx) {
+                    const remainingDays = endIdx - actualEndIdx;
+                    const avg = monthlySum / (actualEndIdx - startIdx);
+                    monthlySum += avg * remainingDays;
+                }
+            }
+            monthlyData.push(Math.round(monthlySum));
+        }
+        return monthlyData;
+    }
+
+    // تولید برچسب‌های روز برای نمودار خطی نسخه اول
+    function generateDayLabels(historicalDays, predictionDays) {
+        const labels = [];
+        const months = ['مهر', 'آبان', 'آذر'];
+        
+        for(let i = 1; i <= historicalDays; i++) {
+            let dayInMonth = i % 30;
+            if(dayInMonth === 0) dayInMonth = 30;
+            const monthIndex = Math.floor((i - 1) / 30);
+            
+            if(dayInMonth === 1 || dayInMonth === 15 || dayInMonth === 30) {
+                labels.push(`${dayInMonth} ${months[monthIndex]}`);
+            } else {
+                labels.push('');
+            }
+        }
+        
+        for(let i = 1; i <= predictionDays; i++) {
+            if(i === 1 || i === 4 || i === 7) {
+                labels.push(`${i} دی`);
+            } else {
+                labels.push('');
+            }
+        }
+        
+        return labels;
+    }
+
+    // فیلتر تراکنش‌ها بر اساس ماه و سال انتخابی
+    function getTransactionsForMonth(year, month) {
+        return allTransactionsDB.filter(t => 
+            t.date.year === year && t.date.month === month
+        );
+    }
+
+    // فرمت کردن اعداد به صورت مالی
+    function formatCurrency(value) {
+        return new Intl.NumberFormat('fa-IR').format(value) + ' تومان';
+    }
+
+    // فرمت کوتاه اعداد
+    function formatShortCurrency(value) {
+        if(value >= 1000000000) {
+            return (value / 1000000000).toFixed(1) + ' میلیارد';
+        } else if(value >= 1000000) {
+            return (value / 1000000).toFixed(1) + ' میلیون';
+        } else if(value >= 1000) {
+            return (value / 1000).toFixed(1) + ' هزار';
+        }
+        return value.toString();
+    }
+
+    // ---------- نمودارهای نسخه اول ----------
+    function initializeVersion1Data() {
+        dailyData = generateDailyDataForVersion1(historicalDays + predictionDays);
+        monthlyData = calculateMonthlyDataForVersion1(dailyData.slice(0, historicalDays));
+        createVersion1Charts();
+    }
+
+    function createLineChart() {
+        const ctx = document.getElementById('lineChart').getContext('2d');
+        
+        const historicalData = dailyData.slice(0, historicalDays);
+        const predictionData = dailyData.slice(historicalDays, historicalDays + predictionDays);
+        const allData = [...historicalData, ...predictionData];
+        
+        const backgroundColors = [];
+        const borderColors = [];
+        
+        for(let i = 0; i < historicalDays; i++) {
+            backgroundColors.push('rgba(59, 130, 246, 0.1)');
+            borderColors.push('rgba(59, 130, 246, 1)');
+        }
+        
+        for(let i = 0; i < predictionDays; i++) {
+            backgroundColors.push('rgba(59, 130, 246, 0.05)');
+            borderColors.push('rgba(59, 130, 246, 0.7)');
+        }
+        
+        if(lineChartInstance) lineChartInstance.destroy();
+        
+        lineChartInstance = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: generateDayLabels(historicalDays, predictionDays),
+                datasets: [{
+                    label: 'درآمد روزانه',
+                    data: allData,
+                    backgroundColor: backgroundColors,
+                    borderColor: borderColors,
+                    borderWidth: 2,
+                    pointRadius: 3,
+                    pointBackgroundColor: borderColors,
+                    fill: true,
+                    tension: 0.2,
+                    borderDash: (ctx) => {
+                        const index = ctx.dataIndex;
+                        return index >= historicalDays ? [5, 5] : [];
                     }
-                }
-                
-                monthlyData.push(Math.round(monthlySum));
-            }
-            
-            return monthlyData;
-        }
-        
-        // تولید برچسب‌های روز برای نمودار خطی
-        function generateDayLabels(historicalDays, predictionDays) {
-            const labels = [];
-            
-            // برچسب‌های تاریخی (1 مهر تا 30 آذر)
-            for(let i = 1; i <= historicalDays; i++) {
-                // محاسبه روز و ماه
-                let dayInMonth = i % 30;
-                if(dayInMonth === 0) dayInMonth = 30;
-                
-                const monthIndex = Math.floor((i - 1) / 30);
-                
-                if(dayInMonth === 1 || dayInMonth === 15 || dayInMonth === 30) {
-                    labels.push(`${dayInMonth} ${months[monthIndex]}`);
-                } else {
-                    labels.push('');
-                }
-            }
-            
-            // برچسب‌های پیش‌بینی (1 دی تا 7 دی)
-            // for(let i = 1; i <= predictionDays; i++) {
-            //     if(i === 1 || i === 4 || i === 7) {
-            //         labels.push(`${i} دی`);
-            //     } else {
-            //         labels.push('');
-            //     }
-            // }
-            
-            return labels;
-        }
-        
-        // فرمت کردن اعداد به صورت مالی
-        function formatCurrency(value) {
-            return new Intl.NumberFormat('fa-IR').format(value) + ' تومان';
-        }
-        
-        // فرمت کوتاه اعداد
-        function formatShortCurrency(value) {
-            if(value >= 1000000000) {
-                return (value / 1000000000).toFixed(1) + ' میلیارد';
-            } else if(value >= 1000000) {
-                return (value / 1000000).toFixed(1) + ' میلیون';
-            } else if(value >= 1000) {
-                return (value / 1000).toFixed(1) + ' هزار';
-            }
-            return value.toString();
-        }
-        
-        // متغیرهای جهانی برای نگهداری داده‌ها و نمودارها
-        let dailyData = [];
-        let monthlyData = [];
-        let lineChartInstance = null;
-        let barChartInstance = null;
-        
-        // مقداردهی اولیه و تولید داده
-        function initializeData() {
-            // تولید داده روزانه برای 97 روز (90 روز تاریخی + 7 روز پیش‌بینی)
-            dailyData = generateDailyData(historicalDays + predictionDays);
-            
-            // محاسبه داده ماهانه از 90 روز اول (6 ماه)
-            monthlyData = calculateMonthlyData(dailyData.slice(0, historicalDays));
-            
-            // ایجاد نمودارها
-            createCharts();
-        }
-        
-        // ایجاد نمودار خطی
-        function createLineChart() {
-            const ctx = document.getElementById('lineChart').getContext('2d');
-            
-            // جداسازی داده‌های تاریخی و پیش‌بینی
-            const historicalData = dailyData.slice(0, historicalDays);
-            const predictionData = dailyData.slice(historicalDays, historicalDays + predictionDays);
-            
-            // ایجاد آرایه داده کامل برای نمودار
-            const allData = [...historicalData, ...predictionData];
-            
-            // ایجاد آرایه رنگ‌ها
-            const backgroundColors = [];
-            const borderColors = [];
-            
-            // رنگ‌بندی برای داده‌های تاریخی
-            for(let i = 0; i < historicalDays; i++) {
-                backgroundColors.push('rgba(59, 130, 246, 0.1)');
-                borderColors.push('rgba(59, 130, 246, 1)');
-            }
-            
-            // رنگ‌بندی برای داده‌های پیش‌بینی
-            for(let i = 0; i < predictionDays; i++) {
-                backgroundColors.push('rgba(59, 130, 246, 0.05)');
-                borderColors.push('rgba(59, 130, 246, 0.7)');
-            }
-            
-            if(lineChartInstance) {
-                lineChartInstance.destroy();
-            }
-            
-            lineChartInstance = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: generateDayLabels(historicalDays, predictionDays),
-                    datasets: [{
-                        label: 'درآمد روزانه',
-                        data: allData,
-                        backgroundColor: backgroundColors,
-                        borderColor: borderColors,
-                        borderWidth: 2,
-                        pointRadius: 3,
-                        pointBackgroundColor: borderColors,
-                        fill: true,
-                        tension: 0.2,
-                        // تنظیم خطچین برای بخش پیش‌بینی
-                        borderDash: (ctx) => {
-                            const index = ctx.dataIndex;
-                            return index >= historicalDays ? [5, 5] : [];
-                        }
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        x: {
-                            grid: {
-                                display: true,
-                                color: 'rgba(0, 0, 0, 0.05)'
-                            },
-                            ticks: {
-                                maxRotation: 0,
-                                autoSkip: false,
-                                callback: function(value, index, values) {
-                                    return this.getLabelForValue(index);
-                                }
-                            }
-                        },
-                        y: {
-                            beginAtZero: true,
-                            grid: {
-                                display: true,
-                                color: 'rgba(0, 0, 0, 0.05)'
-                            },
-                            ticks: {
-                                callback: function(value) {
-                                    return formatShortCurrency(value);
-                                }
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        grid: { display: true, color: 'rgba(0, 0, 0, 0.05)' },
+                        ticks: {
+                            maxRotation: 0,
+                            autoSkip: false,
+                            callback: function(value, index, values) {
+                                return this.getLabelForValue(index);
                             }
                         }
                     },
-                    plugins: {
-                        legend: {
-                            display: false
-                        },
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    let label = 'درآمد: ' + formatCurrency(context.parsed.y);
-                                    
-                                    // تعیین نوع داده (تاریخی یا پیش‌بینی)
-                                    if(context.dataIndex < historicalDays) {
-                                        label += ' (داده تاریخی)';
-                                    } else {
-                                        label += ' (پیش‌بینی)';
-                                    }
-                                    
-                                    return label;
-                                }
-                            }
-                        }
+                    y: {
+                        beginAtZero: true,
+                        grid: { display: true, color: 'rgba(0, 0, 0, 0.05)' },
+                        ticks: { callback: function(value) { return formatShortCurrency(value); } }
                     }
-                }
-            });
-        }
-        
-        // ایجاد نمودار میله‌ای
-        function createBarChart() {
-            const ctx = document.getElementById('barChart').getContext('2d');
-            
-            // ایجاد آرایه رنگ‌ها بر اساس وضعیت واریز
-            const backgroundColors = months.map(month => {
-                return payoutStatus[month] ? 'rgba(59, 130, 246, 0.8)' : 'rgba(147, 197, 253, 0.8)';
-            });
-            
-            const borderColors = months.map(month => {
-                return payoutStatus[month] ? 'rgba(59, 130, 246, 1)' : 'rgba(147, 197, 253, 1)';
-            });
-            
-            if(barChartInstance) {
-                barChartInstance.destroy();
-            }
-            
-            barChartInstance = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: months,
-                    datasets: [{
-                        label: 'درآمد ماهانه',
-                        data: monthlyData,
-                        backgroundColor: backgroundColors,
-                        borderColor: borderColors,
-                        borderWidth: 1
-                    }]
                 },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        x: {
-                            grid: {
-                                display: false
-                            }
-                        },
-                        y: {
-                            beginAtZero: true,
-                            grid: {
-                                display: true,
-                                color: 'rgba(0, 0, 0, 0.05)'
-                            },
-                            ticks: {
-                                callback: function(value) {
-                                    return formatShortCurrency(value);
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let label = 'درآمد: ' + formatCurrency(context.parsed.y);
+                                if(context.dataIndex < historicalDays) {
+                                    label += ' (داده تاریخی)';
+                                } else {
+                                    label += ' (پیش‌بینی)';
                                 }
+                                return label;
                             }
                         }
+                    }
+                }
+            }
+        });
+    }
+
+    function createBarChart() {
+        const ctx = document.getElementById('barChart').getContext('2d');
+        
+        const payoutStatus = {
+            'مهر': true, 'آبان': true, 'آذر': true,
+            'دی': false, 'بهمن': false, 'اسفند': false
+        };
+        
+        const backgroundColors = payoutMonths.map(month => {
+            return payoutStatus[month] ? 'rgba(59, 130, 246, 0.8)' : 'rgba(147, 197, 253, 0.8)';
+        });
+        
+        const borderColors = payoutMonths.map(month => {
+            return payoutStatus[month] ? 'rgba(59, 130, 246, 1)' : 'rgba(147, 197, 253, 1)';
+        });
+        
+        if(barChartInstance) barChartInstance.destroy();
+        
+        barChartInstance = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: payoutMonths,
+                datasets: [{
+                    label: 'درآمد ماهانه',
+                    data: monthlyData,
+                    backgroundColor: backgroundColors,
+                    borderColor: borderColors,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: { grid: { display: false } },
+                    y: {
+                        beginAtZero: true,
+                        grid: { display: true, color: 'rgba(0, 0, 0, 0.05)' },
+                        ticks: { callback: function(value) { return formatShortCurrency(value); } }
+                    }
+                },
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const month = payoutMonths[context.dataIndex];
+                                let label = 'درآمد ماه ' + month + ': ' + formatCurrency(context.parsed.y);
+                                label += '\nوضعیت: ' + (payoutStatus[month] ? 'واریز شده' : 'در انتظار واریز');
+                                return label;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    function createVersion1Charts() {
+        createLineChart();
+        createBarChart();
+    }
+
+    // ---------- نمودارهای نسخه دوم ----------
+    function renderDailyTransactionsChart(selectedYear, selectedMonth) {
+        const ctx = document.getElementById('dailyTransactionsChart').getContext('2d');
+        const transactions = getTransactionsForMonth(parseInt(selectedYear), parseInt(selectedMonth));
+        
+        const daysInMonth = 30;
+        const successfulData = new Array(daysInMonth).fill(0);
+        const failedData = new Array(daysInMonth).fill(0);
+        const dayLabels = [];
+        
+        for(let day = 1; day <= daysInMonth; day++) {
+            dayLabels.push(day);
+            const dayTransactions = transactions.filter(t => t.date.day === day);
+            successfulData[day-1] = dayTransactions.filter(t => t.status === 'success').length;
+            failedData[day-1] = dayTransactions.filter(t => t.status === 'failed').length;
+        }
+        
+        const chartData = {
+            labels: dayLabels,
+            datasets: [
+                {
+                    label: 'تراکنش‌های موفق',
+                    data: successfulData,
+                    borderColor: '#10b981',
+                    backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                    tension: 0.2,
+                    pointRadius: 4,
+                    fill: true
+                },
+                {
+                    label: 'تراکنش‌های ناموفق',
+                    data: failedData,
+                    borderColor: '#ef4444',
+                    backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                    tension: 0.2,
+                    pointRadius: 4,
+                    fill: true
+                }
+            ]
+        };
+        
+        if(dailyTransactionsChart) dailyTransactionsChart.destroy();
+        
+        dailyTransactionsChart = new Chart(ctx, {
+            type: 'line',
+            data: chartData,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        title: { display: true, text: 'روز ماه' },
+                        ticks: { callback: function(value) { return value + ''; } }
                     },
-                    plugins: {
-                        legend: {
-                            display: false
-                        },
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    const month = months[context.dataIndex];
-                                    let label = 'درآمد ماه ' + month + ': ' + formatCurrency(context.parsed.y);
-                                    label += '\nتاریخ واریز: ' + payoutDates[month];
-                                    label += '\nوضعیت: ' + (payoutStatus[month] ? 'واریز شده' : 'در انتظار واریز');
-                                    return label;
+                    y: {
+                        beginAtZero: true,
+                        title: { display: true, text: 'تعداد تراکنش' },
+                        ticks: { callback: function(value) { return value.toLocaleString('fa-IR'); } }
+                    }
+                },
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.dataset.label || '';
+                                if (label) label += ': ';
+                                label += context.parsed.y.toLocaleString('fa-IR') + ' تراکنش';
+                                return label;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    function renderMonthlyRevenueChart(selectedYear) {
+        const ctx = document.getElementById('monthlyRevenueChart').getContext('2d');
+        const year = parseInt(selectedYear);
+        
+        const monthlyRevenue = [];
+        const backgroundColors = [];
+        
+        // تعیین ماه آینده (اگر سال انتخابی همان سال جاری باشد)
+        const nextMonthIndex = (year === currentYear) ? (currentPersianMonth + 1) % 12 : -1;
+        
+        for(let month = 0; month < 12; month++) {
+            const monthTransactions = allTransactionsDB.filter(t => 
+                t.date.year === year && 
+                t.date.month === month &&
+                t.status === 'success'
+            );
+            
+            const totalRevenue = monthTransactions.reduce((sum, t) => sum + t.amount, 0);
+            monthlyRevenue.push(totalRevenue);
+            
+            // رنگ‌آمیزی متفاوت برای ماه آینده
+            backgroundColors.push(month === nextMonthIndex ? '#f59e0b' : '#3b82f6');
+        }
+        
+        if(monthlyRevenueChart) monthlyRevenueChart.destroy();
+        
+        monthlyRevenueChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: persianMonths,
+                datasets: [{
+                    label: 'درآمد (تومان)',
+                    data: monthlyRevenue,
+                    backgroundColor: backgroundColors,
+                    borderColor: backgroundColors.map(c => c.replace('0.8', '1')),
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                if(value >= 1000000000) return (value/1000000000).toFixed(1) + ' میلیارد';
+                                if(value >= 1000000) return (value/1000000).toFixed(1) + ' میلیون';
+                                return value.toLocaleString('fa-IR');
+                            }
+                        }
+                    }
+                },
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return `درآمد: ${context.parsed.y.toLocaleString('fa-IR')} تومان`;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    function renderWalletHistogram(viewType) {
+        const ctx = document.getElementById('walletHistogramChart').getContext('2d');
+        currentWalletView = viewType;
+        
+        const walletStats = {};
+        wallets.forEach(wallet => {
+            const walletTransactions = allTransactionsDB.filter(t => t.wallet === wallet);
+            walletStats[wallet] = {
+                count: walletTransactions.length,
+                amount: walletTransactions.reduce((sum, t) => sum + t.amount, 0)
+            };
+        });
+        
+        const data = wallets.map(wallet => 
+            viewType === 'count' ? walletStats[wallet].count : walletStats[wallet].amount
+        );
+        
+        const backgroundColors = [
+            'rgba(59, 130, 246, 0.7)',
+            'rgba(16, 185, 129, 0.7)',
+            'rgba(245, 158, 11, 0.7)',
+            'rgba(139, 92, 246, 0.7)',
+            'rgba(239, 68, 68, 0.7)',
+            'rgba(6, 182, 212, 0.7)'
+        ];
+        
+        if(walletChart) walletChart.destroy();
+        
+        walletChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: wallets,
+                datasets: [{
+                    label: viewType === 'count' ? 'تعداد تراکنش' : 'مجموع مبلغ (تومان)',
+                    data: data,
+                    backgroundColor: backgroundColors,
+                    borderColor: backgroundColors.map(c => c.replace('0.7', '1')),
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                if(viewType === 'amount') {
+                                    if(value >= 1000000000) return (value/1000000000).toFixed(1) + ' میلیارد';
+                                    if(value >= 1000000) return (value/1000000).toFixed(1) + ' میلیون';
+                                }
+                                return value.toLocaleString('fa-IR');
+                            }
+                        }
+                    }
+                },
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const value = context.parsed.y;
+                                const wallet = wallets[context.dataIndex];
+                                if(viewType === 'count') {
+                                    return `${wallet}: ${value.toLocaleString('fa-IR')} تراکنش`;
+                                } else {
+                                    return `${wallet}: ${value.toLocaleString('fa-IR')} تومان`;
                                 }
                             }
                         }
                     }
                 }
+            }
+        });
+    }
+
+    // ---------- مدیریت تب‌ها ----------
+    function setupTabs() {
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+        
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const tabId = this.getAttribute('data-tab');
+                
+                // غیرفعال کردن همه تب‌ها
+                tabBtns.forEach(b => b.classList.remove('active'));
+                tabContents.forEach(c => c.classList.remove('active'));
+                
+                // فعال کردن تب انتخاب شده
+                this.classList.add('active');
+                document.getElementById(tabId).classList.add('active');
             });
+        });
+    }
+
+    // ---------- راه‌اندازی اولیه ----------
+    document.addEventListener('DOMContentLoaded', function() {
+        // تولید داده‌های اولیه
+        allTransactionsDB = generateAllTransactions();
+        
+        // راه‌اندازی تب‌ها
+        setupTabs();
+        
+        // راه‌اندازی نسخه اول
+        initializeVersion1Data();
+        
+        // راه‌اندازی نسخه دوم
+        const monthSelector = document.getElementById('monthSelector');
+        const yearSelector1 = document.getElementById('yearSelector1');
+        const yearSelector2 = document.getElementById('yearSelector2');
+        const toggleSuccessful = document.getElementById('toggleSuccessful');
+        const toggleFailed = document.getElementById('toggleFailed');
+        const toggleCountBtn = document.getElementById('toggleCount');
+        const toggleAmountBtn = document.getElementById('toggleAmount');
+        
+        // تابع به‌روزرسانی نمودار روزانه
+        function updateDailyChart() {
+            const selectedYear = yearSelector1.value;
+            const selectedMonth = parseInt(monthSelector.value);
+            renderDailyTransactionsChart(selectedYear, selectedMonth);
+            
+            if(dailyTransactionsChart) {
+                dailyTransactionsChart.data.datasets[0].hidden = !toggleSuccessful.checked;
+                dailyTransactionsChart.data.datasets[1].hidden = !toggleFailed.checked;
+                dailyTransactionsChart.update();
+            }
         }
         
-        // ایجاد هر دو نمودار
-        function createCharts() {
-            createLineChart();
-            createBarChart();
-        }
+        // تنظیم رویدادها برای نسخه دوم
+        monthSelector.addEventListener('change', updateDailyChart);
+        yearSelector1.addEventListener('change', updateDailyChart);
+        toggleSuccessful.addEventListener('change', updateDailyChart);
+        toggleFailed.addEventListener('change', updateDailyChart);
         
-        // رویداد کلیک برای دکمه به‌روزرسانی
+        yearSelector2.addEventListener('change', function() {
+            renderMonthlyRevenueChart(this.value);
+        });
+        
+        toggleCountBtn.addEventListener('click', function() {
+            toggleCountBtn.classList.add('active');
+            toggleAmountBtn.classList.remove('active');
+            renderWalletHistogram('count');
+        });
+        
+        toggleAmountBtn.addEventListener('click', function() {
+            toggleAmountBtn.classList.add('active');
+            toggleCountBtn.classList.remove('active');
+            renderWalletHistogram('amount');
+        });
+        
+        // تنظیم رویداد برای دکمه به‌روزرسانی نسخه اول
         document.getElementById('refreshBtn').addEventListener('click', function() {
-            // نمایش انیمیشن روی دکمه
             const btn = this;
             const originalHtml = btn.innerHTML;
             btn.innerHTML = '<i class="fas fa-spinner fa-spin ml-2"></i> در حال به‌روزرسانی...';
             btn.disabled = true;
             
-            // تولید داده‌های جدید
             setTimeout(() => {
-                dailyData = generateDailyData(historicalDays + predictionDays);
-                monthlyData = calculateMonthlyData(dailyData.slice(0, historicalDays));
+                dailyData = generateDailyDataForVersion1(historicalDays + predictionDays);
+                monthlyData = calculateMonthlyDataForVersion1(dailyData.slice(0, historicalDays));
+                createVersion1Charts();
                 
-                // به‌روزرسانی نمودارها
-                createCharts();
-                
-                // بازگرداندن دکمه به حالت عادی
                 btn.innerHTML = originalHtml;
                 btn.disabled = false;
-                
-                // نمایش پیام موفقیت
-                showToast('داده‌ها با موفقیت به‌روزرسانی شدند');
+                showToast('داده‌های نسخه اول با موفقیت به‌روزرسانی شدند');
             }, 500);
         });
         
-        // نمایش پیام toast
-        function showToast(message) {
-            // حذف toast قبلی اگر وجود دارد
-            const existingToast = document.querySelector('.toast-message');
-            if(existingToast) {
-                existingToast.remove();
-            }
-            
-            // ایجاد عنصر toast
-            const toast = document.createElement('div');
-            toast.className = 'toast-message fixed bottom-4 left-4 bg-green-500 text-white px-4 py-3 rounded-lg shadow-lg z-50';
-            toast.textContent = message;
-            document.body.appendChild(toast);
-            
-            // حذف خودکار بعد از 3 ثانیه
-            setTimeout(() => {
-                toast.remove();
-            }, 3000);
-        }
+        // رندر اولیه نمودارهای نسخه دوم
+        updateDailyChart();
+        renderMonthlyRevenueChart(currentYear);
+        renderWalletHistogram('count');
+    });
+
+    // نمایش پیام toast
+    function showToast(message) {
+        const existingToast = document.querySelector('.toast-message');
+        if(existingToast) existingToast.remove();
         
-        // مقداردهی اولیه هنگام بارگذاری صفحه
-        document.addEventListener('DOMContentLoaded', initializeData);
-    </script>
+        const toast = document.createElement('div');
+        toast.className = 'toast-message fixed bottom-4 left-4 bg-green-500 text-white px-4 py-3 rounded-lg shadow-lg z-50';
+        toast.textContent = message;
+        document.body.appendChild(toast);
+        
+        setTimeout(() => { toast.remove(); }, 3000);
+    }
+</script>
 </body>
 </html>
