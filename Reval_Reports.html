@@ -35,8 +35,8 @@
                 <p class="mt-2 opacity-90">مدیریت یکپارچه درآمدهای اعتباری</p>
             </div>
             <div class="text-left">
-                <p class="text-lg">تاریخ حال: <span class="font-bold">30 آذر 1402</span></p>
-                <p class="text-sm opacity-90">پایگاه داده: 18 ماه (فروردین 1401 تا شهریور 1403)</p>
+                <!-- <p class="text-lg">تاریخ حال: <span class="font-bold">1 مهر 1402</span></p>
+                <p class="text-sm opacity-90">پایگاه داده: 18 ماه (فروردین 1401 تا شهریور 1403)</p> -->
             </div>
         </div>
     </div>
@@ -70,8 +70,8 @@
                     <span>داده‌های واقعی (1 مهر تا 30 آذر)</span>
                 </div>
                 <div class="flex items-center">
-                    <div class="w-4 h-1 border-dashed border-blue-500 border ml-2"></div>
-                    <span>پیش‌بینی 7 روز آینده</span>
+                    <!-- <div class="w-4 h-1 border-dashed border-blue-500 border ml-2"></div> -->
+                    <!-- <span>پیش‌بینی 7 روز آینده</span> -->
                 </div>
             </div>
         </div>
@@ -277,7 +277,7 @@
     // تولید داده‌های روزانه برای نمودارهای نسخه اول
     function generateDailyDataForVersion1(days) {
         const data = [];
-        for(let i = 0; i < days; i++) {
+        for(let i = 0; i < days-7; i++) {
             let randomValue = generateNormalRandom(mean, stdDev);
             if(randomValue < 0) randomValue = mean * 0.1;
             data.push(Math.round(randomValue));
@@ -288,7 +288,7 @@
     // محاسبه درآمد ماهانه از داده‌های روزانه برای نسخه اول
     function calculateMonthlyDataForVersion1(dailyData) {
         const monthlyData = [];
-        for(let month = 0; month < 6; month++) {
+        for(let month = -1; month < 6; month++) {
             let monthlySum = 0;
             const startIdx = month * 30;
             const endIdx = startIdx + 30;
@@ -320,20 +320,20 @@
             if(dayInMonth === 0) dayInMonth = 30;
             const monthIndex = Math.floor((i - 1) / 30);
             
-            if(dayInMonth === 1 || dayInMonth === 15 || dayInMonth === 30) {
+            if(dayInMonth === 15 || dayInMonth === 30) {
                 labels.push(`${dayInMonth} ${months[monthIndex]}`);
             } else {
                 labels.push('');
             }
         }
         
-        for(let i = 1; i <= predictionDays; i++) {
-            if(i === 1 || i === 4 || i === 7) {
-                labels.push(`${i} دی`);
-            } else {
-                labels.push('');
-            }
-        }
+        // for(let i = 1; i <= predictionDays; i++) {
+        //     if(i === 1 || i === 4 || i === 7) {
+        //         labels.push(`${i} دی`);
+        //     } else {
+        //         labels.push('');
+        //     }
+        // }
         
         return labels;
     }
