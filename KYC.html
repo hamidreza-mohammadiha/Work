@@ -1,0 +1,1243 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سامانه احراز هویت و دریافت اعتبار</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css">
+    <style>
+        :root {
+            --primary: #31694E;
+            --secondary: #658C58;
+            --tertiary: #BBC863;
+            --background: #F0E491;
+            --white: #FFFFFF;
+            --gray-light: #F5F5F5;
+            --gray: #E0E0E0;
+            --gray-dark: #757575;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --radius: 8px;
+            --transition: 0.3s ease;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Vazir, sans-serif;
+            background-color: var(--background);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 16px;
+            direction: rtl;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: var(--white);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            min-height: 90vh;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(to left, var(--primary), var(--secondary));
+            color: var(--white);
+            padding: 24px;
+            text-align: center;
+            position: relative;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .progress-container {
+            margin-top: 24px;
+            position: relative;
+        }
+
+        .progress-bar {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            margin-bottom: 16px;
+        }
+
+        .progress-bar::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: 0;
+            left: 0;
+            height: 4px;
+            background-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-50%);
+            z-index: 1;
+        }
+
+        .progress-line {
+            position: absolute;
+            top: 50%;
+            right: 0;
+            height: 4px;
+            background-color: var(--tertiary);
+            transform: translateY(-50%);
+            z-index: 2;
+            transition: var(--transition);
+        }
+
+        .step {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-weight: bold;
+            position: relative;
+            z-index: 3;
+            transition: var(--transition);
+        }
+
+        .step.active {
+            background-color: var(--tertiary);
+            color: var(--primary);
+            transform: scale(1.1);
+        }
+
+        .step.completed {
+            background-color: var(--tertiary);
+            color: var(--primary);
+        }
+
+        .step-label {
+            position: absolute;
+            top: 40px;
+            font-size: 12px;
+            width: 80px;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .step-label.active {
+            color: var(--tertiary);
+            font-weight: bold;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 32px;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .step-content {
+            flex-grow: 1;
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .step-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .step-title {
+            color: var(--primary);
+            margin-bottom: 24px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--gray);
+            font-size: 20px;
+        }
+
+        /* Form Elements */
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--primary);
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--gray);
+            border-radius: var(--radius);
+            font-family: Vazir, sans-serif;
+            font-size: 16px;
+            transition: var(--transition);
+            background-color: var(--white);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 2px rgba(101, 140, 88, 0.2);
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: var(--radius);
+            font-family: Vazir, sans-serif;
+            font-size: 16px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--secondary);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .btn-primary:disabled {
+            background-color: var(--gray-dark);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .btn-secondary {
+            background-color: var(--gray);
+            color: var(--gray-dark);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--gray-dark);
+            color: var(--white);
+        }
+
+        .otp-container {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin: 24px 0;
+        }
+
+        .otp-input {
+            width: 50px;
+            height: 60px;
+            text-align: center;
+            font-size: 24px;
+            border: 2px solid var(--gray);
+            border-radius: var(--radius);
+            font-family: Vazir, sans-serif;
+        }
+
+        .otp-input:focus {
+            border-color: var(--secondary);
+            outline: none;
+        }
+
+        /* Canvas for signature */
+        .signature-container {
+            border: 2px dashed var(--gray);
+            border-radius: var(--radius);
+            padding: 16px;
+            margin-bottom: 24px;
+        }
+
+        .signature-canvas {
+            width: 100%;
+            height: 200px;
+            background-color: var(--white);
+            border: 1px solid var(--gray);
+            border-radius: var(--radius);
+            cursor: crosshair;
+            display: block;
+            touch-action: none;
+        }
+
+        .signature-controls {
+            display: flex;
+            gap: 12px;
+            margin-top: 12px;
+        }
+
+        /* Checkbox */
+        .checkbox-container {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 24px;
+            padding: 16px;
+            background-color: var(--gray-light);
+            border-radius: var(--radius);
+        }
+
+        .checkbox-container input {
+            margin-left: 12px;
+            margin-top: 4px;
+        }
+
+        /* Success/Error messages */
+        .message {
+            padding: 16px;
+            border-radius: var(--radius);
+            margin-bottom: 24px;
+            display: none;
+        }
+
+        .message.success {
+            background-color: rgba(49, 105, 78, 0.1);
+            border-right: 4px solid var(--primary);
+            color: var(--primary);
+            display: block;
+        }
+
+        .message.error {
+            background-color: rgba(255, 0, 0, 0.1);
+            border-right: 4px solid #ff0000;
+            color: #cc0000;
+        }
+
+        .message.info {
+            background-color: rgba(187, 200, 99, 0.1);
+            border-right: 4px solid var(--tertiary);
+            color: var(--primary);
+        }
+
+        .message.pending {
+            background-color: rgba(240, 228, 145, 0.3);
+            border-right: 4px solid var(--background);
+            color: var(--primary);
+        }
+
+        /* Payment & contract sections */
+        .payment-card, .contract-card {
+            background-color: var(--gray-light);
+            border-radius: var(--radius);
+            padding: 24px;
+            margin-bottom: 24px;
+            border: 1px solid var(--gray);
+        }
+
+        .amount {
+            font-size: 32px;
+            color: var(--primary);
+            text-align: center;
+            margin: 16px 0;
+            font-weight: bold;
+        }
+
+        .contract-text {
+            max-height: 200px;
+            overflow-y: auto;
+            padding: 16px;
+            background-color: var(--white);
+            border-radius: var(--radius);
+            margin-bottom: 16px;
+            border: 1px solid var(--gray);
+            line-height: 1.8;
+            font-size: 14px;
+        }
+
+        /* Navigation buttons */
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 32px;
+            padding-top: 24px;
+            border-top: 1px solid var(--gray);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .header {
+                padding: 16px;
+            }
+            
+            .main-content {
+                padding: 16px;
+            }
+            
+            .step-label {
+                font-size: 10px;
+                width: 60px;
+            }
+            
+            .otp-input {
+                width: 40px;
+                height: 50px;
+                font-size: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .step {
+                width: 30px;
+                height: 30px;
+                font-size: 14px;
+            }
+            
+            .step-label {
+                display: none;
+            }
+            
+            .btn {
+                padding: 10px 16px;
+                font-size: 14px;
+            }
+        }
+
+        /* Loading simulation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--white);
+            animation: spin 1s ease-in-out infinite;
+            vertical-align: middle;
+            margin-left: 8px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .timer {
+            color: var(--secondary);
+            font-weight: bold;
+            margin-top: 8px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header with Progress Bar -->
+        <header class="header">
+            <h1>سامانه احراز هویت و دریافت اعتبار</h1>
+            <p>فرآیند کامل احراز هویت و دریافت اعتبار به صورت مرحله‌ای</p>
+            
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-line" id="progressLine"></div>
+                    <div class="step completed" id="step1">۱</div>
+                    <div class="step active" id="step2">۲</div>
+                    <div class="step" id="step3">۳</div>
+                    <div class="step" id="step4">۴</div>
+                    <div class="step" id="step5">۵</div>
+                    <div class="step" id="step6">۶</div>
+                    <div class="step" id="step7">۷</div>
+                    <div class="step" id="step8">۸</div>
+                </div>
+                <!-- <div class="step-labels">
+                    <div class="step-label active" data-step="1">تایید شماره</div>
+                    <div class="step-label " data-step="2">حساب بانکی</div>
+                    <div class="step-label" data-step="3">اطلاعات هویتی</div>
+                    <div class="step-label" data-step="4">اعتبارسنجی</div>
+                    <div class="step-label" data-step="5">امضای دیجیتال</div>
+                    <div class="step-label" data-step="6">صدور سفته</div>
+                    <div class="step-label" data-step="7">امضای اسناد</div>
+                    <div class="step-label" data-step="8">اتمام</div>
+                </div> -->
+            </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Step 1: OTP Verification -->
+            <section class="step-content active" id="stepContent1">
+                <h2 class="step-title">مرحله ۱: تایید شماره همراه</h2>
+                <div class="message success" id="otpSuccess">
+                    کد تأیید با موفقیت به شماره <span id="mobileNumberDisplay">0912****345</span> ارسال شد.
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="mobile">شماره موبایل</label>
+                    <input type="tel" id="mobile" class="form-control" placeholder="۰۹۱۲۳۴۵۶۷۸۹" maxlength="11">
+                </div>
+                
+                <button id="sendOtpBtn" class="btn btn-primary">
+                    ارسال رمز یکبار مصرف
+                </button>
+                
+                <div id="otpSection" style="display: none;">
+                    <div class="form-group">
+                        <label class="form-label">کد تأیید ارسال شده را وارد کنید</label>
+                        <div class="otp-container">
+                            <input type="text" class="otp-input" maxlength="1" data-index="0">
+                            <input type="text" class="otp-input" maxlength="1" data-index="1">
+                            <input type="text" class="otp-input" maxlength="1" data-index="2">
+                            <input type="text" class="otp-input" maxlength="1" data-index="3">
+                            <input type="text" class="otp-input" maxlength="1" data-index="4">
+                        </div>
+                        <div class="timer" id="otpTimer"></div>
+                    </div>
+                    
+                    <button id="verifyOtpBtn" class="btn btn-primary" disabled>
+                        تایید کد
+                    </button>
+                </div>
+            </section>
+
+            <!-- Step 2: Bank Account Verification -->
+            <section class="step-content" id="stepContent2">
+                <h2 class="step-title">مرحله ۲: تایید حساب بانکی</h2>
+                
+                <div class="form-group">
+                    <label class="form-label" for="sheba">شماره شبا</label>
+                    <input type="text" id="sheba" class="form-control" placeholder="IR 12 3456 7890 1234 5678 90" maxlength="26">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="nationalCode">کد ملی</label>
+                    <input type="text" id="nationalCode" class="form-control" placeholder="۰۰۱۲۳۴۵۶۷۸" maxlength="10">
+                </div>
+                
+                <button id="verifyBankBtn" class="btn btn-primary" disabled>
+                    تایید اطلاعات بانکی
+                </button>
+                
+                <div class="message info" id="bankSuccess" style="display: none;">
+                    تطبیق موفق اطلاعات بانکی. اطلاعات حساب شما با موفقیت تأیید شد.
+                </div>
+            </section>
+
+            <!-- Step 3: Identity Information -->
+            <section class="step-content" id="stepContent3">
+                <h2 class="step-title">مرحله ۳: تکمیل اطلاعات هویتی</h2>
+                
+                <div class="form-group">
+                    <label class="form-label" for="birthDate">تاریخ تولد</label>
+                    <input type="text" id="birthDate" class="form-control" placeholder="۱۳۶۵/۰۵/۱۵">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">احراز هویت ویدیویی</label>
+                    <div class="message info">
+                        <p>برای احراز هویت ویدیویی، لطفاً از طریق اپلیکیشن بانک اقدام کنید یا در زمان مراجعه به شعب، احراز هویت را انجام دهید.</p>
+                        <p>پس از انجام احراز هویت ویدیویی، دکمه زیر را فشار دهید.</p>
+                    </div>
+                </div>
+                
+                <button id="verifyVideoBtn" class="btn btn-primary">
+                    تایید احراز هویت ویدیویی
+                </button>
+            </section>
+
+            <!-- Step 4: Credit Check -->
+            <section class="step-content" id="stepContent4">
+                <h2 class="step-title">مرحله ۴: اعتبارسنجی و امکان‌سنجی دریافت اعتبار</h2>
+                
+                <div class="message pending" id="creditCheckMessage">
+                    <p>در حال استعلام از سیستم بانک مرکزی...</p>
+                    <p>لطفاً چند لحظه صبر کنید.</p>
+                </div>
+                
+                <div class="message success" id="creditSuccess" style="display: none;">
+                    <p>اعتبارسنجی با موفقیت انجام شد.</p>
+                    <p>امتیاز اعتباری شما: <strong>۷۸۵</strong> (مناسب برای دریافت اعتبار)</p>
+                </div>
+            </section>
+
+            <!-- Step 5: Digital Signature -->
+            <section class="step-content" id="stepContent5">
+                <h2 class="step-title">مرحله ۵: ساخت امضای دیجیتال</h2>
+                
+                <div class="signature-container">
+                    <canvas id="signatureCanvas" class="signature-canvas">
+                        مرورگر شما از canvas پشتیبانی نمی‌کند.
+                    </canvas>
+                    <div class="signature-controls">
+                        <button id="clearSignatureBtn" class="btn btn-secondary">
+                            پاک کردن امضا
+                        </button>
+                        <button id="saveSignatureBtn" class="btn btn-primary" disabled>
+                            ذخیره امضا
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="message info">
+                    لطفاً امضای خود را در کادر بالا رسم کنید. پس از رسم امضا، دکمه "ذخیره امضا" را فشار دهید.
+                </div>
+            </section>
+
+            <!-- Step 6: Electronic Promissory Note -->
+            <section class="step-content" id="stepContent6">
+                <h2 class="step-title">مرحله ۵: خرید سفته الکترونیکی</h2>
+                
+                <div class="payment-card">
+                    <h3>سفته الکترونیک</h3>
+                    <p>مبلغ سفته صادر شده:</p>
+                    <div class="amount">۵۰,۰۰۰,۰۰۰ تومان</div>
+                    <p>هزینه اولیه صدور سفته:</p>
+                    <div class="amount">۵۰۰,۰۰۰ تومان</div>
+                </div>
+                
+                <button id="payBtn" class="btn btn-primary">
+                    خرید سفته و پرداخت هزینه اولیه
+                </button>
+                
+                <div class="message success" id="paymentSuccess" style="display: none;">
+                    پرداخت با موفقیت انجام شد. سفته الکترونیک با شماره <strong>۱۴۰۲-۱۲۳۴۵۶</strong> صادر گردید.
+                </div>
+            </section>
+
+                        <!-- Step 7: Document Signing -->
+            <section class="step-content" id="stepContent7">
+                <h2 class="step-title">مرحله ۷: امضای آنلاین اسناد</h2>
+                
+                <div class="contract-card">
+                    <h3>خلاصه مفاد قرارداد</h3>
+                    <div class="contract-text">
+                        <p>این قرارداد بین بانک ملت (به عنوان طرف اول) و شما (به عنوان طرف دوم) منعقد می‌شود.</p>
+                        <p>مبلغ اعتبار: ۵۰,۰۰۰,۰۰۰ تومان</p>
+                        <p>مدت اعتبار: ۲۴ ماه</p>
+                        <p>نرخ سود: ۱۸ درصد سالانه</p>
+                        <p>اقساط ماهانه: ۲,۵۰۰,۰۰۰ تومان</p>
+                        <p>کارمزد صدور: ۵۰۰,۰۰۰ تومان</p>
+                        <p>ضمانت: سفته الکترونیک به مبلغ ۵۰,۰۰۰,۰۰۰ تومان</p>
+                        <p>شماره قرارداد: ۱۴۰۲-۱۲۳۴۵۶</p>
+                    </div>
+                    
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="agreeCheckbox">
+                        <label for="agreeCheckbox">تمامی مفاد قرارداد فوق را مطالعه نموده و به طور کامل قبول دارم.</label>
+                    </div>
+                </div>
+                
+                <button id="finalSignBtn" class="btn btn-primary" disabled>
+                    امضای نهایی قرارداد
+                </button>
+            </section>
+
+
+
+            <!-- Step 8: Final Pending -->
+            <section class="step-content" id="stepContent8">
+                <h2 class="step-title">درخواست شما ثبت شد</h2>
+                
+                <div style="color: #0a0101;">
+                    <h3>درخواست شما با موفقیت ثبت شد و در انتظار تایید نهایی است.</h3>
+                    <p>وضعیت: <strong>Pending</strong></p>
+                    <p>کد پیگیری: <strong>۱۴۰۲۱۲۳۴۵۶۷</strong></p>
+                    <p>تاریخ ثبت: <strong>۱۴۰۲/۰۵/۱۵ - ۱۴:۳۰</strong></p>
+                    <br>
+                    <p>فرآیند بررسی نهایی حداکثر تا ۴۸ ساعت آینده تکمیل خواهد شد.</p>
+                    <p>می‌توانید از طریق کد پیگیری بالا، وضعیت درخواست خود را پیگیری کنید.</p>
+                </div>
+                
+                <div class="message info">
+                    <p>پس از تایید نهایی، اعتبار به حساب بانکی شما واریز خواهد شد.</p>
+                    <p>با تشکر از انتخاب شما.</p>
+                </div>
+            </section>
+
+            <!-- Navigation Buttons -->
+            <div class="navigation">
+                <button id="prevBtn" class="btn btn-secondary" style="display: none;">
+                    مرحله قبل
+                </button>
+                <button id="nextBtn" class="btn btn-primary">
+                    مرحله بعد
+                </button>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Current step tracking
+        let currentStep = 1;
+        const totalSteps = 8;
+        let otpSent = false;
+        let otpVerified = false;
+        let bankVerified = false;
+        let videoVerified = false;
+        let creditChecked = false;
+        let signatureSaved = false;
+        let paymentDone = false;
+        let timerInterval = null;
+        let timeLeft = 120; // 2 minutes for OTP
+        
+        // Canvas variables
+        let canvas, ctx;
+        let isDrawing = false;
+        let lastX = 0;
+        let lastY = 0;
+        
+        // DOM elements
+        const progressLine = document.getElementById('progressLine');
+        const stepElements = document.querySelectorAll('.step');
+        const stepLabelElements = document.querySelectorAll('.step-label');
+        const stepContentElements = document.querySelectorAll('.step-content');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const mobileInput = document.getElementById('mobile');
+        const sendOtpBtn = document.getElementById('sendOtpBtn');
+        const otpSection = document.getElementById('otpSection');
+        const otpInputs = document.querySelectorAll('.otp-input');
+        const verifyOtpBtn = document.getElementById('verifyOtpBtn');
+        const otpTimer = document.getElementById('otpTimer');
+        const otpSuccess = document.getElementById('otpSuccess');
+        const mobileNumberDisplay = document.getElementById('mobileNumberDisplay');
+        const shebaInput = document.getElementById('sheba');
+        const nationalCodeInput = document.getElementById('nationalCode');
+        const verifyBankBtn = document.getElementById('verifyBankBtn');
+        const bankSuccess = document.getElementById('bankSuccess');
+        const verifyVideoBtn = document.getElementById('verifyVideoBtn');
+        const creditCheckMessage = document.getElementById('creditCheckMessage');
+        const creditSuccess = document.getElementById('creditSuccess');
+        const clearSignatureBtn = document.getElementById('clearSignatureBtn');
+        const saveSignatureBtn = document.getElementById('saveSignatureBtn');
+        const payBtn = document.getElementById('payBtn');
+        const paymentSuccess = document.getElementById('paymentSuccess');
+        const agreeCheckbox = document.getElementById('agreeCheckbox');
+        const finalSignBtn = document.getElementById('finalSignBtn');
+
+        // Initialize the application
+        function init() {
+            updateProgress();
+            setupEventListeners();
+            setupCanvas();
+        }
+        
+        // Update progress bar and step indicators
+        function updateProgress() {
+            // Update progress line
+            const progressPercent = ((currentStep - 1) / (totalSteps - 1)) * 100;
+            progressLine.style.width = `${progressPercent}%`;
+            
+            // Update step indicators
+            stepElements.forEach((step, index) => {
+                const stepNumber = index + 1;
+                step.classList.remove('active', 'completed');
+                
+                if (stepNumber < currentStep) {
+                    step.classList.add('completed');
+                } else if (stepNumber === currentStep) {
+                    step.classList.add('active');
+                }
+            });
+            
+            // Update step labels
+            stepLabelElements.forEach((label, index) => {
+                const stepNumber = index + 1;
+                label.classList.remove('active');
+                
+                if (stepNumber === currentStep) {
+                    label.classList.add('active');
+                }
+            });
+            
+            // Show/hide navigation buttons
+            prevBtn.style.display = currentStep > 1 ? 'inline-block' : 'none';
+            
+            // Update next button text for last step
+            if (currentStep === totalSteps) {
+                nextBtn.textContent = 'اتمام';
+                nextBtn.style.display = 'none';
+            } else {
+                nextBtn.textContent = 'مرحله بعد';
+                nextBtn.style.display = 'inline-block';
+            }
+            
+            // Update step content visibility
+            stepContentElements.forEach((content, index) => {
+                content.classList.remove('active');
+                if (index + 1 === currentStep) {
+                    content.classList.add('active');
+                }
+            });
+            
+            // Enable/disable next button based on step completion
+            updateNextButtonState();
+        }
+        
+        // Update next button state based on current step completion
+        function updateNextButtonState() {
+            let isStepCompleted = false;
+            
+            switch(currentStep) {
+                case 1:
+                    isStepCompleted = otpVerified;
+                    break;
+                case 2:
+                    isStepCompleted = bankVerified;
+                    break;
+                case 3:
+                    isStepCompleted = videoVerified;
+                    break;
+                case 4:
+                    isStepCompleted = creditChecked;
+                    break;
+                case 5:
+                    isStepCompleted = signatureSaved;
+                    break;
+                case 6:
+                    isStepCompleted = paymentDone;
+                    break;
+                case 7:
+                    isStepCompleted = false; // Will be updated by checkbox
+                    break;
+                case 8:
+                    isStepCompleted = true;
+                    break;
+            }
+            
+            nextBtn.disabled = !isStepCompleted;
+        }
+        
+        // Setup all event listeners
+        function setupEventListeners() {
+            // Navigation buttons
+            prevBtn.addEventListener('click', goToPreviousStep);
+            nextBtn.addEventListener('click', goToNextStep);
+            
+            // Step 1: OTP
+            sendOtpBtn.addEventListener('click', sendOtp);
+            verifyOtpBtn.addEventListener('click', verifyOtp);
+            mobileInput.addEventListener('input', validateMobile);
+            
+            // OTP input handling
+            otpInputs.forEach(input => {
+                input.addEventListener('input', function(e) {
+                    const value = e.target.value;
+                    const index = parseInt(e.target.dataset.index);
+                    
+                    // Auto-focus next input
+                    if (value.length === 1 && index < otpInputs.length - 1) {
+                        otpInputs[index + 1].focus();
+                    }
+                    
+                    // Enable verify button if all inputs are filled
+                    const allFilled = Array.from(otpInputs).every(input => input.value.length === 1);
+                    verifyOtpBtn.disabled = !allFilled;
+                });
+                
+                // Handle backspace
+                input.addEventListener('keydown', function(e) {
+                    if (e.key === 'Backspace' && this.value.length === 0) {
+                        const index = parseInt(this.dataset.index);
+                        if (index > 0) {
+                            otpInputs[index - 1].focus();
+                        }
+                    }
+                });
+            });
+            
+            // Step 2: Bank account
+            shebaInput.addEventListener('input', validateBankForm);
+            nationalCodeInput.addEventListener('input', validateBankForm);
+            verifyBankBtn.addEventListener('click', verifyBank);
+            
+            // Step 3: Video verification
+            verifyVideoBtn.addEventListener('click', verifyVideo);
+            
+            // Step 4: Credit check (auto-simulate after 3 seconds)
+            
+            // Step 5: Signature
+            clearSignatureBtn.addEventListener('click', clearSignature);
+            saveSignatureBtn.addEventListener('click', saveSignature);
+            
+            // Step 6: Payment
+            payBtn.addEventListener('click', processPayment);
+            
+            // Step 7: Agreement
+            agreeCheckbox.addEventListener('change', function() {
+                finalSignBtn.disabled = !this.checked;
+            });
+            finalSignBtn.addEventListener('click', finalSign);
+        }
+        
+        // Setup canvas for signature
+        function setupCanvas() {
+            canvas = document.getElementById('signatureCanvas');
+            ctx = canvas.getContext('2d');
+            
+            // Set fixed dimensions for canvas
+            canvas.width = canvas.offsetWidth * 2; // Multiply by device pixel ratio for sharpness
+            canvas.height = canvas.offsetHeight * 2;
+            
+            // Scale the context to match the CSS size
+            ctx.scale(2, 2);
+            
+            // Set drawing styles
+            ctx.lineWidth = 2;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+            ctx.strokeStyle = '#31694E';
+            
+            // Clear the canvas initially
+            clearSignature();
+            
+            // Mouse events
+            canvas.addEventListener('mousedown', startDrawing);
+            canvas.addEventListener('mousemove', draw);
+            canvas.addEventListener('mouseup', stopDrawing);
+            canvas.addEventListener('mouseout', stopDrawing);
+            
+            // Touch events for mobile
+            canvas.addEventListener('touchstart', handleTouchStart);
+            canvas.addEventListener('touchmove', handleTouchMove);
+            canvas.addEventListener('touchend', stopDrawing);
+        }
+        
+        // Drawing functions
+        function startDrawing(e) {
+            isDrawing = true;
+            const rect = canvas.getBoundingClientRect();
+            const scaleX = canvas.width / rect.width;
+            const scaleY = canvas.height / rect.height;
+            
+            if (e.type === 'touchstart') {
+                e.preventDefault();
+                const touch = e.touches[0];
+                lastX = (touch.clientX - rect.left) * scaleX;
+                lastY = (touch.clientY - rect.top) * scaleY;
+            } else {
+                lastX = (e.clientX - rect.left) * scaleX;
+                lastY = (e.clientY - rect.top) * scaleY;
+            }
+        }
+        
+        function draw(e) {
+            if (!isDrawing) return;
+            
+            e.preventDefault();
+            const rect = canvas.getBoundingClientRect();
+            const scaleX = canvas.width / rect.width;
+            const scaleY = canvas.height / rect.height;
+            
+            let currentX, currentY;
+            
+            if (e.type === 'touchmove') {
+                const touch = e.touches[0];
+                currentX = (touch.clientX - rect.left) * scaleX;
+                currentY = (touch.clientY - rect.top) * scaleY;
+            } else {
+                currentX = (e.clientX - rect.left) * scaleX;
+                currentY = (e.clientY - rect.top) * scaleY;
+            }
+            
+            ctx.beginPath();
+            ctx.moveTo(lastX, lastY);
+            ctx.lineTo(currentX, currentY);
+            ctx.stroke();
+            
+            lastX = currentX;
+            lastY = currentY;
+            
+            // Enable save button if there's drawing
+            if (!signatureSaved) {
+                saveSignatureBtn.disabled = false;
+            }
+        }
+        
+        function stopDrawing() {
+            isDrawing = false;
+        }
+        
+        function handleTouchStart(e) {
+            if (e.touches.length === 1) {
+                startDrawing(e);
+            }
+        }
+        
+        function handleTouchMove(e) {
+            if (e.touches.length === 1) {
+                draw(e);
+            }
+        }
+        
+        function clearSignature() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            signatureSaved = false;
+            saveSignatureBtn.disabled = true;
+            updateNextButtonState();
+        }
+        
+        function saveSignature() {
+            signatureSaved = true;
+            saveSignatureBtn.textContent = 'امضا ذخیره شد';
+            saveSignatureBtn.disabled = true;
+            updateNextButtonState();
+            
+            // Simulate saving to server
+            setTimeout(() => {
+                // After saving, enable next step
+                if (currentStep === 5) {
+                    nextBtn.disabled = false;
+                }
+            }, 500);
+        }
+        
+        // Step navigation functions
+        function goToPreviousStep() {
+            if (currentStep > 1) {
+                currentStep--;
+                updateProgress();
+            }
+        }
+        
+        function goToNextStep() {
+            if (currentStep < totalSteps) {
+                // Special handling for step 4 (credit check simulation)
+                if (currentStep === 3) {
+                    // Move to step 4 and simulate credit check
+                    currentStep++;
+                    updateProgress();
+                    simulateCreditCheck();
+                } else {
+                    currentStep++;
+                    updateProgress();
+                }
+            }
+        }
+        
+        // Step 1: Send OTP
+        function validateMobile() {
+            const mobile = mobileInput.value.trim();
+            const isValid = /^09\d{9}$/.test(mobile);
+            sendOtpBtn.disabled = !isValid;
+            return isValid;
+        }
+        
+        function sendOtp() {
+            if (!validateMobile()) {
+                alert('لطفاً شماره موبایل معتبر وارد کنید.');
+                return;
+            }
+            
+            // Show success message
+            const mobile = mobileInput.value;
+            mobileNumberDisplay.textContent = mobile.substring(0, 4) + '****' + mobile.substring(8);
+            otpSuccess.style.display = 'block';
+            
+            // Show OTP input section
+            otpSection.style.display = 'block';
+            
+            // Start timer
+            startOtpTimer();
+            
+            // Focus first OTP input
+            otpInputs[0].focus();
+            
+            // Simulate sending OTP
+            sendOtpBtn.textContent = 'ارسال مجدد کد';
+            sendOtpBtn.disabled = true;
+            
+            // Re-enable after 30 seconds
+            setTimeout(() => {
+                sendOtpBtn.disabled = false;
+            }, 30000);
+            
+            otpSent = true;
+        }
+        
+        function startOtpTimer() {
+            timeLeft = 120;
+            updateOtpTimer();
+            
+            if (timerInterval) {
+                clearInterval(timerInterval);
+            }
+            
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                updateOtpTimer();
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    verifyOtpBtn.disabled = true;
+                    otpTimer.textContent = 'کد منقضی شده است';
+                }
+            }, 1000);
+        }
+        
+        function updateOtpTimer() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            otpTimer.textContent = `زمان باقی‌مانده: ${minutes}:${seconds.toString().padStart(2, '0')}`;
+        }
+        
+        function verifyOtp() {
+            // Simulate OTP verification
+            const otp = Array.from(otpInputs).map(input => input.value).join('');
+            
+            if (otp.length !== 5) {
+                alert('لطفاً کد تأیید ۵ رقمی را کامل وارد کنید.');
+                return;
+            }
+            
+            // Simulate successful verification
+            otpVerified = true;
+            verifyOtpBtn.textContent = 'کد تأیید شد ✓';
+            verifyOtpBtn.disabled = true;
+            
+            // Enable next button
+            updateNextButtonState();
+            
+            // Clear timer
+            if (timerInterval) {
+                clearInterval(timerInterval);
+            }
+            
+            // Show success message
+            setTimeout(() => {
+                // Move to next step automatically after 1 second
+                if (currentStep === 1) {
+                    currentStep++;
+                    updateProgress();
+                }
+            }, 1000);
+        }
+        
+        // Step 2: Bank account verification
+        function validateBankForm() {
+            const sheba = shebaInput.value.trim();
+            const nationalCode = nationalCodeInput.value.trim();
+            
+            const shebaValid = sheba.length >= 24;
+            const nationalCodeValid = /^\d{10}$/.test(nationalCode);
+            
+            verifyBankBtn.disabled = !(shebaValid && nationalCodeValid);
+            
+            return shebaValid && nationalCodeValid;
+        }
+        
+        function verifyBank() {
+            if (!validateBankForm()) {
+                alert('لطفاً اطلاعات بانکی را صحیح وارد کنید.');
+                return;
+            }
+            
+            // Simulate bank verification
+            bankVerified = true;
+            verifyBankBtn.textContent = 'تایید شد ✓';
+            verifyBankBtn.disabled = true;
+            bankSuccess.style.display = 'block';
+            
+            // Enable next button
+            updateNextButtonState();
+            
+            // Move to next step automatically after 2 seconds
+            setTimeout(() => {
+                if (currentStep === 2) {
+                    currentStep++;
+                    updateProgress();
+                }
+            }, 2000);
+        }
+        
+        // Step 3: Video verification
+        function verifyVideo() {
+            // Simulate video verification
+            videoVerified = true;
+            verifyVideoBtn.textContent = 'احراز هویت تایید شد ✓';
+            verifyVideoBtn.disabled = true;
+            
+            // Enable next button
+            updateNextButtonState();
+            
+            // Move to next step automatically after 1 second
+            setTimeout(() => {
+                if (currentStep === 3) {
+                    currentStep++;
+                    updateProgress();
+                    simulateCreditCheck();
+                }
+            }, 1000);
+        }
+        
+        // Step 4: Simulate credit check
+        function simulateCreditCheck() {
+            // Show loading simulation
+            creditCheckMessage.style.display = 'block';
+            creditSuccess.style.display = 'none';
+            
+            // Simulate API call delay
+            setTimeout(() => {
+                creditCheckMessage.style.display = 'none';
+                creditSuccess.style.display = 'block';
+                creditChecked = true;
+                
+                // Enable next button
+                updateNextButtonState();
+                
+                // Move to next step automatically after 2 seconds
+                setTimeout(() => {
+                    if (currentStep === 4) {
+                        currentStep++;
+                        updateProgress();
+                    }
+                }, 2000);
+            }, 3000);
+        }
+        
+        // Step 6: Process payment
+        function processPayment() {
+            // Simulate payment processing
+            paymentDone = true;
+            payBtn.textContent = 'پرداخت موفق ✓';
+            payBtn.disabled = true;
+            paymentSuccess.style.display = 'block';
+            
+            // Enable next button
+            updateNextButtonState();
+            
+            // Move to next step automatically after 2 seconds
+            setTimeout(() => {
+                if (currentStep === 6) {
+                    currentStep++;
+                    updateProgress();
+                }
+            }, 2000);
+        }
+        
+        // Step 7: Final signing
+        function finalSign() {
+            // Simulate final signing
+            finalSignBtn.textContent = 'قرارداد امضا شد ✓';
+            finalSignBtn.disabled = true;
+            
+            // Move to final step after 1 second
+            setTimeout(() => {
+                if (currentStep === 7) {
+                    currentStep++;
+                    updateProgress();
+                }
+            }, 1000);
+        }
+        
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
