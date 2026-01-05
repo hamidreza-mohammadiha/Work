@@ -614,12 +614,12 @@
                     
                     <div class="form-group">
                         <label>رمز یکبار مصرف ارسال شده به شماره همراه</label>
-                        <div class="verification-code">
-                            <input type="text" maxlength="1" id="code1">
-                            <input type="text" maxlength="1" id="code2">
-                            <input type="text" maxlength="1" id="code3">
-                            <input type="text" maxlength="1" id="code4">
-                            <input type="text" maxlength="1" id="code5">
+                        <div dir="ltr" class="verification-code">
+                            <input style="font-size: small;" type="text" maxlength="1" id="code1">
+                            <input style="font-size: small;" type="text" maxlength="1" id="code2">
+                            <input style="font-size: small;" type="text" maxlength="1" id="code3">
+                            <input style="font-size: small;" type="text" maxlength="1" id="code4">
+                            <!-- <input type="text" maxlength="1" id="code5"> -->
                         </div>
                         <div class="btn-group">
                             <button class="btn btn-outline" id="resendCode">ارسال مجدد کد</button>
@@ -863,7 +863,6 @@
             document.getElementById('code2'),
             document.getElementById('code3'),
             document.getElementById('code4'),
-            document.getElementById('code5')
         ];
         
         // Form Inputs
@@ -1042,7 +1041,7 @@
         verifyCodeBtn.addEventListener('click', () => {
             const code = codeInputs.map(input => input.value).join('');
             
-            if (code.length === 5) {
+            if (code.length === 4) {
                 // Simulate verification
                 codeInputs.forEach(input => input.disabled = true);
                 verifyCodeBtn.disabled = true;
@@ -1051,7 +1050,7 @@
                 
                 alert('شماره همراه شما با موفقیت تأیید شد.');
             } else {
-                alert('لطفا کد ۵ رقمی را کامل وارد کنید.');
+                alert('لطفا کد 4 رقمی را کامل وارد کنید.');
             }
         });
         
