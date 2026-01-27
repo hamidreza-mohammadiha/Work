@@ -347,7 +347,7 @@
             <h1>لیست فروشگاه‌های اعتباری</h1>
             <!-- <p class="subtitle">اپیک خدمات اعتباری بهترینو</p> -->
             <div class="epic-summary">
-                <p>این اپیک قرار است فروشگاه‌هایی که خدمات اعتباری به مخاطبان بهترینو ارائه می‌دهند را در فرمت لیست و نقشه نمایش دهد.</p>
+                <p>این صفحه اختصاصی قرار است فروشگاه‌هایی که خدمات اعتباری به مخاطبان بهترینو ارائه می‌دهند را در فرمت لیست و نقشه نمایش دهد.</p>
             </div>
         </div>
     </header>
@@ -388,13 +388,13 @@
                     </button>
                 </div>
                 
-                <div class="filter-group">
+                <!-- <div class="filter-group">
                     <label for="credit-filter">فیلتر اعتباری</label>
                     <select id="credit-filter">
                         <option value="all">همه فروشگاه‌ها</option>
                         <option value="credit-only">فقط فروشگاه‌های اعتباری</option>
                     </select>
-                </div>
+                </div> -->
             </div>
             
             <div>
@@ -405,7 +405,7 @@
                     <button class="wallet-btn">دیجی‌پی</button>
                     <button class="wallet-btn">اسنپ‌پی</button>
                     <button class="wallet-btn">زرین‌پلاس</button>
-                    <button class="wallet-btn">به‌پی</button>
+                    <!-- <button class="wallet-btn">به‌پی</button> -->
                 </div>
             </div>
         </div>
@@ -432,20 +432,20 @@
                     <p style="margin-top: 20px;">فروشگاه‌های اعتباری با رنگ سبز تیره نمایش داده می‌شوند</p>
                 </div>
                 
-                <div class="legend">
+                <!-- <div class="legend">
                     <div class="legend-item">
                         <div class="legend-color normal"></div>
                         <span>فروشگاه عادی</span>
                     </div>
                     <div class="legend-item">
                         <div class="legend-color credit"></div>
-                        <span>فروشگاه اعتباری</span>
+                        <span>خدمات اعتباری</span>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
         
-        <div class="stats">
+        <!-- <div class="stats">
             <div class="stat-item">
                 <div class="stat-number">25+</div>
                 <div class="stat-label">فروشگاه فعال اعتباری</div>
@@ -458,7 +458,7 @@
                 <div class="stat-number">15</div>
                 <div class="stat-label">دسته‌بندی خدماتی</div>
             </div>
-        </div>
+        </div> -->
     </div>
 
     <script>
@@ -467,15 +467,15 @@
             { id: 1, name: "سالن زیبایی رویای آبی", category: "زیبایی و سلامت", credit: true, wallets: ["تارا", "اسنپ‌پی"], distance: "1.2 کیلومتر" },
             { id: 2, name: "سالن زیبایی لیان", category: "زیبایی و سلامت", credit: true, wallets: ["دیجی‌پی", "زرین‌پلاس"], distance: "2.5 کیلومتر" },
             { id: 3, name: "فیزیوتراپی فاطیما (دکتر فرزانه سکوتی)", category: "پزشکی و درمانی", credit: true, wallets: ["تارا", "اسنپ‌پی", "زرین‌پلاس"], distance: "3.1 کیلومتر" },
-            { id: 4, name: "کلینیک لیزر و زیبایی دنیز", category: "زیبایی و سلامت", credit: false, wallets: [], distance: "0.8 کیلومتر" },
+            // { id: 4, name: "کلینیک لیزر و زیبایی دنیز", category: "زیبایی و سلامت", credit: false, wallets: [], distance: "0.8 کیلومتر" },
             { id: 5, name: "کلینیک دامپزشکی و پت شاپ آریستو", category: "پزشکی و درمانی", credit: true, wallets: ["دیجی‌پی", "به‌پی"], distance: "4.2 کیلومتر" },
             { id: 6, name: "مرکز تصویربرداری سونوگرافی حکیمان", category: "پزشکی و درمانی", credit: true, wallets: ["تارا", "زرین‌پلاس"], distance: "2.7 کیلومتر" },
-            { id: 7, name: "باشگاه ورزشی بانوان اَبری", category: "ورزشی", credit: false, wallets: [], distance: "1.5 کیلومتر" },
+            // { id: 7, name: "باشگاه ورزشی بانوان اَبری", category: "ورزشی", credit: false, wallets: [], distance: "1.5 کیلومتر" },
             { id: 8, name: "مرکز شنوایی و سمعک لابیرنت", category: "پزشکی و درمانی", credit: true, wallets: ["اسنپ‌پی", "به‌پی"], distance: "3.8 کیلومتر" },
             { id: 9, name: "مجموعه لیزر و زیبایی کارنا", category: "زیبایی و سلامت", credit: true, wallets: ["تارا", "دیجی‌پی", "اسنپ‌پی"], distance: "2.1 کیلومتر" },
             { id: 10, name: "کلینیک تخصصی فیشال شهره", category: "زیبایی و سلامت", credit: true, wallets: ["زرین‌پلاس"], distance: "1.9 کیلومتر" },
             { id: 11, name: "نجاری امید", category: "تعمیرات", credit: true, wallets: ["تارا"], distance: "5.2 کیلومتر" },
-            { id: 12, name: "خیاطی ماهور", category: "سایر", credit: false, wallets: [], distance: "2.3 کیلومتر" },
+            // { id: 12, name: "خیاطی ماهور", category: "سایر", credit: false, wallets: [], distance: "2.3 کیلومتر" },
             { id: 13, name: "تعمیرات لپ‌تاپ همراه", category: "تعمیرات", credit: true, wallets: ["اسنپ‌پی", "به‌پی"], distance: "3.5 کیلومتر" },
             { id: 14, name: "تعمیرات خودرو پویا", category: "تعمیرات", credit: true, wallets: ["تارا", "دیجی‌پی", "زرین‌پلاس"], distance: "4.8 کیلومتر" },
             { id: 15, name: "آموزشگاه زبان پردیسان", category: "آموزشی", credit: true, wallets: ["تارا", "اسنپ‌پی"], distance: "2.0 کیلومتر" }
@@ -500,7 +500,7 @@
             ).join('');
             
             const creditBadge = shop.credit ? 
-                `<div class="credit-badge">فروشگاه اعتباری</div>` : '';
+                `<div class="credit-badge">پرداخت اعتباری</div>` : '';
             
             shopCard.innerHTML = `
                 <div class="shop-header">
@@ -516,7 +516,7 @@
                 </div>
                 ${shop.credit && walletTags ? `
                 <div>
-                    <span>پذیرنده: </span>
+                    <span>اطلاعات و تصاویر موجود در رنکینگ پیج های بهترینو + </span>
                     <div class="shop-wallets">
                         ${walletTags}
                     </div>
