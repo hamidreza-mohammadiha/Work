@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بهترینو | اعتبار در کسب‌وکار</title>
+    <!-- Vazir Font & Font Awesome -->
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/Vazir.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* CSS Variables - design system */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Vazir', sans-serif;
+        }
+
+        body {
+            background: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .business-card {
+            max-width: 1100px;
+            width: 100%;
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+            padding: 24px;
+            transition: all 0.2s ease;
+        }
+
+        /* header / business name section */
+        .business-header {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 20px;
+        }
+
+        .title-section h1 {
+            font-size: 1.8rem;
+            color: #222;
+            font-weight: 700;
+        }
+
+        .title-section .category {
+            color: #658C58;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 6px;
+        }
+
+        .rating {
+            background: #F0E491;
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #31694E;
+        }
+
+        /* action buttons */
+        .action-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin: 20px 0;
+        }
+
+        .btn-outline {
+            background: white;
+            border: 1px solid #ccc;
+            border-radius: 40px;
+            padding: 12px 24px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1rem;
+            color: #333;
+        }
+
+        .btn-outline:hover {
+            background: #f0f0f0;
+        }
+
+        .btn-primary {
+            background: #31694E;
+            border: none;
+            color: white;
+            border-radius: 40px;
+            padding: 12px 32px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1rem;
+            box-shadow: 0 4px 8px rgba(49,105,78,0.2);
+        }
+
+        .btn-primary:hover {
+            background: #1f4a37;
+            transform: translateY(-2px);
+        }
+
+        .installment-badge {
+            background: linear-gradient(145deg, #31694E, #658C58);
+            color: white;
+            border-radius: 40px;
+            padding: 12px 28px;
+            font-weight: 700;
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            box-shadow: 0 6px 14px rgba(49,105,78,0.4);
+            transition: 0.2s;
+        }
+
+        .installment-badge i {
+            font-size: 1.2rem;
+        }
+
+        /* gallery */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin: 24px 0;
+        }
+
+        .gallery-item {
+            background: #ddd;
+            height: 140px;
+            border-radius: 20px;
+            background: linear-gradient(145deg, #e0e0e0, #f0f0f0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #555;
+            font-weight: 500;
+        }
+
+        /* info grid */
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            background: #F9F9F9;
+            border-radius: 28px;
+            padding: 24px;
+            margin: 24px 0;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #2d4a3a;
+        }
+
+        .info-item i {
+            width: 24px;
+            color: #658C58;
+        }
+
+        .desc {
+            line-height: 1.7;
+            color: #3a3a3a;
+            background: #F0E49130;
+            padding: 20px;
+            border-radius: 24px;
+            margin: 24px 0;
+        }
+
+        /* reviews */
+        .review {
+            background: white;
+            border-radius: 20px;
+            padding: 16px;
+            box-shadow: 0 2px 10px #eaeaea;
+            margin-bottom: 12px;
+        }
+
+        .review-header {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            color: #31694E;
+            font-weight: 600;
+        }
+
+        /* modals */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.4);
+            backdrop-filter: blur(3px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            visibility: hidden;
+            opacity: 0;
+            transition: 0.2s;
+        }
+
+        .modal-overlay.active {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background: white;
+            width: 90%;
+            max-width: 500px;
+            border-radius: 32px;
+            box-shadow: 0 30px 50px rgba(0,0,0,0.3);
+            padding: 28px;
+            position: relative;
+            transform: scale(0.9);
+            transition: 0.2s;
+        }
+
+        .active .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-close {
+            position: absolute;
+            left: 20px;
+            top: 20px;
+            font-size: 1.4rem;
+            cursor: pointer;
+            color: #888;
+        }
+
+        .modal-close:hover { color: #31694E; }
+
+        .wallet-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin: 24px 0;
+        }
+
+        .wallet-item {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            background: #f3f9f1;
+            padding: 14px 22px;
+            border-radius: 60px;
+            border: 1px solid #BBC86360;
+        }
+
+        .wallet-icon {
+            background: #658C58;
+            width: 42px;
+            height: 42px;
+            border-radius: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .btn-secondary {
+            background: #658C58;
+            color: white;
+            border: none;
+            border-radius: 40px;
+            padding: 12px 28px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            width: fit-content;
+        }
+
+        .btn-light {
+            background: #F0E491;
+            color: #1f4a37;
+            border: none;
+            border-radius: 40px;
+            padding: 12px 28px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .service-price-list {
+            margin: 20px 0;
+            background: #f9fcf5;
+            padding: 18px;
+            border-radius: 28px;
+        }
+
+        .service-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px dashed #ccc;
+        }
+
+        .hidden { display: none; }
+
+        .mt-4 { margin-top: 24px; }
+        .gap-2 { gap: 12px; }
+        .flex { display: flex; }
+        .justify-between { justify-content: space-between; }
+        .text-center { text-align: center; }
+
+        /* responsive */
+        @media (max-width: 700px) {
+            .gallery { grid-template-columns: repeat(2,1fr); }
+            .info-grid { grid-template-columns: 1fr; }
+            .business-header { flex-direction: column; align-items: start; gap: 16px; }
+        }
+    </style>
+</head>
+<body>
+<div class="business-card">
+
+    <!-- Header: business name, rating, category -->
+    <div class="business-header">
+        <div class="title-section">
+            <h1>سالن تخصصی VIP زیبایی پروا</h1>
+            <div class="category"><i class="fas fa-tag"></i> زیبایی و مراقبت</div>
+        </div>
+        <div class="rating">
+            <i class="fas fa-star" style="color:#d4a017;"></i>
+            <span>۴.۸</span> (۲۵۶ نظر)
+        </div>
+    </div>
+
+    <!-- Action buttons (تماس، مسیریابی، دیدگاه) + خرید قسطی badge -->
+    <div class="action-buttons">
+        <button class="btn-outline"><i class="fas fa-phone-alt"></i> تماس</button>
+        <button class="btn-outline"><i class="fas fa-map-marker-alt"></i> مسیریابی</button>
+        <button class="btn-outline"><i class="fas fa-pen"></i> افزودن دیدگاه</button>
+        <button class="installment-badge" id="installmentTriggerBtn">
+            <i class="fas fa-credit-card"></i> خرید قسطی
+        </button>
+    </div>
+
+    <!-- Image gallery mockup -->
+    <div class="gallery">
+        <div class="gallery-item"><i class="fas fa-image fa-2x"></i></div>
+        <div class="gallery-item"><i class="fas fa-image fa-2x"></i></div>
+        <div class="gallery-item"><i class="fas fa-image fa-2x"></i></div>
+        <div class="gallery-item"><i class="fas fa-image fa-2x"></i></div>
+    </div>
+
+    <!-- Info section (address, contact) -->
+    <div class="info-grid">
+        <div class="info-item"><i class="fas fa-map-pin"></i> تهران، خیابان ولیعصر، پلاک ۱۲۸</div>
+        <div class="info-item"><i class="fas fa-phone"></i> ۰۲۱-۱۲۳۴۵۶۷۸</div>
+        <div class="info-item"><i class="fas fa-clock"></i> شنبه تا پنجشنبه ۱۰–۲۰</div>
+        <div class="info-item"><i class="fas fa-globe"></i> @salon_parva</div>
+    </div>
+
+    <!-- description -->
+    <div class="desc">
+        <i class="fas fa-quote-right" style="color:#658C58;"></i>
+        ارائه‌دهنده خدمات تخصصی پوست، مو و آرایش با تیم حرفه‌ای و مجرب. دارای مجوز رسمی از وزارت بهداشت.
+    </div>
+
+    <!-- sample reviews -->
+    <h3 style="margin-bottom: 12px;">نظرات کاربران</h3>
+    <div class="review">
+        <div class="review-header"><i class="fas fa-user-circle"></i> مریم‌سادات <span>★★★★★</span></div>
+        <p>بسیار حرفه‌ای و تمیز. رنگ مو عالی شد.</p>
+    </div>
+    <div class="review">
+        <div class="review-header"><i class="fas fa-user-circle"></i> الناز <span>★★★★☆</span></div>
+        <p>پاکسازی پوست عالی، کمی زمان انتظار.</p>
+    </div>
+
+    <!-- ========== MODALS ========== -->
+
+    <!-- OTP Modal -->
+    <div class="modal-overlay" id="otpModal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeAllModals()">&times;</span>
+            <h2 style="color:#31694E;"> verification کد تایید</h2>
+            <p style="margin: 12px 0;">شماره همراه خود را وارد کنید (دمو)</p>
+            <input type="text" placeholder="مثلاً ۰۹۱۲۳۴۵۶۷۸۹" style="width:100%; padding:14px; border-radius:40px; border:1px solid #ccc; margin-bottom:20px;">
+            <button class="btn-primary" style="width:100%;" onclick="verifyOtp()">تایید</button>
+        </div>
+    </div>
+
+    <!-- Wallet selection modal -->
+    <div class="modal-overlay" id="walletModal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeAllModals()">&times;</span>
+            <h2 style="color:#31694E;">انتخاب روش اعتبار</h2>
+            <div class="wallet-list">
+            <div id="instructionText">
+                <p>با استفاده از سرویس اعتباری بهترینو می‌توانید هزینه خدماتی که از کسب‌وکارهای منتخب در بهترینو می‌گیرید را بصورت اعتباری در ۴ قسط پرداخت کنید. سرویس اعتباری بهترینو در حال حاضر با تارا، دیجی‌پی و زرین‌پلاس قرارداد دارد.</p>
+            </div>
+                <div class="wallet-item"><span><img width="30px" src="tara.png"></span> <span style="flex:1; font-weight:600;">تارا (Tara)</span></div>
+                <div class="wallet-item"><span><img width="30px" src="Digi.jpeg"></span> <span style="flex:1; font-weight:600;">دیجی‌پی (DigiPay)</span></div>
+                <div class="wallet-item"><span><img width="30px" src="zarrin.png"></span> <span style="flex:1; font-weight:600;">زرین‌پلاس (ZarinPlus)</span></div>
+            </div>
+            <div class="flex gap-2" style="margin-top:20px; justify-content: space-around;">
+                <button class="btn-light" onclick="openGetCreditModal()"><i class="fas fa-plus-circle"></i> می‌خواهم اعتبار بگیرم</button>
+                <button class="btn-light" onclick="openAlreadyCreditModal()"><i class="fas fa-check-circle"></i> قبلا اعتبار گرفته‌ام</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Get credit modal (scenario A) -->
+    <div class="modal-overlay" id="getCreditModal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeAllModals()">&times;</span>
+            <h2 style="color:#31694E;">دریافت اعتبار از</h2>
+            <div class="wallet-list">
+                <div class="wallet-item flex justify-between">
+                    <span><span><img width="30px" src="tara.png"></span> تارا</span>
+                    <button class="btn-secondary" style="padding:8px 20px;" onclick="alert('دمو: درخواست اعتبار از تارا')">دریافت اعتبار</button>
+                </div>
+                <div class="wallet-item flex justify-between">
+                    <span><span><img width="30px" src="Digi.jpeg"></span> دیجی‌پی</span>
+                    <button class="btn-secondary" style="padding:8px 20px;" onclick="alert('دمو: درخواست اعتبار از دیجی‌پی')">دریافت اعتبار</button>
+                </div>
+                <div class="wallet-item flex justify-between">
+                    <span><span><img width="30px" src="zarrin.png"></span> زرین‌پلاس</span>
+                    <button class="btn-secondary" style="padding:8px 20px;" onclick="alert('دمو: درخواست اعتبار از زرین‌پلاس')">دریافت اعتبار</button>
+                </div>
+            </div>
+            <div class="text-center mt-4">
+                <button class="btn-outline" onclick="closeAllModals()">بستن</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Already credit modal (scenario B) with dynamic parts -->
+    <div class="modal-overlay" id="alreadyCreditModal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeAllModals()">&times;</span>
+            <h2 style="color:#31694E;">قبلا اعتبار گرفته‌ام</h2>
+            <div id="instructionText"> <p>مراحل زیر را گام‌به‌گام دنبال کنید:</p></div>  
+          <div id="instructionText">
+                <ol style="padding: 5%;">
+                    <li> به محل کسب و کار مراجعه کنید.</li><br>
+                    <li>هنگام پرداخت، به صاحب‌کسب‌وکار اعلام کنید که از کدام سرویس اعتباری بهترینو استفاده می‌کنید.</li><br>
+                    <li>نام و شماره‌همراه خود را به صاحب‌ کسب‌وکار اعلام کنید.</li><br>
+                    <li>پیامک حاوی لینک پرداخت را دریافت کرده و پرداخت اعتباری خود را نهایی کنید.</li>
+                </ol>
+                </div>
+
+            <!-- استعلام قیمت button & replacement business name -->
+            <div id="inquirySection" style="margin: 25px 0;">
+                <button id="inquiryBtn" class="btn-primary" onclick="showPricesAndReplace()"><i class="fas fa-search"></i> استعلام قیمت</button>
+                <div id="businessNameReplacement" class="hidden" style="background:#F0E491; border-radius: 40px; padding:14px 20px; font-weight:700; color:#1f4a37; text-align:center;">
+                    <i class="fas fa-store"></i> سالن تخصصی VIP زیبایی پروا
+                </div>
+            </div>
+
+            <!-- price list (hidden initially) -->
+            <div id="priceListContainer" class="service-price-list hidden">
+                <div class="service-item"><span>پاکسازی پوست</span> <span>۲ میلیون تومان</span></div>
+                <div class="service-item"><span>رنگ مو</span> <span>۳ میلیون تومان</span></div>
+                <div class="service-item"><span>آرایش عروس</span> <span>۴ میلیون تومان</span></div>
+            </div>
+
+
+            <!-- بزن بریم! always visible, closes modal -->
+            <button class="btn-secondary" style="width:100%;" onclick="closeAllModals()">بزن بریم!</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // ----- modal control functions -----
+    function closeAllModals() {
+        document.querySelectorAll('.modal-overlay').forEach(m => m.classList.remove('active'));
+    }
+
+    function openModal(modalId) {
+        closeAllModals();
+        document.getElementById(modalId).classList.add('active');
+    }
+
+    // trigger: خرید قسطی
+    document.getElementById('installmentTriggerBtn').addEventListener('click', function() {
+        openModal('otpModal');
+    });
+
+    // OTP verification simulation
+    function verifyOtp() {
+        // close otp and open wallet modal
+        closeAllModals();
+        openModal('walletModal');
+    }
+
+    // scenario A
+    function openGetCreditModal() {
+        closeAllModals();
+        openModal('getCreditModal');
+    }
+
+    // scenario B: reset then open
+    function openAlreadyCreditModal() {
+        // reset to initial state: hide pricelist, show inquiry button, hide business name
+        document.getElementById('priceListContainer').classList.add('hidden');
+        document.getElementById('inquiryBtn').classList.remove('hidden');
+        document.getElementById('businessNameReplacement').classList.add('hidden');
+        closeAllModals();
+        openModal('alreadyCreditModal');
+    }
+
+    // function for "استعلام قیمت"
+    function showPricesAndReplace() {
+        // show price list
+        document.getElementById('priceListContainer').classList.remove('hidden');
+        // hide inquiry button
+        document.getElementById('inquiryBtn').classList.add('hidden');
+        // show business name replacement
+        document.getElementById('businessNameReplacement').classList.remove('hidden');
+    }
+
+    // optional: close modal if overlay clicked
+    document.querySelectorAll('.modal-overlay').forEach(overlay => {
+        overlay.addEventListener('click', function(e) {
+            if (e.target === this) closeAllModals();
+        });
+    });
+
+    // ensure that after closing modals, the alreadyCreditModal resets next time it opens (but we reset inside openAlreadyCreditModal)
+    // Also any other resets: not needed
+</script>
+
+<!-- additional tiny style for responsiveness and alignment -->
+<style>
+    /* more polish */
+    .business-card { background: #ffffff; }
+    .btn-primary, .btn-secondary { border: none; }
+    .btn-light { border: 1px solid #bbc863; }
+    .wallet-item .btn-secondary { font-size: 0.9rem; }
+    #instructionText p { line-height: 1.8; color: #2e4a3b; background: #F0E49140; padding: 18px; border-radius: 28px; }
+    .service-price-list { background: #eaf2e5; }
+</style>
+
+<!-- additional notes: all interactive flows are simulated -->
+<!-- OTP modal: any input works, "تایید" proceeds -->
+<!-- wallet modal: two main buttons lead to correct scenarios -->
+<!-- scenario A: shows "دریافت اعتبار" buttons with demo alert -->
+<!-- scenario B: shows instruction, price inquiry reveals prices and business name, then بزن بریم closes. -->
+</body>
+</html>
