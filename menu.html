@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بهترینو | اعتبار + پنل منو (دمو)</title>
+    <!-- Vazir Font & Font Awesome -->
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/Vazir.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* ========== CSS Variables (design system) ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Vazir', sans-serif;
+        }
+        body {
+            background: #e9f0e5;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+        }
+        .split-container {
+            display: flex;
+            gap: 24px;
+            max-width: 1600px;
+            width: 100%;
+        }
+        .left-column {
+            flex: 1.5; /* 60% roughly */
+            min-width: 0; /* for flex overflow */
+        }
+        .right-column {
+            flex: 1; /* 40% */
+            min-width: 0;
+        }
+        /* business card (left) */
+        .business-card {
+            background: white;
+            border-radius: 32px;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+            padding: 24px;
+            transition: all 0.2s ease;
+        }
+        /* merchant panel (right) */
+        .merchant-panel {
+            background: white;
+            border-radius: 32px;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+            padding: 28px 22px;
+            position: sticky;
+            top: 20px;
+        }
+        .panel-title {
+            font-size: 1.5rem;
+            color: #31694E;
+            border-bottom: 2px solid #BBC863;
+            padding-bottom: 12px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        /* form elements */
+        .form-group {
+            margin-bottom: 18px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            color: #2d4a3a;
+            font-size: 0.95rem;
+        }
+        .form-control {
+            width: 100%;
+            padding: 14px 18px;
+            border: 1px solid #ccc;
+            border-radius: 40px;
+            font-size: 1rem;
+            background: #fefefe;
+            transition: 0.2s;
+        }
+        .form-control:focus {
+            outline: none;
+            border-color: #31694E;
+            box-shadow: 0 0 0 3px rgba(49,105,78,0.2);
+        }
+        .price-row {
+            display: flex;
+            gap: 12px;
+        }
+        .price-row .form-group {
+            flex: 1;
+        }
+        .btn-success {
+            background: #31694E;
+            border: none;
+            color: white;
+            border-radius: 40px;
+            padding: 16px 28px;
+            font-weight: 700;
+            width: 100%;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 4px 8px rgba(49,105,78,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .btn-success:hover {
+            background: #1f4a37;
+        }
+        .service-list {
+            margin-top: 32px;
+        }
+        .service-list h3 {
+            color: #31694E;
+            margin-bottom: 16px;
+            font-size: 1.3rem;
+        }
+        .service-item {
+            background: #f3f9f1;
+            border-radius: 30px;
+            padding: 16px 20px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border: 1px solid #BBC86360;
+        }
+        .service-info {
+            flex: 1;
+        }
+        .service-cat {
+            font-size: 0.85rem;
+            background: #658C58;
+            color: white;
+            padding: 4px 14px;
+            border-radius: 40px;
+            display: inline-block;
+            margin-bottom: 6px;
+        }
+        .service-title {
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+        .service-price {
+            color: #31694E;
+            font-weight: 600;
+        }
+        .remove-btn {
+            background: none;
+            border: none;
+            color: #b33;
+            font-size: 1.4rem;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 50%;
+            transition: 0.2s;
+        }
+        .remove-btn:hover {
+            background: #ffe3e3;
+            color: #a00;
+        }
+        /* menu section on left */
+        .services-menu {
+            background: #f9fcf5;
+            border-radius: 28px;
+            padding: 22px;
+            margin: 28px 0 20px;
+            border: 1px dashed #658C58;
+        }
+        .services-menu h2 {
+            color: #31694E;
+            margin-bottom: 18px;
+            font-size: 1.6rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .menu-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .menu-item {
+            background: white;
+            border-radius: 60px;
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 8px #d0dcd0;
+        }
+        .menu-item-right {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .menu-cat {
+            background: #F0E491;
+            padding: 5px 18px;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #1f4a37;
+        }
+        .menu-title {
+            font-weight: 700;
+            font-size: 1.15rem;
+        }
+        .menu-price {
+            color: #31694E;
+            font-weight: 600;
+            background: #e0f0da;
+            padding: 5px 18px;
+            border-radius: 40px;
+            white-space: nowrap;
+        }
+        /* responsive */
+        @media (max-width: 950px) {
+            .split-container {
+                flex-direction: column;
+            }
+        }
+        /* keep original styles from previous prototype (add missing ones) */
+        .business-header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 20px; }
+        .title-section h1 { font-size: 1.8rem; color: #222; }
+        .category { color: #658C58; }
+        .rating { background: #F0E491; padding: 8px 16px; border-radius: 30px; }
+        .action-buttons { display: flex; flex-wrap: wrap; gap: 12px; margin: 20px 0; }
+        .btn-outline { background: white; border: 1px solid #ccc; border-radius: 40px; padding: 12px 24px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; }
+        .btn-primary { background: #31694E; color: white; border-radius: 40px; padding: 12px 32px; border: none; font-weight: 600; cursor: pointer; }
+        .installment-badge { background: linear-gradient(145deg, #31694E, #658C58); color: white; border-radius: 40px; padding: 12px 28px; font-weight: 700; border: none; display: flex; align-items: center; gap: 10px; cursor: pointer; }
+        .gallery { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin: 24px 0; }
+        .gallery-item { background: #ddd; height: 140px; border-radius: 20px; background: linear-gradient(145deg,#e0e0e0,#f0f0f0); display: flex; align-items: center; justify-content: center; }
+        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; background: #F9F9F9; border-radius: 28px; padding: 24px; margin: 24px 0; }
+        .info-item { display: flex; align-items: center; gap: 12px; }
+        .desc { background: #F0E49130; padding: 20px; border-radius: 24px; margin: 24px 0; }
+        .review { background: white; border-radius: 20px; padding: 16px; box-shadow: 0 2px 10px #eaeaea; margin-bottom: 12px; }
+        /* modal styles (copied) */
+        .modal-overlay { position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.4); backdrop-filter:blur(3px); display:flex; align-items:center; justify-content:center; z-index:1000; visibility:hidden; opacity:0; transition:0.2s; }
+        .modal-overlay.active { visibility:visible; opacity:1; }
+        .modal-content { background:white; width:90%; max-width:500px; border-radius:32px; box-shadow:0 30px 50px rgba(0,0,0,0.3); padding:28px; position:relative; transform:scale(0.9); transition:0.2s; }
+        .active .modal-content { transform:scale(1); }
+        .modal-close { position:absolute; left:20px; top:20px; font-size:1.4rem; cursor:pointer; color:#888; }
+        .wallet-list { display:flex; flex-direction:column; gap:16px; margin:24px 0; }
+        .wallet-item { display:flex; align-items:center; gap:18px; background:#f3f9f1; padding:14px 22px; border-radius:60px; border:1px solid #BBC86360; }
+        .wallet-icon { background:#658C58; width:42px; height:42px; border-radius:42px; display:flex; align-items:center; justify-content:center; color:white; font-weight:700; }
+        .btn-secondary { background:#658C58; color:white; border:none; border-radius:40px; padding:12px 28px; font-weight:600; cursor:pointer; }
+        .btn-light { background:#F0E491; color:#1f4a37; border:none; border-radius:40px; padding:12px 28px; font-weight:600; cursor:pointer; }
+        .service-price-list { margin:20px 0; background:#f9fcf5; padding:18px; border-radius:28px; }
+        .service-item-row { display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px dashed #ccc; }
+        .hidden { display:none; }
+        .flex { display:flex; }
+        .gap-2 { gap:12px; }
+        .justify-between { justify-content:space-between; }
+        .mt-4 { margin-top:24px; }
+        .text-center { text-align:center; }
+    </style>
+</head>
+<body>
+<div class="split-container">
+
+    <!-- ========== LEFT COLUMN: business page + credit simulation (previous prototype) ========== -->
+    <div class="left-column">
+        <div class="business-card">
+
+            <!-- business header -->
+            <div class="business-header">
+                <div class="title-section">
+                    <h1>سالن تخصصی VIP زیبایی پروا</h1>
+                    <div class="category"><i class="fas fa-tag"></i> زیبایی و مراقبت</div>
+                </div>
+                <div class="rating">
+                    <i class="fas fa-star" style="color:#d4a017;"></i>
+                    <span>۴.۸</span> (۲۵۶ نظر)
+                </div>
+            </div>
+
+            <!-- action buttons + خرید قسطی badge -->
+            <div class="action-buttons">
+                <button class="btn-outline"><i class="fas fa-phone-alt"></i> تماس</button>
+                <button class="btn-outline"><i class="fas fa-map-marker-alt"></i> مسیریابی</button>
+                <button class="btn-outline"><i class="fas fa-pen"></i> افزودن دیدگاه</button>
+                <button class="installment-badge" id="installmentTriggerBtn">
+                    <i class="fas fa-credit-card"></i> خرید قسطی
+                </button>
+            </div>
+
+             <!-- ========== NEW: services menu (dynamic from merchant panel) ========== -->
+            <div class="services-menu">
+                <h2><i class="fas fa-cut" style="color:#658C58;"></i> خدمات و قیمت‌ها</h2>
+                <div class="menu-grid" id="dynamicMenu">
+                    <!-- Will be populated by JS -->
+                </div>
+            </div>
+
+            <!-- gallery -->
+            <div class="gallery">
+                <div class="gallery-item"><i class="fas fa-image fa-2x"></i></div>
+                <div class="gallery-item"><i class="fas fa-image fa-2x"></i></div>
+                <div class="gallery-item"><i class="fas fa-image fa-2x"></i></div>
+                <div class="gallery-item"><i class="fas fa-image fa-2x"></i></div>
+            </div>
+
+            <!-- info grid -->
+            <div class="info-grid">
+                <div class="info-item"><i class="fas fa-map-pin"></i> تهران، خیابان ولیعصر، پلاک ۱۲۸</div>
+                <div class="info-item"><i class="fas fa-phone"></i> ۰۲۱-۱۲۳۴۵۶۷۸</div>
+                <div class="info-item"><i class="fas fa-clock"></i> شنبه تا پنجشنبه ۱۰–۲۰</div>
+                <div class="info-item"><i class="fas fa-globe"></i> @salon_parva</div>
+            </div>
+
+            <!-- description -->
+            <div class="desc">
+                <i class="fas fa-quote-right" style="color:#658C58;"></i>
+                ارائه‌دهنده خدمات تخصصی پوست، مو و آرایش با تیم حرفه‌ای و مجرب. دارای مجوز رسمی از وزارت بهداشت.
+            </div>
+
+            <!-- sample reviews -->
+            <h3 style="margin-bottom:12px;">نظرات کاربران</h3>
+            <div class="review">
+                <div class="review-header"><i class="fas fa-user-circle"></i> مریم‌سادات <span>★★★★★</span></div>
+                <p>بسیار حرفه‌ای و تمیز. رنگ مو عالی شد.</p>
+            </div>
+            <div class="review">
+                <div class="review-header"><i class="fas fa-user-circle"></i> الناز <span>★★★★☆</span></div>
+                <p>پاکسازی پوست عالی، کمی زمان انتظار.</p>
+            </div>
+
+            <!-- Modals (credit simulation) — exactly same as previous prototype, with minor id adjustments -->
+            <!-- OTP Modal -->
+            <div class="modal-overlay" id="otpModal">
+                <div class="modal-content">
+                    <span class="modal-close" onclick="closeAllModals()">&times;</span>
+                    <h2 style="color:#31694E;"> verification کد تایید</h2>
+                    <p style="margin:12px 0;">شماره همراه خود را وارد کنید (دمو)</p>
+                    <input type="text" placeholder="مثلاً ۰۹۱۲۳۴۵۶۷۸۹" style="width:100%; padding:14px; border-radius:40px; border:1px solid #ccc; margin-bottom:20px;">
+                    <button class="btn-primary" style="width:100%;" onclick="verifyOtp()">تایید</button>
+                </div>
+            </div>
+            <!-- Wallet selection modal -->
+            <div class="modal-overlay" id="walletModal">
+                <div class="modal-content">
+                    <span class="modal-close" onclick="closeAllModals()">&times;</span>
+                    <h2 style="color:#31694E;">انتخاب روش اعتبار</h2>
+                    <div class="wallet-list">
+                        <div class="wallet-item"><span class="wallet-icon">T</span> <span style="flex:1; font-weight:600;">تارا (Tara)</span></div>
+                        <div class="wallet-item"><span class="wallet-icon">D</span> <span style="flex:1; font-weight:600;">دیجی‌پی (DigiPay)</span></div>
+                        <div class="wallet-item"><span class="wallet-icon">Z</span> <span style="flex:1; font-weight:600;">زرین‌پلاس (ZarinPlus)</span></div>
+                    </div>
+                    <div class="flex gap-2" style="margin-top:20px; justify-content: space-around;">
+                        <button class="btn-light" onclick="openGetCreditModal()"><i class="fas fa-plus-circle"></i> می‌خواهم اعتبار بگیرم</button>
+                        <button class="btn-light" onclick="openAlreadyCreditModal()"><i class="fas fa-check-circle"></i> قبلا اعتبار گرفته‌ام</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Get credit modal (scenario A) -->
+            <div class="modal-overlay" id="getCreditModal">
+                <div class="modal-content">
+                    <span class="modal-close" onclick="closeAllModals()">&times;</span>
+                    <h2 style="color:#31694E;">دریافت اعتبار از</h2>
+                    <div class="wallet-list">
+                        <div class="wallet-item flex justify-between"><span><span class="wallet-icon">T</span> تارا</span> <button class="btn-secondary" style="padding:8px 20px;" onclick="alert('دمو: درخواست اعتبار از تارا')">دریافت اعتبار</button></div>
+                        <div class="wallet-item flex justify-between"><span><span class="wallet-icon">D</span> دیجی‌پی</span> <button class="btn-secondary" style="padding:8px 20px;" onclick="alert('دمو: درخواست اعتبار از دیجی‌پی')">دریافت اعتبار</button></div>
+                        <div class="wallet-item flex justify-between"><span><span class="wallet-icon">Z</span> زرین‌پلاس</span> <button class="btn-secondary" style="padding:8px 20px;" onclick="alert('دمو: درخواست اعتبار از زرین‌پلاس')">دریافت اعتبار</button></div>
+                    </div>
+                    <div class="text-center mt-4"><button class="btn-outline" onclick="closeAllModals()">بستن</button></div>
+                </div>
+            </div>
+            <!-- Already credit modal (scenario B) -->
+            <div class="modal-overlay" id="alreadyCreditModal">
+                <div class="modal-content">
+                    <span class="modal-close" onclick="closeAllModals()">&times;</span>
+                    <h2 style="color:#31694E;">قبلا اعتبار گرفته‌ام</h2>
+                    <div id="instructionText"><p>به کسب‌وکاری که در بهترینو دیده‌اید بصورت حضوری مراجعه کنید. هنگام پرداخت به صاحب کسب‌وکار اعلام کنید که از سرویس اعتباری بهترینو استفاده می‌کنید. اطلاعات و شماره همراه خود را به صاحب کسب و کار اعلام کنید. پیامک حاوی لینک پرداخت را دریافت کرده و خرید خود را نهایی کنید.</p></div>
+                    <div id="priceListContainer" class="service-price-list hidden">
+                        <div class="service-item-row"><span>پاکسازی پوست</span> <span>۲ میلیون تومان</span></div>
+                        <div class="service-item-row"><span>رنگ مو</span> <span>۳ میلیون تومان</span></div>
+                        <div class="service-item-row"><span>آرایش عروس</span> <span>۴ میلیون تومان</span></div>
+                    </div>
+                    <div id="inquirySection" style="margin:25px 0;">
+                        <button id="inquiryBtn" class="btn-primary" onclick="showPricesAndReplace()"><i class="fas fa-search"></i> استعلام قیمت</button>
+                        <div id="businessNameReplacement" class="hidden" style="background:#F0E491; border-radius:40px; padding:14px 20px; font-weight:700; color:#1f4a37; text-align:center;"><i class="fas fa-store"></i> سالن تخصصی VIP زیبایی پروا</div>
+                    </div>
+                    <button class="btn-secondary" style="width:100%;" onclick="closeAllModals()">بزن بریم!</button>
+                </div>
+            </div>
+        </div> <!-- end business-card -->
+    </div> <!-- end left-column -->
+
+    <!-- ========== RIGHT COLUMN: merchant panel to set services ========== -->
+    <div class="right-column">
+        <div class="merchant-panel">
+            <div class="panel-title">
+                <i class="fas fa-store-alt"></i> پنل مدیریت منو
+            </div>
+            <form id="serviceForm" onsubmit="event.preventDefault(); addService();">
+                <div class="form-group">
+                    <label>دسته‌بندی <span style="color:#658C58;">(مثال: پوست، مو)</span></label>
+                    <input type="text" id="catInput" class="form-control" placeholder="مثال: مراقبت پوست" required>
+                </div>
+                <div class="form-group">
+                    <label>عنوان خدمت</label>
+                    <input type="text" id="titleInput" class="form-control" placeholder="مثال: پاکسازی عمیق" required>
+                </div>
+                <div class="price-row">
+                    <div class="form-group">
+                        <label>حداقل (میلیون)</label>
+                        <input type="number" id="minPrice" class="form-control" min="1" max="99" step="1" value="2" required>
+                    </div>
+                    <div class="form-group">
+                        <label>حداکثر (میلیون)</label>
+                        <input type="number" id="maxPrice" class="form-control" min="1" max="99" step="1" value="4" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn-success"><i class="fas fa-plus"></i> افزودن خدمت</button>
+            </form>
+
+            <div class="service-list">
+                <h3><i class="fas fa-list-ul"></i> خدمات فعلی</h3>
+                <div id="merchantServiceList">
+                    <!-- dynamic list of services with remove button -->
+                </div>
+                <p style="color: #658C58; font-size:0.9rem; margin-top:12px;" id="emptyMsg">هنوز خدمتی اضافه نشده است.</p>
+            </div>
+            <div style="margin-top:24px; background:#F0E49140; padding:18px; border-radius:28px;">
+                <small><i class="fas fa-info-circle"></i> با افزودن خدمت، منوی سمت چپ بروز می‌شود. دامنه قیمت: ۱ تا ۹۹ میلیون تومان.</small>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // ========== CREDIT MODAL FUNCTIONS (same as previous prototype) ==========
+    function closeAllModals() {
+        document.querySelectorAll('.modal-overlay').forEach(m => m.classList.remove('active'));
+    }
+    function openModal(modalId) {
+        closeAllModals();
+        document.getElementById(modalId).classList.add('active');
+    }
+    document.getElementById('installmentTriggerBtn')?.addEventListener('click', function() {
+        openModal('otpModal');
+    });
+    function verifyOtp() {
+        closeAllModals();
+        openModal('walletModal');
+    }
+    function openGetCreditModal() {
+        closeAllModals();
+        openModal('getCreditModal');
+    }
+    function openAlreadyCreditModal() {
+        document.getElementById('priceListContainer').classList.add('hidden');
+        document.getElementById('inquiryBtn').classList.remove('hidden');
+        document.getElementById('businessNameReplacement').classList.add('hidden');
+        closeAllModals();
+        openModal('alreadyCreditModal');
+    }
+    function showPricesAndReplace() {
+        document.getElementById('priceListContainer').classList.remove('hidden');
+        document.getElementById('inquiryBtn').classList.add('hidden');
+        document.getElementById('businessNameReplacement').classList.remove('hidden');
+    }
+    // overlay click close
+    document.querySelectorAll('.modal-overlay').forEach(overlay => {
+        overlay.addEventListener('click', function(e) {
+            if (e.target === this) closeAllModals();
+        });
+    });
+
+    // ========== MERCHANT / MENU MANAGEMENT ==========
+    // services array (initial demo data)
+    let services = [
+        { category: 'پوست', title: 'پاکسازی عمیق', min: 2, max: 3 },
+        { category: 'مو', title: 'رنگ مو حرفه‌ای', min: 3, max: 5 },
+        { category: 'آرایش', title: 'آرایش عروس', min: 4, max: 7 }
+    ];
+
+    // render both left menu and right merchant list
+    function renderAll() {
+        renderLeftMenu();
+        renderMerchantList();
+    }
+
+    function renderLeftMenu() {
+        const menuContainer = document.getElementById('dynamicMenu');
+        if (!menuContainer) return;
+        if (services.length === 0) {
+            menuContainer.innerHTML = '<p style="color:#658C58; text-align:center;">هیچ خدمتی برای نمایش وجود ندارد.</p>';
+            return;
+        }
+        let html = '';
+        services.forEach(s => {
+            html += `
+                <div class="menu-item">
+                    <div class="menu-item-right">
+                        <span class="menu-cat">${escapeHtml(s.category)}</span>
+                        <span class="menu-title">${escapeHtml(s.title)}</span>
+                    </div>
+                    <span class="menu-price">${s.min} تا ${s.max} میلیون تومان</span>
+                </div>
+            `;
+        });
+        menuContainer.innerHTML = html;
+    }
+
+    function renderMerchantList() {
+        const listDiv = document.getElementById('merchantServiceList');
+        const emptyMsg = document.getElementById('emptyMsg');
+        if (!listDiv) return;
+        if (services.length === 0) {
+            listDiv.innerHTML = '';
+            if (emptyMsg) emptyMsg.style.display = 'block';
+            return;
+        }
+        if (emptyMsg) emptyMsg.style.display = 'none';
+        let html = '';
+        services.forEach((s, index) => {
+            html += `
+                <div class="service-item">
+                    <div class="service-info">
+                        <span class="service-cat">${escapeHtml(s.category)}</span>
+                        <div class="service-title">${escapeHtml(s.title)}</div>
+                        <div class="service-price">${s.min} - ${s.max} میلیون تومان</div>
+                    </div>
+                    <button class="remove-btn" onclick="removeService(${index})" title="حذف"><i class="fas fa-trash-alt"></i></button>
+                </div>
+            `;
+        });
+        listDiv.innerHTML = html;
+    }
+
+    // simple escape
+    function escapeHtml(unsafe) {
+        return unsafe.replace(/[&<>"]/g, function(m) {
+            if (m === '&') return '&amp;'; if (m === '<') return '&lt;'; if (m === '>') return '&gt;'; if (m === '"') return '&quot;';
+            return m;
+        });
+    }
+
+    // add new service
+    function addService() {
+        const cat = document.getElementById('catInput').value.trim();
+        const title = document.getElementById('titleInput').value.trim();
+        const min = parseInt(document.getElementById('minPrice').value, 10);
+        const max = parseInt(document.getElementById('maxPrice').value, 10);
+
+        if (!cat || !title) {
+            alert('لطفاً دسته‌بندی و عنوان را وارد کنید');
+            return;
+        }
+        if (isNaN(min) || isNaN(max) || min < 1 || max > 99 || min > max) {
+            alert('قیمت باید بین ۱ تا ۹۹ میلیون باشد و حداقل از حداکثر کمتر باشد');
+            return;
+        }
+
+        services.push({ category: cat, title: title, min: min, max: max });
+        renderAll();
+
+        // clear form
+        document.getElementById('catInput').value = '';
+        document.getElementById('titleInput').value = '';
+        document.getElementById('minPrice').value = 2;
+        document.getElementById('maxPrice').value = 4;
+    }
+
+    // remove service
+    function removeService(index) {
+        services.splice(index, 1);
+        renderAll();
+    }
+
+    // initial render
+    window.onload = function() {
+        renderAll();
+    };
+</script>
+<!-- ensure modals work with new ids and no conflicts -->
+</body>
+</html>
