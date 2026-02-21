@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>سند رویه حسابرسی داخلی – سامانه کیف پول سه‌گانه فروش اعتباری</title>
+
+  <!-- Vazir Font (Vazirmatn) -->
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <!-- Font Awesome for icons (optional, for better visuals) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
+  <style>
+    :root {
+      --primary: #31694E;
+      --secondary: #658C58;
+      --highlight: #BBC863;
+      --background: #F0E491;
+      --card-bg: #ffffff;
+      --text-dark: #1f2f26;
+      --border-light: #e0e7da;
+      --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.05);
+      --shadow-hover: 0 12px 28px rgba(0, 0, 0, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Vazirmatn", sans-serif;
+      background: linear-gradient(145deg, #f9fbf7 0%, #ffffff 100%);
+      color: var(--text-dark);
+      line-height: 1.8;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* استایل هدر با گرادینت سه‌رنگ */
+    header {
+      background: linear-gradient(105deg, var(--primary) 0%, var(--secondary) 50%, var(--highlight) 100%);
+      color: #fff;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      box-shadow: 0 6px 18px rgba(0, 60, 30, 0.25);
+      border-bottom: 4px solid rgba(255, 255, 255, 0.2);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.2rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+
+    header p {
+      margin-top: 0.75rem;
+      font-size: 1.1rem;
+      opacity: 0.95;
+      font-weight: 300;
+    }
+
+    main {
+      max-width: 1300px;
+      margin: 2.5rem auto;
+      padding: 0 1.5rem 4rem;
+      flex: 1;
+    }
+
+    /* طراحی کارت‌ها با سایه و حاشیه راست‌رنگ */
+    .card {
+      background: var(--card-bg);
+      border-radius: 28px;
+      padding: 2rem 2rem 2rem 2rem;
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      border: 1px solid rgba(101, 140, 88, 0.15);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-hover);
+      border-color: var(--highlight);
+    }
+
+    .card h2 {
+      margin-top: 0;
+      margin-bottom: 1.5rem;
+      color: var(--primary);
+      font-size: 1.1rem;
+      font-weight: 700;
+      border-right: 8px solid var(--highlight);
+      padding-right: 1rem;
+      line-height: 1.3;
+    }
+
+    .card h3 {
+      color: var(--secondary);
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+      font-size: 1rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .card h3 i {
+      color: var(--primary);
+      font-size: 1.6rem;
+    }
+
+    ul, ol {
+      padding-right: 2rem;
+      margin: 1rem 0;
+    }
+
+    li {
+      margin-bottom: 0.5rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.8rem 0;
+      font-size: 0.95rem;
+      background: white;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+    }
+
+    th {
+      background: var(--highlight);
+      color: #1e3a2a;
+      font-weight: 700;
+      padding: 14px 8px;
+      border: none;
+      font-size: 1rem;
+    }
+
+    td {
+      border: 1px solid var(--border-light);
+      padding: 12px 8px;
+      text-align: center;
+      background: white;
+    }
+
+    .example {
+      background: #f4f9f0;
+      border-right: 6px solid var(--secondary);
+      padding: 1.5rem;
+      border-radius: 20px;
+      margin: 1.8rem 0;
+      font-size: 0.95rem;
+      box-shadow: inset 0 2px 6px rgba(0,0,0,0.02);
+    }
+
+    .checklist li {
+      list-style-type: "✓  ";
+      padding-right: 0.75rem;
+      margin-bottom: 0.9rem;
+      font-size: 1.1rem;
+    }
+
+    /* استایل فرمول و شبیه‌ساز */
+    .equation-simulator {
+      background: rgba(240, 228, 145, 0.3);
+      border-radius: 24px;
+      padding: 1.8rem;
+      margin: 2rem 0;
+      border: 1px dashed var(--primary);
+    }
+
+    .eq-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+      margin: 1.5rem 0;
+    }
+
+    .eq-row label {
+      min-width: 140px;
+      font-weight: 600;
+      color: var(--primary);
+    }
+
+    .eq-row input {
+      flex: 1;
+      min-width: 200px;
+      padding: 0.9rem 1rem;
+      border: 2px solid #dde5d8;
+      border-radius: 40px;
+      font-family: inherit;
+      font-size: 1rem;
+      transition: 0.2s;
+    }
+
+    .eq-row input:focus {
+      border-color: var(--secondary);
+      outline: none;
+      box-shadow: 0 0 0 4px rgba(101, 140, 88, 0.2);
+    }
+
+    .eq-result {
+      background: var(--primary);
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 60px;
+      font-weight: 700;
+      font-size: 1.3rem;
+      display: inline-block;
+      margin-top: 1rem;
+    }
+
+    .badge {
+      display: inline-block;
+      background: var(--highlight);
+      color: #1f3a28;
+      padding: 0.3rem 1rem;
+      border-radius: 40px;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .sample-merchants {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .merchant-card {
+      background: white;
+      border-radius: 20px;
+      padding: 1.5rem;
+      border: 1px solid #e2eeda;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.02);
+    }
+
+    .merchant-card h4 {
+      color: var(--primary);
+      border-bottom: 2px solid var(--highlight);
+      padding-bottom: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .stat {
+      display: flex;
+      justify-content: space-between;
+      margin: 0.6rem 0;
+    }
+
+    .verified {
+      color: #2a7a3b;
+      font-weight: 700;
+    }
+
+    .unverified {
+      color: #b34a4a;
+      font-weight: 700;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.9rem;
+      color: #5f6d5f;
+      padding: 2rem 0;
+      border-top: 1px solid #cfdec7;
+      margin-top: 3rem;
+    }
+
+    hr {
+      border: none;
+      border-top: 2px solid var(--background);
+      margin: 2rem 0;
+    }
+
+    @media (max-width: 700px) {
+      header h1 { font-size: 1.6rem; }
+      .card { padding: 1.5rem; }
+      .eq-row { flex-direction: column; align-items: stretch; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>📋 سند جامع رویه حسابرسی داخلی</h1>
+  <p>سرویس  فروش اعتباری</p>
+</header>
+
+<main>
+
+  <!-- 1. INTRODUCTION -->
+  <section class="card">
+    <h2>🔍 ۱. مقدمه (Introduction)</h2>
+
+    <h3><i class="fas fa-bullseye"></i> هدف حسابرسی داخلی</h3>
+    <p>
+      هدف از این حسابرسی داخلی، اطمینان از صحت، کامل‌ بودن و دقت عملکرد
+      سامانه کیف پول ها در هاب فروش اعتباری
+      برای پذیرندگان (Merchants) است. تمرکز اصلی این حسابرسی بر تأیید معادله بنیادین خواهد بود:
+    </p>
+    <div class="example" style="text-align: center; font-size: 1.3rem;">
+      <strong style="font-size: small;">Total Withdrawal + Pending Balance + Available Balance = Total Successful Orders</strong>
+    </div>
+
+    <h3><i class="fas fa-layer-group"></i> دامنه حسابرسی</h3>
+    <ul>
+      <li>کیف پول پذیرندگان شامل سه بخش: Pending Balance، Available Balance و Total Withdrawal</li>
+      <li>تمام تراکنش‌های فروش موفق (Successful Orders)</li>
+      <li>انتقال‌های خودکار بین کیف‌ها</li>
+      <li>برداشت‌ها (Withdrawals)</li>
+      <li>حساب‌های تست (Test Accounts) – تفکیک شده</li>
+    </ul>
+
+    <h3><i class="fas fa-calendar-alt"></i> تناوب حسابرسی</h3>
+    <p>این حسابرسی به‌صورت <span class="badge">ماهانه</span> انجام می‌شود و در پایان هر فصل، یک حسابرسی تجمیعی فصلی (Quarterly Review) نیز الزامی است.</p>
+
+    <h3><i class="fas fa-users"></i> نقش‌ها و مسئولیت‌ها</h3>
+    <ul>
+      <li><strong>حسابرس داخلی:</strong> اجرای رویه‌ها و تهیه گزارش</li>
+      <li><strong>تیم مالی:</strong> پاسخ‌گویی به مغایرت‌ها</li>
+      <li><strong>مهندسی:</strong> بررسی خطاهای سیستمی</li>
+      <li><strong>مدیریت:</strong> تأیید و اقدام اصلاحی</li>
+    </ul>
+  </section>
+
+  <!-- 2. AUDIT OBJECTIVES -->
+  <section class="card">
+    <h2>🎯 ۲. اهداف حسابرسی (Audit Objectives)</h2>
+    <ul>
+      <li>بررسی صحت معادله بنیادین سیستم (فرمول بالا).</li>
+      <li>اطمینان از ثبت صحیح انتقال‌های داخلی (Internal Transfers).</li>
+      <li>شناسایی تراکنش‌های غیرمجاز یا مغایرت‌ها.</li>
+      <li>کنترل تفکیک و رفتار صحیح حساب‌های تست.</li>
+    </ul>
+  </section>
+
+  <!-- 3. PRE-AUDIT -->
+  <section class="card">
+    <h2>⚙️ ۳. آماده‌سازی پیش از حسابرسی (Pre-Audit)</h2>
+    <h3><i class="fas fa-key"></i> دسترسی‌ها</h3>
+    <ul>
+      <li>دیتابیس اصلی (Read-Only)</li>
+      <li>پنل ادمین (Admin Panel)</li>
+      <li>گزارش‌های مالی پذیرنده (Merchant Reports)</li>
+    </ul>
+    <h3><i class="fas fa-cut"></i> انتخاب Cut-off</h3>
+    <p>تاریخ و ساعت پایان دوره حسابرسی باید به‌صورت دقیق (مثلاً ۲۳:۵۹:۵۹ آخرین روز ماه) ثبت شود.</p>
+    <h3><i class="fas fa-flask"></i> حساب‌های تست (Test Accounts)</h3>
+    <p>فهرست کامل حساب‌های تست باید استخراج و یا از گزارش‌ها حذف (Excluded) یا جداگانه گزارش شوند.</p>
+    <h3><i class="fas fa-random"></i> نمونه‌گیری</h3>
+    <p>نمونه‌ها باید به‌صورت آماری (Statistical Sampling) و بر اساس حجم و ریسک انتخاب شوند.</p>
+  </section>
+
+  <!-- 4. VERIFICATION PROCEDURES + SIMULATOR -->
+  <section class="card">
+    <h2>🧪 ۴. رویه‌های تأیید (Verification Procedures)</h2>
+
+    <h3>۴.۱ تطبیق مانده ابتدای دوره</h3>
+    <ul>
+      <li>ثبت مانده افتتاحیه هر سه Pocket</li>
+      <li>تطبیق با مانده اختتامیه دوره قبل</li>
+    </ul>
+
+    <h3>۴.۲ آزمون تراکنش‌ها (Transaction Testing)</h3>
+    <p>برای هر نمونه انتخاب‌شده:</p>
+    <ol>
+      <li>ثبت فروش موفق (Successful Order)</li>
+      <li>افزوده‌شدن به Pending Balance</li>
+      <li>انتقال خودکار به Available Balance در Due Date</li>
+      <li>ثبت برداشت (Withdrawal)</li>
+    </ol>
+
+    <!-- شبیه‌ساز تعاملی معادله -->
+    <!-- <div class="equation-simulator">
+      <h4 style="display: flex; gap: 0.5rem; color: var(--primary);"><i class="fas fa-calculator"></i> شبیه‌ساز معادله سه‌کیفی</h4>
+      <p>مقادیر دلخواه را وارد کنید تا صحت معادله را بررسی کنید:</p>
+      <div class="eq-row">
+        <label>کل فروش موفق (Total Sales):</label>
+        <input type="number" id="totalSales" value="10000000" step="100000" />
+      </div>
+      <div class="eq-row">
+        <label>Pending Balance:</label>
+        <input type="number" id="pendingBal" value="3000000" step="100000" />
+      </div>
+      <div class="eq-row">
+        <label>Available Balance:</label>
+        <input type="number" id="availableBal" value="4000000" step="100000" />
+      </div>
+      <div class="eq-row">
+        <label>Total Withdrawal:</label>
+        <input type="number" id="withdrawalBal" value="3000000" step="100000" />
+      </div>
+      <div style="font-size: small;" class="eq-result" id="eqResult">
+        ✅ معادله برقرار است
+      </div>
+      <p style="font-size: 0.9rem; margin-top: 0.5rem;"><i class="fas fa-info-circle"></i> جمع سه کیف باید برابر کل فروش موفق باشد.</p>
+    </div> -->
+
+    <h3>۴.۳ تأیید مانده کیف‌ها</h3>
+    <p>فرمول محاسبه برای هر کیف:</p>
+    <div class="example">
+      <strong>Ending Balance = Beginning Balance + New Sales − Transfers − Withdrawals</strong>
+    </div>
+
+    <h3>۴.۴ حساب‌های تست</h3>
+    <p>تراکنش‌های تست نباید در گزارش‌های مالی پذیرنده واقعی یا گزارش‌های مدیریتی اثرگذار باشند.</p>
+  </section>
+
+  <!-- 5. RECONCILIATION METHODOLOGY -->
+  <section class="card">
+    <h2>🔄 ۵. روش تطبیق (Reconciliation Methodology)</h2>
+
+    <h3>۵.۱ تطبیق سه‌مرحله‌ای (Three-Way Reconciliation)</h3>
+    <ul>
+      <li>Transaction Logs ↔ Database</li>
+      <li>Database ↔ Merchant Reports</li>
+      <li>Merchant Reports ↔ Aggregate Totals</li>
+    </ul>
+
+    <h3>۵.۲ آزمون Cut-off</h3>
+    <p>بررسی تراکنش‌های بلافاصله قبل و بعد از پایان دوره برای جلوگیری از ثبت نادرست زمانی.</p>
+  </section>
+
+  <!-- 6. DISCREPANCY MANAGEMENT -->
+  <section class="card">
+    <h2>⚠️ ۶. مدیریت مغایرت‌ها (Discrepancy Management)</h2>
+    <ul>
+      <li>خطای سیستمی (System Error)</li>
+      <li>خطای داده‌ای (Data Entry)</li>
+      <li>اختلاف زمانی (Timing Difference)</li>
+      <li>ریسک تقلب (Potential Fraud)</li>
+    </ul>
+    <p>تمام مغایرت‌های بااهمیت باید مستندسازی، اصلاح و در صورت لزوم مجدداً حسابرسی شوند.</p>
+  </section>
+
+  <!-- نمونه داده‌های حسابرسی (Simulated Merchant Data) -->
+  <!-- <section class="card">
+    <h2>📊 نمونه داده‌های حسابرسی (Simulated Audit Data)</h2>
+    <p>در زیر نمونه‌ای از چهار پذیرنده و وضعیت کیف‌های آن‌ها نشان داده شده است. ستون آخر نشان‌دهنده برقراری معادله است.</p>
+
+    <div class="sample-merchants" id="merchantList">
+    </div>
+
+    <table>
+      <thead>
+        <tr><th>نام پذیرنده</th><th>کل فروش</th><th>Pending</th><th>Available</th><th>برداشت کل</th><th>وضعیت</th></tr>
+      </thead>
+      <tbody id="merchantTableBody">
+      </tbody>
+    </table>
+    <p class="badge" style="margin-top:1rem;">آخرین به‌روزرسانی: ۱۴۰۴/۱۲/۰۲</p>
+  </section> -->
+
+  <!-- 7. REPORTING -->
+  <section class="card">
+    <h2>📋 ۷. الزامات گزارش‌دهی (Reporting Requirements)</h2>
+    <ul>
+      <li>خلاصه اجرایی (Executive Summary)</li>
+      <li>یافته‌های تفصیلی (Detailed Findings)</li>
+      <li>تحلیل مغایرت‌ها (Variance Analysis)</li>
+      <li>اقدامات اصلاحی پیشنهادی (Corrective Actions)</li>
+      <li>پاسخ مدیریت (Management Response)</li>
+    </ul>
+  </section>
+
+  <!-- 8. APPENDICES -->
+  <section class="card">
+    <h2>📎 ۸. پیوست‌ها (Appendices)</h2>
+
+    <h3><i class="fas fa-check-double"></i> چک‌لیست کنترل داخلی دوره‌ای</h3>
+    <ul class="checklist">
+      <li>برابری معادله سه‌کیفی تأیید شد</li>
+      <li>تمام انتقال‌ها دارای ثبت دوطرفه هستند</li>
+      <li>هیچ برداشت منفی مشاهده نشد</li>
+      <li>حساب‌های تست جداگانه مدیریت شده‌اند</li>
+      <li>آزمون Cut-off انجام شد</li>
+    </ul>
+
+    <h3><i class="fas fa-language"></i> واژه‌نامه (Glossary)</h3>
+    <table>
+      <tr><th>اصطلاح فارسی</th><th>English Term</th><th>توضیح</th></tr>
+      <tr><td>مانده در انتظار</td><td>Pending Balance</td><td>مبالغ فروش موفق که هنوز موعد برداشت آن نرسیده</td></tr>
+      <tr><td>مانده قابل برداشت</td><td>Available Balance</td><td>مبالغی که موعد برداشت آن‌ها فرا رسیده است</td></tr>
+      <tr><td>برداشت کل</td><td>Total Withdrawal</td><td>جمع کل مبالغ برداشت‌شده از ابتدا</td></tr>
+      <tr><td>تاریخ سررسید</td><td>Due Date</td><td>زمان انتقال خودکار از Pending به Available</td></tr>
+    </table>
+  </section>
+</main>
+
+<footer>
+  <i class="far fa-file-alt"></i> سند داخلی – استفاده صرفاً برای حسابرسی و کنترل‌های مالی – نسخه ۲.۱ (اسفند ۱۴۰۴)
+</footer>
+
+<!-- JavaScript Enhancements -->
+<script>
+  (function() {
+    // شبیه‌ساز معادله
+    const totalInput = document.getElementById('totalSales');
+    const pendingInput = document.getElementById('pendingBal');
+    const availableInput = document.getElementById('availableBal');
+    const withdrawalInput = document.getElementById('withdrawalBal');
+    const eqResult = document.getElementById('eqResult');
+
+    function updateEquation() {
+      const total = parseFloat(totalInput.value) || 0;
+      const pending = parseFloat(pendingInput.value) || 0;
+      const available = parseFloat(availableInput.value) || 0;
+      const withdrawal = parseFloat(withdrawalInput.value) || 0;
+      const sum = pending + available + withdrawal;
+      if (Math.abs(sum - total) < 1) { // اجازه خطای کوچک
+        eqResult.innerHTML = '✅ معادله برقرار است (مقادیر همخوانی دارند)';
+        eqResult.style.backgroundColor = 'var(--primary)';
+      } else {
+        eqResult.innerHTML = `❌ معادله برقرار نیست (جمع سه کیف = ${sum.toLocaleString()}، کل فروش = ${total.toLocaleString()})`;
+        eqResult.style.backgroundColor = '#b34a4a';
+      }
+    }
+
+    [totalInput, pendingInput, availableInput, withdrawalInput].forEach(inp => {
+      inp.addEventListener('input', updateEquation);
+    });
+    updateEquation(); // initial
+
+    // داده‌های نمونه پذیرندگان
+    const merchants = [
+      { name: 'سالن زیبایی پروا', total: 12500000, pending: 2000000, available: 5500000, withdrawal: 5000000 },
+      { name: 'کلینیک دندان‌پزشکی لبخند', total: 8700000, pending: 1200000, available: 2500000, withdrawal: 5000000 },
+    //   { name: 'فیزیوتراپی فاطیما', total: 6300000, pending: 800000, available: 2000000, withdrawal: 3500000 },
+      { name: 'آموزشگاه زبان پردیسان', total: 4200000, pending: 0, available: 1200000, withdrawal: 3000000 },
+    ];
+
+    // کارت‌های نمونه
+    const merchantContainer = document.getElementById('merchantList');
+    merchantContainer.innerHTML = '';
+    merchants.forEach(m => {
+      const sum = m.pending + m.available + m.withdrawal;
+      const isEq = Math.abs(sum - m.total) < 1;
+      const card = document.createElement('div');
+      card.className = 'merchant-card';
+      card.innerHTML = `
+        <h4>${m.name}</h4>
+        <div class="stat"><span>💰 کل فروش:</span> <strong>${m.total.toLocaleString()}</strong></div>
+        <div class="stat"><span>⏳ Pending:</span> ${m.pending.toLocaleString()}</div>
+        <div class="stat"><span>✅ Available:</span> ${m.available.toLocaleString()}</div>
+        <div class="stat"><span>💸 برداشت کل:</span> ${m.withdrawal.toLocaleString()}</div>
+        <div class="stat ${isEq ? 'verified' : 'unverified'}">
+          <span>وضعیت:</span> ${isEq ? '✓ همخوان' : '✗ ناهمخوان'}
+        </div>
+      `;
+      merchantContainer.appendChild(card);
+    });
+
+    // جدول نمونه
+    const tbody = document.getElementById('merchantTableBody');
+    tbody.innerHTML = '';
+    merchants.forEach(m => {
+      const sum = m.pending + m.available + m.withdrawal;
+      const isEq = Math.abs(sum - m.total) < 1;
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td>${m.name}</td>
+        <td>${m.total.toLocaleString()}</td>
+        <td>${m.pending.toLocaleString()}</td>
+        <td>${m.available.toLocaleString()}</td>
+        <td>${m.withdrawal.toLocaleString()}</td>
+        <td style="color: ${isEq ? '#2a7a3b' : '#b34a4a'}; font-weight:700;">${isEq ? '✔' : '✘'}</td>
+      `;
+      tbody.appendChild(row);
+    });
+  })();
+</script>
+
+</body>
+</html>
