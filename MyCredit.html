@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+  <title>اعتبار من · نمونه اولیه موبایل</title>
+  <!-- فونت وزیر -->
+  <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.0.3/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
+  <style>
+    /* === متغیرها و پایه === */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #31694E;
+      --secondary: #658C58;
+      --tertiary: #BBC863;
+      --bg-soft: #F0E491;
+      --white: #ffffff;
+      --gray-light: #f2f4f5;
+      --gray-mid: #d0d7de;
+      --gray-dark: #5e6f6f;
+      --purple: #8a4b9c;
+      --shadow-sm: 0 2px 8px rgba(0,0,0,0.03);
+      --shadow-md: 0 6px 16px rgba(0,0,0,0.08);
+      --radius-card: 24px;
+      --radius-item: 16px;
+      --spacing-xs: 6px;
+      --spacing-sm: 12px;
+      --spacing-md: 18px;
+      --spacing-lg: 24px;
+      --spacing-xl: 32px;
+      --transition: all 0.2s ease;
+    }
+
+    body {
+      font-family: 'Vazirmatn', sans-serif;
+      background: var(--bg-soft);
+      color: #1d2f2f;
+      line-height: 1.5;
+      padding: var(--spacing-sm);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      direction: rtl;
+    }
+
+    .container {
+      max-width: 600px;  /* موبایل فرست */
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    /* کارت‌ها */
+    .card {
+      background: var(--white);
+      border-radius: var(--radius-card);
+      box-shadow: var(--shadow-md);
+      padding: var(--spacing-lg);
+      margin-bottom: var(--spacing-md);
+    }
+
+    .gradient-header {
+      background: linear-gradient(145deg, var(--primary), var(--secondary));
+      color: white;
+      padding: var(--spacing-lg);
+      border-radius: var(--radius-card);
+      margin-bottom: var(--spacing-md);
+      box-shadow: var(--shadow-md);
+    }
+
+    .gradient-header h1 {
+      font-size: 1.8rem;
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+
+    .gradient-header p {
+      font-size: 0.95rem;
+      opacity: 0.9;
+    }
+
+    /* دکمه منو (شبیه‌سازی) */
+    .burger-menu-sim {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      background: rgba(255,255,255,0.3);
+      padding: 8px 12px;
+      border-radius: 40px;
+      margin-bottom: var(--spacing-md);
+      font-size: 0.85rem;
+      backdrop-filter: blur(2px);
+    }
+    .burger-menu-sim span {
+      background: rgba(255,255,255,0.5);
+      padding: 4px 14px;
+      border-radius: 30px;
+      white-space: nowrap;
+    }
+    .burger-menu-sim .active-menu {
+      background: var(--primary);
+      color: white;
+    }
+
+    /* ردیف اطلاعات و گیج */
+    .dashboard-row {
+      display: flex;
+      flex-direction: column;  /* موبایل: ستونی */
+      gap: var(--spacing-md);
+      margin-bottom: var(--spacing-md);
+    }
+
+    /* کارت اطلاعات قابل ویرایش */
+    .info-card {
+      background: rgba(255,255,255,0.8);
+      backdrop-filter: blur(4px);
+      border-radius: var(--radius-card);
+      padding: var(--spacing-lg);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid rgba(255,255,255,0.7);
+    }
+
+    .input-group {
+      margin-bottom: var(--spacing-md);
+    }
+
+    .input-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--primary);
+      margin-bottom: 4px;
+      padding-right: 4px;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 14px 16px;
+      font-family: 'Vazirmatn', sans-serif;
+      font-size: 1rem;
+      border: 1px solid var(--gray-mid);
+      border-radius: 50px;
+      background: white;
+      transition: var(--transition);
+      text-align: right;
+    }
+
+    .input-group input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(49,105,78,0.2);
+    }
+
+    .input-group .hint {
+      font-size: 0.7rem;
+      color: var(--gray-dark);
+      margin-top: 4px;
+      padding-right: 12px;
+    }
+
+    /* دکمه بررسی */
+    .verify-btn {
+      background: var(--primary);
+      border: none;
+      color: white;
+      font-family: 'Vazirmatn', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 500;
+      padding: 16px;
+      width: 100%;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(49,105,78,0.4);
+      transition: var(--transition);
+      margin-top: var(--spacing-xs);
+    }
+
+    .verify-btn:active {
+      transform: scale(0.98);
+      background: var(--secondary);
+    }
+
+    /* گیج */
+    .gauge-card {
+      background: white;
+      border-radius: var(--radius-card);
+      padding: var(--spacing-lg);
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .gauge-circle {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      background: conic-gradient(var(--tertiary) 0deg 220deg, #e2e8e8 220deg 360deg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 8px;
+      border: 4px solid white;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .gauge-letter {
+      font-size: 3rem;
+      font-weight: 800;
+      color: var(--primary);
+      background: white;
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: inset 0 2px 8px rgba(0,0,0,0.02);
+    }
+
+    .auth-success {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #efe7fc;
+      color: var(--purple);
+      padding: 6px 20px;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      margin-top: 6px;
+    }
+
+    .auth-fail-message {
+      color: #b33c3c;
+      background: #ffe6e6;
+      padding: 6px 20px;
+      border-radius: 50px;
+      font-size: 0.8rem;
+    }
+
+    /* بخش اعتباردهندگان (در حالت عادی پنهان است) */
+    .providers-section {
+      display: none;  /* تا زمان احراز پنهان */
+      margin-top: var(--spacing-lg);
+    }
+
+    .providers-title {
+      font-size: 1.5rem;
+      font-weight: 500;
+      color: var(--primary);
+      margin-bottom: var(--spacing-md);
+    }
+
+    .provider-grid {
+      display: grid;
+      grid-template-columns: 1fr;  /* موبایل: یک ستون */
+      gap: var(--spacing-md);
+    }
+
+    .provider-card {
+      background: white;
+      border-radius: var(--radius-item);
+      box-shadow: var(--shadow-sm);
+      padding: var(--spacing-lg);
+      transition: var(--transition);
+      border: 1px solid rgba(0,0,0,0.02);
+    }
+
+    .provider-card:active {
+      transform: scale(0.99);
+    }
+
+    .provider-name {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 4px;
+    }
+
+    .btn-credit {
+      background: var(--primary);
+      border: none;
+      color: white;
+      font-family: 'Vazirmatn', sans-serif;
+      font-size: 1rem;
+      font-weight: 500;
+      padding: 12px 0;
+      width: 100%;
+      border-radius: 40px;
+      margin: 12px 0 8px;
+      box-shadow: 0 3px 8px rgba(49,105,78,0.3);
+      transition: var(--transition);
+    }
+
+    .btn-credit:not(:disabled):active {
+      background: var(--secondary);
+      transform: scale(0.98);
+    }
+
+    .btn-credit:disabled {
+      background: var(--gray-mid);
+      color: #5e6f6f;
+      box-shadow: none;
+      opacity: 0.6;
+    }
+
+    .provider-status {
+      font-size: 0.85rem;
+      padding: 8px 10px;
+      border-radius: 30px;
+      background: var(--gray-light);
+      color: #2f4f4f;
+      text-align: center;
+    }
+
+    .status-success { background: #dcf0da; color: #1d6b1d; }
+    .status-warning { background: #ffefc0; color: #7d5f0b; }
+    .status-danger { background: #fdd8dd; color: #a12b2b; }
+    .status-info { background: #d2ecf2; color: #0b5f6b; }
+
+    /* پاپ‌آپ */
+    .toast-message {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      background: var(--primary);
+      color: white;
+      padding: 12px 28px;
+      border-radius: 50px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      font-weight: 500;
+      opacity: 0;
+      transition: 0.25s ease;
+      z-index: 1200;
+      white-space: nowrap;
+      max-width: 90vw;
+    }
+
+    .toast-message.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .footnote {
+      background: white;
+      border-radius: 40px;
+      padding: 10px 18px;
+      font-size: 0.75rem;
+      color: var(--gray-dark);
+      text-align: center;
+      margin-top: var(--spacing-xl);
+      border: 1px dashed var(--tertiary);
+    }
+
+    /* بهبودهای ریسپانسیو */
+    @media (min-width: 480px) {
+      .provider-grid {
+        grid-template-columns: repeat(2, 1fr); /* تبلت کوچک */
+      }
+    }
+
+    @media (min-width: 640px) {
+      .container { max-width: 700px; }
+      .dashboard-row { flex-direction: row; }  /* دسکتاپ دو ستون */
+      .info-card, .gauge-card { flex: 1; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <!-- منوی برگر (نمادین) -->
+  <div class="burger-menu-sim">
+    <span>ویرایش پروفایل</span>
+    <span>کسب‌وکار من</span>
+    <span>نظرات من</span>
+    <span>رزروهای من</span>
+    <span class="active-menu">اعتبار من</span>
+    <span>خروج</span>
+  </div>
+
+  <!-- هدر -->
+  <div class="gradient-header">
+    <h1>⚡ اعتبار من</h1>
+    <p>اطلاعات خود را وارد کنید و امتیاز اعتباری بگیرید</p>
+  </div>
+
+  <!-- ردیف بالا: اطلاعات + گیج -->
+  <div class="dashboard-row">
+    <!-- کارت اطلاعات (ویرایش) -->
+    <div class="info-card">
+      <div class="input-group">
+        <label>نام و نام خانوادگی (فارسی)</label>
+        <input type="text" id="fullName" placeholder="مثال: کیان رستمی" value="کیان رستمی">
+      </div>
+      <div class="input-group">
+        <label>شماره همراه</label>
+        <input type="tel" id="mobile" value="۰۹۱۲۳۴۵۶۷۸۹" readonly disabled style="background:#f0f3f5;">
+        <div class="hint">(تأیید شده پس از ورود)</div>
+      </div>
+      <div class="input-group">
+        <label>کد ملی (۱۰ رقم)</label>
+        <input type="text" id="nationalId" placeholder="۱۲۳۴۵۶۷۸۹۰" value="۰۰۴۱۲۳۴۵۶۷" maxlength="10">
+        <div class="hint">کد ملی ۱۰ رقمی وارد کنید</div>
+      </div>
+      <div class="input-group">
+        <label>تاریخ تولد</label>
+        <input type="text" id="birthDate" placeholder="۱۳۷۲/۰۸/۱۹" value="۱۳۷۲/۰۸/۱۹">
+      </div>
+      <button class="verify-btn" id="verifyBtn">بررسی اطلاعات و دریافت امتیاز</button>
+    </div>
+
+    <!-- گیج امتیاز -->
+    <div class="gauge-card">
+      <div class="gauge-circle">
+        <div class="gauge-letter" id="gaugeLetter">?</div>
+      </div>
+      <div id="authBadgeContainer"></div> <!-- جایگاه نشان احراز/خطا -->
+      <div style="margin-top: 8px; color: #587b6b; font-size: 0.8rem;" id="scoreDescription">امتیاز محاسبه نشده</div>
+    </div>
+  </div>
+
+  <!-- بخش اعتباردهندگان (فقط پس از احراز موفق) -->
+  <div class="providers-section" id="providersSection">
+    <h2 class="providers-title">🏦 اعتبار دهندگان فعال</h2>
+    <div class="provider-grid" id="providerGrid">
+      <!-- دیجی پی -->
+      <div class="provider-card" data-provider="digipay">
+        <div class="provider-name">دیجی پی</div>
+        <div class="provider-desc" style="font-size:0.85rem; color:gray;">طرح ویژه</div>
+        <button class="btn-credit" id="btn-digipay">دریافت اعتبار</button>
+        <div class="provider-status" id="status-digipay">وضعیت: آماده درخواست</div>
+      </div>
+      <!-- تارا -->
+      <div class="provider-card" data-provider="tara">
+        <div class="provider-name">تارا</div>
+        <div class="provider-desc" style="font-size:0.85rem; color:gray;">اعتبار سریع</div>
+        <button class="btn-credit" id="btn-tara">دریافت اعتبار</button>
+        <div class="provider-status" id="status-tara">وضعیت: آماده درخواست</div>
+      </div>
+      <!-- زرین پلاس -->
+      <div class="provider-card" data-provider="zarinplus">
+        <div class="provider-name">زرین پلاس</div>
+        <div class="provider-desc" style="font-size:0.85rem; color:gray;">اعتبار خرد از ۳ میلیون</div>
+        <button class="btn-credit" id="btn-zarinplus">دریافت اعتبار</button>
+        <div class="provider-status" id="status-zarinplus">وضعیت: آماده درخواست</div>
+      </div>
+      <!-- دکتر پی -->
+      <div class="provider-card" data-provider="drpay">
+        <div class="provider-name">دکتر پی</div>
+        <div class="provider-desc" style="font-size:0.85rem; color:gray;">همکار بانکی</div>
+        <button class="btn-credit" id="btn-drpay">دریافت اعتبار</button>
+        <div class="provider-status" id="status-drpay">وضعیت: آماده درخواست</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- توضیحات و راهنما -->
+  <div class="footnote">
+    ⚡ پس از تأیید اطلاعات (کد ملی ۱۰ رقم)، امتیاز تصادفی A1 تا C3 تولید می‌شود.<br>
+    هر اعتباردهنده یکی از سناریوهای واقعی را شبیه‌سازی می‌کند.
+  </div>
+
+  <!-- تایست (پاپ‌آپ) -->
+  <div id="toast" class="toast-message">پیام</div>
+</div>
+
+<script>
+  (function() {
+    // ------ عناصر ------
+    const verifyBtn = document.getElementById('verifyBtn');
+    const fullNameInput = document.getElementById('fullName');
+    const nationalIdInput = document.getElementById('nationalId');
+    const birthDateInput = document.getElementById('birthDate');
+    const gaugeLetter = document.getElementById('gaugeLetter');
+    const authBadgeContainer = document.getElementById('authBadgeContainer');
+    const providersSection = document.getElementById('providersSection');
+    const scoreDescription = document.getElementById('scoreDescription');
+
+    // دکمه‌ها و وضعیت اعتباردهندگان
+    const digipayBtn = document.getElementById('btn-digipay');
+    const taraBtn = document.getElementById('btn-tara');
+    const zarinplusBtn = document.getElementById('btn-zarinplus');
+    const drpayBtn = document.getElementById('btn-drpay');
+    const statusDigipay = document.getElementById('status-digipay');
+    const statusTara = document.getElementById('status-tara');
+    const statusZarinplus = document.getElementById('status-zarinplus');
+    const statusDrpay = document.getElementById('status-drpay');
+
+    const toast = document.getElementById('toast');
+
+    // لیست رتبه‌های اعتباری (A1 تا C3)
+    const creditScores = ['A1', 'A2', 'A3', 'B1', 'B2', 'B3', 'C1', 'C2', 'C3'];
+
+    // وضعیت فعلی احراز
+    let isVerified = false;
+
+    // --- توابع کمکی ---
+    function showToast(msg) {
+      toast.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2000);
+    }
+
+    // بازنشانی وضعیت اعتباردهندگان به حالت اولیه
+    function resetProvidersToInitial() {
+      // دیجی‌پی
+      digipayBtn.disabled = false;
+      digipayBtn.textContent = 'دریافت اعتبار';
+      statusDigipay.textContent = 'وضعیت: آماده درخواست';
+      statusDigipay.className = 'provider-status';
+      // تارا
+      taraBtn.disabled = false;
+      taraBtn.textContent = 'دریافت اعتبار';
+      statusTara.textContent = 'وضعیت: آماده درخواست';
+      statusTara.className = 'provider-status';
+      // زرین‌پلاس
+      zarinplusBtn.disabled = false;
+      zarinplusBtn.textContent = 'دریافت اعتبار';
+      statusZarinplus.textContent = 'وضعیت: آماده درخواست';
+      statusZarinplus.className = 'provider-status';
+      // دکتر پی
+      drpayBtn.disabled = false;
+      drpayBtn.textContent = 'دریافت اعتبار';
+      statusDrpay.textContent = 'وضعیت: آماده درخواست';
+      statusDrpay.className = 'provider-status';
+    }
+
+    // اعتبارسنجی ساده
+    function validateInputs() {
+      const name = fullNameInput.value.trim();
+      const national = nationalIdInput.value.trim();
+      const birth = birthDateInput.value.trim();
+
+      if (name === '') return { valid: false, reason: 'نام را وارد کنید' };
+      if (!/^\d{10}$/.test(national)) return { valid: false, reason: 'کد ملی باید ۱۰ رقم باشد' };
+      if (birth === '') return { valid: false, reason: 'تاریخ تولد را وارد کنید' };
+      return { valid: true };
+    }
+
+    // تولید امتیاز تصادفی
+    function randomCreditScore() {
+      const randomIndex = Math.floor(Math.random() * creditScores.length);
+      return creditScores[randomIndex];
+    }
+
+    // به‌روزرسانی نمایش احراز و گیج
+    function updateVerificationUI(valid, reason = '') {
+      if (valid) {
+        const score = randomCreditScore();
+        gaugeLetter.textContent = score;
+        authBadgeContainer.innerHTML = '<div class="auth-success"><span>✅</span> احراز هویت موفق (شاهکار)</div>';
+        scoreDescription.textContent = `امتیاز اعتباری: ${score}`;
+        providersSection.style.display = 'block';
+        resetProvidersToInitial();
+        isVerified = true;
+      } else {
+        gaugeLetter.textContent = '?';
+        authBadgeContainer.innerHTML = `<div class="auth-fail-message">❌ احراز هویت ناموفق: ${reason}</div>`;
+        scoreDescription.textContent = 'امتیاز محاسبه نشده';
+        providersSection.style.display = 'none';
+        isVerified = false;
+      }
+    }
+
+    // --- هندلر بررسی اطلاعات ---
+    verifyBtn.addEventListener('click', function() {
+      const validation = validateInputs();
+      if (validation.valid) {
+        updateVerificationUI(true);
+        showToast('اطلاعات تایید شد. امتیاز تصادفی محاسبه گردید.');
+      } else {
+        updateVerificationUI(false, validation.reason);
+        showToast(validation.reason);
+      }
+    });
+
+    // --- عملکرد دکمه‌های اعتباردهندگان (مشابه قبل) ---
+    function disableButton(btn) {
+      btn.disabled = true;
+      btn.textContent = 'در حال بررسی ...';
+    }
+
+    function applyFinalStatus(provider) {
+      switch (provider) {
+        case 'digipay':
+          statusDigipay.textContent = '✅ اعتبار تخصیص داده شده: ۳,۰۰۰,۰۰۰ تومان';
+          statusDigipay.className = 'provider-status status-success';
+          digipayBtn.textContent = 'تایید شده';
+          break;
+        case 'tara':
+          statusTara.textContent = '💰 مانده اعتبار: ۱,۵۰۰,۰۰۰ تومان';
+          statusTara.className = 'provider-status status-info';
+          taraBtn.textContent = 'دارای اعتبار';
+          break;
+        case 'zarinplus':
+          statusZarinplus.textContent = '⏳ در انتظار تایید نهایی اعتبار دهنده';
+          statusZarinplus.className = 'provider-status status-warning';
+          zarinplusBtn.textContent = 'در انتظار';
+          break;
+        case 'drpay':
+          statusDrpay.textContent = '❌ متاسفانه درحال حاضر واجد دریافت اعتبار نیستید. ابتدای ماه آینده مجددا اقدام کنید.';
+          statusDrpay.className = 'provider-status status-danger';
+          drpayBtn.textContent = 'ناموفق';
+          break;
+        default: break;
+      }
+    }
+
+    function handleCreditRequest(provider, btn, statusEl) {
+      if (!isVerified) {
+        showToast('لطفا ابتدا احراز هویت کنید');
+        return;
+      }
+      if (btn.disabled) return;
+
+      disableButton(btn);
+      statusEl.textContent = 'در حال بررسی اطلاعات ...';
+      statusEl.className = 'provider-status';
+
+      showToast('درخواست شما با موفقیت ثبت شد');
+
+      setTimeout(() => {
+        applyFinalStatus(provider);
+      }, 2500);
+    }
+
+    // اتصال رویدادها
+    digipayBtn.addEventListener('click', () => handleCreditRequest('digipay', digipayBtn, statusDigipay));
+    taraBtn.addEventListener('click', () => handleCreditRequest('tara', taraBtn, statusTara));
+    zarinplusBtn.addEventListener('click', () => handleCreditRequest('zarinplus', zarinplusBtn, statusZarinplus));
+    drpayBtn.addEventListener('click', () => handleCreditRequest('drpay', drpayBtn, statusDrpay));
+
+    // مقداردهی اولیه: اجرای یکبار احراز با اطلاعات پیش‌فرض (برای نمایش)
+    // (اختیاری: در اولین ورود یک امتیاز تصادفی نشان دهیم)
+    window.addEventListener('load', function() {
+      // اگر مقادیر پیش‌فرض معتبر هستند، احراز فعال شود
+      if (validateInputs().valid) {
+        updateVerificationUI(true);
+      } else {
+        updateVerificationUI(false, 'کد ملی نامعتبر');
+      }
+    });
+  })();
+</script>
+</body>
+</html>
