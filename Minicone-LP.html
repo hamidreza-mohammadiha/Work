@@ -1,0 +1,1194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chocolate Pack Optimizer – LP Simplex Solver</title>
+    <style>
+        :root {
+            --bg: #f7f3ee;
+            --card-bg: #ffffff;
+            --primary: #6b3a2a;
+            --primary-light: #8b5e3c;
+            --accent: #c98a4b;
+            --text: #2d211a;
+            --text-light: #6b5d54;
+            --border: #e0d5cc;
+            --success: #2e7d32;
+            --danger: #c62828;
+            --shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+            --radius: 14px;
+            --radius-sm: 8px;
+            --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font);
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            padding: 24px 16px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .app-container {
+            max-width: 1150px;
+            width: 100%;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+        .header h1 {
+            font-size: 2.1rem;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: -0.5px;
+            margin-bottom: 6px;
+        }
+        .header .subtitle {
+            font-size: 1rem;
+            color: var(--text-light);
+            font-weight: 400;
+        }
+        .header .badge {
+            display: inline-block;
+            background: var(--primary);
+            color: #fff;
+            font-size: 0.75rem;
+            padding: 4px 14px;
+            border-radius: 20px;
+            margin-top: 8px;
+            letter-spacing: 0.5px;
+            font-weight: 500;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 24px 28px;
+            margin-bottom: 24px;
+            border: 1px solid var(--border);
+            transition: box-shadow 0.2s;
+        }
+        .card:hover {
+            box-shadow: 0 6px 32px rgba(0, 0, 0, 0.12);
+        }
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 2px solid #f0e8e0;
+            padding-bottom: 10px;
+        }
+        .card-title .icon {
+            font-size: 1.3rem;
+        }
+
+        /* Table styles */
+        .choco-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.92rem;
+        }
+        .choco-table th {
+            text-align: left;
+            padding: 10px 8px;
+            font-weight: 600;
+            color: var(--text-light);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            border-bottom: 2px solid var(--border);
+            white-space: nowrap;
+        }
+        .choco-table td {
+            padding: 6px 8px;
+            border-bottom: 1px solid #f5eee8;
+            vertical-align: middle;
+        }
+        .choco-table tr:last-child td {
+            border-bottom: none;
+        }
+        .choco-table tr:hover td {
+            background: #fdfaf7;
+        }
+        .choco-table .flavor-name {
+            font-weight: 600;
+            color: var(--text);
+            white-space: nowrap;
+        }
+        .choco-table input[type="number"] {
+            width: 80px;
+            padding: 7px 8px;
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-size: 0.9rem;
+            font-family: var(--font);
+            color: var(--text);
+            background: #fefcf9;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            text-align: center;
+        }
+        .choco-table input[type="number"]:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(201, 138, 75, 0.15);
+        }
+        .choco-table input[type="number"]::-webkit-inner-spin-button {
+            opacity: 0.5;
+        }
+        .choco-table input[type="number"]:hover {
+            border-color: var(--accent);
+        }
+
+        /* Parameter grid */
+        .param-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+        }
+        .param-field {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        .param-field label {
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+        .param-field input {
+            padding: 10px 12px;
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-size: 0.95rem;
+            font-family: var(--font);
+            color: var(--text);
+            background: #fefcf9;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .param-field input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(201, 138, 75, 0.15);
+        }
+        .param-field .hint {
+            font-size: 0.72rem;
+            color: #aaa;
+            margin-top: 2px;
+        }
+
+        /* Buttons */
+        .btn-row {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+            margin-top: 4px;
+        }
+        .btn {
+            padding: 12px 28px;
+            border-radius: var(--radius-sm);
+            font-size: 1rem;
+            font-weight: 600;
+            font-family: var(--font);
+            cursor: pointer;
+            border: none;
+            transition: all 0.25s;
+            letter-spacing: 0.2px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-primary {
+            background: var(--primary);
+            color: #fff;
+            box-shadow: 0 4px 16px rgba(107, 58, 42, 0.3);
+        }
+        .btn-primary:hover {
+            background: #7d4836;
+            box-shadow: 0 6px 20px rgba(107, 58, 42, 0.4);
+            transform: translateY(-1px);
+        }
+        .btn-primary:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 8px rgba(107, 58, 42, 0.3);
+        }
+        .btn-secondary {
+            background: #f0e8e0;
+            color: var(--text);
+            box-shadow: none;
+        }
+        .btn-secondary:hover {
+            background: #e5d8cc;
+        }
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        /* Results */
+        .results-container {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+        .results-container.visible {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .result-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.92rem;
+        }
+        .result-table th {
+            text-align: left;
+            padding: 10px 8px;
+            font-weight: 600;
+            color: var(--text-light);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            border-bottom: 2px solid var(--border);
+        }
+        .result-table td {
+            padding: 8px 8px;
+            border-bottom: 1px solid #f5eee8;
+            text-align: center;
+        }
+        .result-table td:first-child {
+            text-align: left;
+            font-weight: 600;
+        }
+        .result-table tr:last-child td {
+            border-bottom: none;
+        }
+        .result-table .highlight {
+            background: #fdf6ef;
+            font-weight: 600;
+        }
+        .result-table .total-row td {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 1rem;
+            border-top: 2px solid var(--primary);
+            padding-top: 12px;
+        }
+
+        .cost-breakdown {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 12px;
+            margin-top: 16px;
+        }
+        .cost-item {
+            background: #faf5f0;
+            border-radius: var(--radius-sm);
+            padding: 14px 16px;
+            text-align: center;
+            border: 1px solid #eee5dc;
+        }
+        .cost-item .label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            color: var(--text-light);
+            margin-bottom: 4px;
+        }
+        .cost-item .value {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        /* Status messages */
+        .status-msg {
+            padding: 12px 18px;
+            border-radius: var(--radius-sm);
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .status-msg.success {
+            background: #e8f5e9;
+            color: #2e7d32;
+            border: 1px solid #a5d6a7;
+        }
+        .status-msg.error {
+            background: #ffebee;
+            color: #c62828;
+            border: 1px solid #ef9a9a;
+        }
+        .status-msg.info {
+            background: #e3f2fd;
+            color: #0d47a1;
+            border: 1px solid #90caf9;
+        }
+        .status-msg.warning {
+            background: #fff8e1;
+            color: #e65100;
+            border: 1px solid #ffcc80;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .card {
+                padding: 16px 14px;
+            }
+            .choco-table input[type="number"] {
+                width: 60px;
+                padding: 5px 4px;
+                font-size: 0.8rem;
+            }
+            .choco-table th,
+            .choco-table td {
+                padding: 5px 4px;
+                font-size: 0.8rem;
+            }
+            .param-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .header h1 {
+                font-size: 1.5rem;
+            }
+            .btn {
+                padding: 10px 18px;
+                font-size: 0.9rem;
+            }
+            .result-table {
+                font-size: 0.8rem;
+            }
+        }
+        @media (max-width: 480px) {
+            .param-grid {
+                grid-template-columns: 1fr;
+            }
+            .choco-table input[type="number"] {
+                width: 48px;
+                padding: 4px 2px;
+                font-size: 0.75rem;
+            }
+        }
+
+        /* Tooltip / small note */
+        .note {
+            font-size: 0.78rem;
+            color: #999;
+            margin-top: 8px;
+            font-style: italic;
+        }
+
+        .integer-badge {
+            display: inline-block;
+            background: #e8f5e9;
+            color: #2e7d32;
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-weight: 600;
+            margin-left: 4px;
+        }
+        .fractional-badge {
+            display: inline-block;
+            background: #fff8e1;
+            color: #e65100;
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-weight: 600;
+            margin-left: 4px;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 16px 0;
+            color: var(--text-light);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--border);
+            margin-top: auto;
+        }
+        .footer a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <div class="header">
+            <h1>🍫 Chocolate Pack Optimizer</h1>
+            <p class="subtitle">Minimize finished cost of a 1kg pack using the Simplex algorithm</p>
+            <span class="badge">LP Simplex Solver · Two-Phase Method</span>
+        </div>
+
+        <!-- Input Card: Chocolate Flavors -->
+        <div class="card">
+            <div class="card-title"><span class="icon">📋</span> Chocolate Flavors &amp; Parameters</div>
+            <table class="choco-table" id="chocoTable">
+                <thead>
+                    <tr>
+                        <th>Flavor</th>
+                        <th>Cost per unit (Toman)</th>
+                        <th>Weight per unit (g)</th>
+                        <th>Min qty</th>
+                        <th>Max qty</th>
+                    </tr>
+                </thead>
+                <tbody id="chocoTbody">
+                    <!-- Rows injected by JS -->
+                </tbody>
+            </table>
+            <p class="note">Tip: Adjust min/max quantities to control each flavor's presence in the pack.</p>
+        </div>
+
+        <!-- Input Card: Pack Parameters -->
+        <div class="card">
+            <div class="card-title"><span class="icon">⚙️</span> Pack Configuration &amp; Costs</div>
+            <div class="param-grid">
+                <div class="param-field">
+                    <label for="capacity">Knapsack Capacity (g)</label>
+                    <input type="number" id="capacity" value="1000" step="1" min="1">
+                </div>
+                <div class="param-field">
+                    <label for="minWeight">Min Total Weight (g)</label>
+                    <input type="number" id="minWeight" value="1000" step="1" min="0">
+                    <span class="hint">Set to 0 for no lower bound</span>
+                </div>
+                <div class="param-field">
+                    <label for="packagingPct">Packaging Cost (%)</label>
+                    <input type="number" id="packagingPct" value="5" step="0.1" min="0">
+                </div>
+                <div class="param-field">
+                    <label for="adminPct">Administrative Cost (%)</label>
+                    <input type="number" id="adminPct" value="3" step="0.1" min="0">
+                </div>
+                <div class="param-field">
+                    <label for="financialPct">Financial Cost (%)</label>
+                    <input type="number" id="financialPct" value="2" step="0.1" min="0">
+                </div>
+                <div class="param-field">
+                    <label for="profitPct">Business Profit (%)</label>
+                    <input type="number" id="profitPct" value="10" step="0.1" min="0">
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="btn-row" style="margin-bottom: 24px;">
+            <button class="btn btn-primary" id="solveBtn" onclick="solve()">🔍 Solve Optimization</button>
+            <button class="btn btn-secondary" onclick="resetDefaults()">↺ Reset Defaults</button>
+        </div>
+
+        <!-- Status Message -->
+        <div id="statusArea"></div>
+
+        <!-- Results -->
+        <div class="results-container" id="resultsContainer">
+            <div class="card">
+                <div class="card-title"><span class="icon">📊</span> Optimal Solution</div>
+                <div id="solutionTableWrapper"></div>
+                <div id="costBreakdownWrapper"></div>
+            </div>
+
+            <div class="card">
+                <div class="card-title"><span class="icon">🧮</span> Integer Feasible Solution (Rounded)</div>
+                <div id="integerTableWrapper"></div>
+                <div id="integerCostWrapper"></div>
+                <p class="note">Chocolates are discrete items. The LP relaxation may produce fractional values. The rounded-down solution is guaranteed to be feasible.</p>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            Developed by <a href="#" target="_blank">H. Reza</a> @ Sorbon
+        </div>
+    </div>
+
+    <script>
+        // ============================================================
+        //  FLAVORS & DEFAULTS (updated with Toman costs and specified weights)
+        // ============================================================
+        const FLAVORS = [
+            { name: 'Almond', cost: 8.170, weight: 11, min: 10, max: 12 },
+            { name: 'Hazelnut', cost: 7.136, weight: 11, min: 10, max: 12 },
+            { name: 'Mint', cost: 5.591, weight: 11, min: 7, max: 7 },
+            { name: 'Pupping', cost: 5.325, weight: 11, min: 7, max: 12 },
+            { name: 'Coffee', cost: 4.873, weight: 11, min: 7, max: 12 },
+            { name: 'Peanut', cost: 3.527, weight: 11, min: 7, max: 12 },
+            { name: 'Sohan', cost: 7.100, weight: 11, min: 7, max: 12 },
+            { name: 'Coconut', cost: 5.542, weight: 11, min: 7, max: 12 },
+            { name: 'Pistachio', cost: 9.844, weight: 11, min: 7, max: 12 }
+        ];
+
+        // ============================================================
+        //  INITIALIZATION
+        // ============================================================
+        function initTable() {
+            const tbody = document.getElementById('chocoTbody');
+            tbody.innerHTML = '';
+            FLAVORS.forEach((f, idx) => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td class="flavor-name">${f.name}</td>
+                    <td><input type="number" id="cost_${idx}" value="${f.cost}" step="0.001" min="0"></td>
+                    <td><input type="number" id="weight_${idx}" value="${f.weight}" step="0.1" min="0.1"></td>
+                    <td><input type="number" id="min_${idx}" value="${f.min}" step="1" min="0"></td>
+                    <td><input type="number" id="max_${idx}" value="${f.max}" step="1" min="0"></td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function resetDefaults() {
+            initTable();
+            document.getElementById('capacity').value = 1000;
+            document.getElementById('minWeight').value = 1000;
+            document.getElementById('packagingPct').value = 5;
+            document.getElementById('adminPct').value = 3;
+            document.getElementById('financialPct').value = 2;
+            document.getElementById('profitPct').value = 10;
+            document.getElementById('statusArea').innerHTML = '';
+            document.getElementById('resultsContainer').classList.remove('visible');
+        }
+
+        // ============================================================
+        //  INPUT PARSING
+        // ============================================================
+        function readInputs() {
+            const data = {
+                flavors: [],
+                capacity: parseFloat(document.getElementById('capacity').value) || 1000,
+                minWeight: parseFloat(document.getElementById('minWeight').value) || 0,
+                packagingPct: parseFloat(document.getElementById('packagingPct').value) || 0,
+                adminPct: parseFloat(document.getElementById('adminPct').value) || 0,
+                financialPct: parseFloat(document.getElementById('financialPct').value) || 0,
+                profitPct: parseFloat(document.getElementById('profitPct').value) || 0,
+            };
+
+            for (let i = 0; i < FLAVORS.length; i++) {
+                const cost = parseFloat(document.getElementById(`cost_${i}`).value) || 0;
+                const weight = parseFloat(document.getElementById(`weight_${i}`).value) || 1;
+                const min = parseInt(document.getElementById(`min_${i}`).value) || 0;
+                const max = parseInt(document.getElementById(`max_${i}`).value) || 0;
+                data.flavors.push({
+                    name: FLAVORS[i].name,
+                    cost: cost,
+                    weight: weight,
+                    min: min,
+                    max: max
+                });
+            }
+
+            // Basic validation
+            for (const f of data.flavors) {
+                if (f.min > f.max) {
+                    throw new Error(`Flavor "${f.name}": min quantity (${f.min}) exceeds max quantity (${f.max}).`);
+                }
+                if (f.cost < 0 || f.weight <= 0) {
+                    throw new Error(`Flavor "${f.name}": invalid cost or weight.`);
+                }
+            }
+            if (data.capacity <= 0) {
+                throw new Error('Knapsack capacity must be positive.');
+            }
+            if (data.minWeight > data.capacity) {
+                throw new Error('Minimum total weight cannot exceed knapsack capacity.');
+            }
+            if (data.minWeight < 0) {
+                throw new Error('Minimum total weight cannot be negative.');
+            }
+            for (const key of ['packagingPct', 'adminPct', 'financialPct', 'profitPct']) {
+                if (data[key] < 0) {
+                    throw new Error(`${key.replace('Pct', '')} percentage cannot be negative.`);
+                }
+            }
+
+            // Compute minimum total weight from min quantities
+            const minTotalWeight = data.flavors.reduce((sum, f) => sum + f.weight * f.min, 0);
+            if (minTotalWeight > data.capacity) {
+                throw new Error(`Infeasible: minimum quantities of all flavors give total weight ${minTotalWeight.toFixed(1)}g, which exceeds capacity ${data.capacity}g.`);
+            }
+
+            return data;
+        }
+
+        // ============================================================
+        //  SIMPLEX ALGORITHM (Two-Phase Method)
+        // ============================================================
+        function simplexTwoPhase(c, A, b, constraintTypes) {
+            // c: objective coefficients (we want to MAXIMIZE c^T x)
+            // A: constraint matrix (m x n)
+            // b: RHS vector (m)
+            // constraintTypes: array of '≤' or '≥' for each constraint
+            // Returns: { solution, objectiveValue, status } where status ∈ {optimal, infeasible, unbounded}
+
+            const m = A.length; // number of constraints
+            const n = A[0].length; // number of decision variables
+            const EPS = 1e-10;
+
+            // --- Build tableau ---
+            // Columns: [n decision vars] [slack vars] [surplus vars] [artificial vars] [RHS]
+            let numSlack = 0;
+            let numSurplus = 0;
+            let numArtificial = 0;
+            const slackMap = [];
+            const artificialMap = [];
+
+            for (let i = 0; i < m; i++) {
+                if (constraintTypes[i] === '≤') {
+                    numSlack++;
+                    slackMap.push(numSlack - 1);
+                } else if (constraintTypes[i] === '≥') {
+                    numSurplus++;
+                    numArtificial++;
+                    slackMap.push(numSurplus - 1);
+                    artificialMap.push(numArtificial - 1);
+                } else {
+                    numArtificial++;
+                    slackMap.push(-1);
+                    artificialMap.push(numArtificial - 1);
+                }
+            }
+
+            const totalVars = n + numSlack + numSurplus + numArtificial;
+            const numRows = m + 1;
+
+            let tableau = [];
+            for (let r = 0; r < numRows; r++) {
+                tableau.push(new Array(totalVars + 1).fill(0));
+            }
+
+            let slackIdx = n;
+            let surplusIdx = n + numSlack;
+            let artificialIdx = n + numSlack + numSurplus;
+
+            let slackCounter = 0;
+            let surplusCounter = 0;
+            let artCounter = 0;
+            const constraintVarIndices = [];
+
+            for (let i = 0; i < m; i++) {
+                for (let j = 0; j < n; j++) {
+                    tableau[i + 1][j] = A[i][j];
+                }
+                if (constraintTypes[i] === '≤') {
+                    const col = n + slackCounter;
+                    tableau[i + 1][col] = 1;
+                    constraintVarIndices.push(col);
+                    slackCounter++;
+                } else if (constraintTypes[i] === '≥') {
+                    const sCol = n + numSlack + surplusCounter;
+                    tableau[i + 1][sCol] = -1;
+                    const aCol = n + numSlack + numSurplus + artCounter;
+                    tableau[i + 1][aCol] = 1;
+                    constraintVarIndices.push(aCol);
+                    surplusCounter++;
+                    artCounter++;
+                } else {
+                    const aCol = n + numSlack + numSurplus + artCounter;
+                    tableau[i + 1][aCol] = 1;
+                    constraintVarIndices.push(aCol);
+                    artCounter++;
+                }
+                tableau[i + 1][totalVars] = b[i];
+            }
+
+            for (let i = 0; i < m; i++) {
+                if (constraintTypes[i] === '≤' && b[i] < -EPS) {
+                    for (let j = 0; j <= totalVars; j++) {
+                        tableau[i + 1][j] *= -1;
+                    }
+                    constraintTypes[i] = '≥';
+                    throw new Error('Internal error: negative RHS for ≤ constraint.');
+                }
+            }
+
+            // Phase 1
+            for (let j = 0; j <= totalVars; j++) {
+                tableau[0][j] = 0;
+            }
+            for (let i = 0; i < m; i++) {
+                const aCol = constraintVarIndices[i];
+                if (aCol >= n + numSlack + numSurplus) {
+                    tableau[0][aCol] = 1;
+                }
+            }
+            tableau[0][totalVars] = 0;
+
+            for (let i = 0; i < m; i++) {
+                const aCol = constraintVarIndices[i];
+                if (aCol >= n + numSlack + numSurplus) {
+                    for (let j = 0; j <= totalVars; j++) {
+                        tableau[0][j] -= tableau[i + 1][j];
+                    }
+                }
+            }
+
+            let phase1Result = runSimplex(tableau, m, totalVars, constraintVarIndices, EPS);
+            if (phase1Result.status === 'unbounded') {
+                return { status: 'infeasible', solution: null, objectiveValue: null };
+            }
+
+            const phase1Optimal = tableau[0][totalVars];
+            if (Math.abs(phase1Optimal) > EPS) {
+                return { status: 'infeasible', solution: null, objectiveValue: null };
+            }
+
+            const artificialCols = [];
+            for (let j = n + numSlack + numSurplus; j < totalVars; j++) {
+                artificialCols.push(j);
+            }
+
+            // Phase 2
+            for (let j = 0; j <= totalVars; j++) {
+                tableau[0][j] = 0;
+            }
+            for (let j = 0; j < n; j++) {
+                tableau[0][j] = -c[j];
+            }
+            tableau[0][totalVars] = 0;
+
+            for (let i = 0; i < m; i++) {
+                const basisCol = constraintVarIndices[i];
+                if (basisCol < totalVars) {
+                    const coeff = tableau[0][basisCol];
+                    if (Math.abs(coeff) > EPS) {
+                        for (let j = 0; j <= totalVars; j++) {
+                            tableau[0][j] -= coeff * tableau[i + 1][j];
+                        }
+                    }
+                }
+            }
+
+            let phase2Result = runSimplex(tableau, m, totalVars, constraintVarIndices, EPS, artificialCols);
+            if (phase2Result.status !== 'optimal') {
+                return phase2Result;
+            }
+
+            const solution = new Array(n).fill(0);
+            for (let i = 0; i < m; i++) {
+                const basisCol = constraintVarIndices[i];
+                if (basisCol < n) {
+                    solution[basisCol] = tableau[i + 1][totalVars];
+                }
+            }
+            const objectiveValue = tableau[0][totalVars];
+
+            return { status: 'optimal', solution, objectiveValue };
+        }
+
+        function runSimplex(tableau, m, totalVars, basisCols, EPS, ignoredCols = []) {
+            const maxIter = 10000;
+            let iter = 0;
+
+            while (iter < maxIter) {
+                iter++;
+                const numCols = totalVars;
+                const objRow = tableau[0];
+                const rhsCol = totalVars;
+
+                let enteringCol = -1;
+                let minCoeff = -1e-12;
+                for (let j = 0; j < numCols; j++) {
+                    if (ignoredCols.includes(j)) continue;
+                    if (objRow[j] < minCoeff) {
+                        minCoeff = objRow[j];
+                        enteringCol = j;
+                    }
+                }
+                if (enteringCol === -1) {
+                    return { status: 'optimal', objectiveValue: tableau[0][rhsCol] };
+                }
+
+                let leavingRow = -1;
+                let minRatio = Infinity;
+                for (let i = 0; i < m; i++) {
+                    const pivotCandidate = tableau[i + 1][enteringCol];
+                    if (pivotCandidate > 1e-12) {
+                        const ratio = tableau[i + 1][rhsCol] / pivotCandidate;
+                        if (ratio < minRatio - 1e-12 || (Math.abs(ratio - minRatio) < 1e-12 && basisCols[i] <
+                                basisCols[leavingRow])) {
+                            minRatio = ratio;
+                            leavingRow = i + 1;
+                        }
+                    }
+                }
+                if (leavingRow === -1) {
+                    return { status: 'unbounded', objectiveValue: null };
+                }
+
+                const pivotRow = leavingRow;
+                const pivotCol = enteringCol;
+                const pivotVal = tableau[pivotRow][pivotCol];
+
+                for (let j = 0; j <= rhsCol; j++) {
+                    tableau[pivotRow][j] /= pivotVal;
+                }
+
+                for (let i = 0; i <= m; i++) {
+                    if (i === pivotRow) continue;
+                    const factor = tableau[i][pivotCol];
+                    if (Math.abs(factor) > 1e-15) {
+                        for (let j = 0; j <= rhsCol; j++) {
+                            tableau[i][j] -= factor * tableau[pivotRow][j];
+                        }
+                    }
+                }
+
+                basisCols[pivotRow - 1] = pivotCol;
+            }
+
+            return { status: 'max_iterations', objectiveValue: null };
+        }
+
+        // ============================================================
+        //  PROBLEM SETUP & SOLVING
+        // ============================================================
+        function buildAndSolveLP(data) {
+            const n = data.flavors.length;
+            const capacity = data.capacity;
+            const minWeight = data.minWeight;
+
+            const c = data.flavors.map(f => -f.cost);
+
+            const A = [];
+            const b = [];
+            const constraintTypes = [];
+
+            for (let i = 0; i < n; i++) {
+                const row = new Array(n).fill(0);
+                row[i] = 1;
+                A.push(row);
+                b.push(data.flavors[i].max - data.flavors[i].min);
+                constraintTypes.push('≤');
+            }
+
+            const capRow = data.flavors.map(f => f.weight);
+            A.push(capRow);
+            const minWeightFromMins = data.flavors.reduce((sum, f) => sum + f.weight * f.min, 0);
+            b.push(capacity - minWeightFromMins);
+            constraintTypes.push('≤');
+
+            const L = minWeight - minWeightFromMins;
+            if (L > 1e-10) {
+                const lbRow = data.flavors.map(f => f.weight);
+                A.push(lbRow);
+                b.push(L);
+                constraintTypes.push('≥');
+            }
+
+            const result = simplexTwoPhase(c, A, b, constraintTypes);
+
+            if (result.status !== 'optimal') {
+                return result;
+            }
+
+            const xSolution = result.solution.map((y_i, i) => y_i + data.flavors[i].min);
+            const baseCost = xSolution.reduce((sum, x_i, i) => sum + x_i * data.flavors[i].cost, 0);
+            const totalWeight = xSolution.reduce((sum, x_i, i) => sum + x_i * data.flavors[i].weight, 0);
+
+            return {
+                status: 'optimal',
+                lpSolution: xSolution,
+                lpObjective: result.objectiveValue,
+                baseCost: baseCost,
+                totalWeight: totalWeight,
+                ySolution: result.solution,
+            };
+        }
+
+        function computeFinishedCost(baseCost, data) {
+            const totalPct = data.packagingPct + data.adminPct + data.financialPct + data.profitPct;
+            return baseCost * (1 + totalPct / 100);
+        }
+
+        function roundToIntegerSolution(data, lpSolution) {
+            const intSolution = lpSolution.map((val, i) => Math.max(data.flavors[i].min, Math.floor(val)));
+            return intSolution;
+        }
+
+        function tryImproveInteger(data, intSolution) {
+            return intSolution;
+        }
+
+        // ============================================================
+        //  MAIN SOLVE FUNCTION
+        // ============================================================
+        function solve() {
+            const statusArea = document.getElementById('statusArea');
+            const resultsContainer = document.getElementById('resultsContainer');
+            statusArea.innerHTML = '';
+            resultsContainer.classList.remove('visible');
+
+            try {
+                const data = readInputs();
+                const result = buildAndSolveLP(data);
+
+                if (result.status === 'infeasible') {
+                    statusArea.innerHTML = `<div class="status-msg error">❌ Infeasible problem: The constraints cannot be satisfied simultaneously.</div>`;
+                    return;
+                }
+                if (result.status === 'unbounded') {
+                    statusArea.innerHTML = `<div class="status-msg error">❌ Unbounded problem: The objective can be improved indefinitely.</div>`;
+                    return;
+                }
+                if (result.status !== 'optimal') {
+                    statusArea.innerHTML =
+                        `<div class="status-msg error">❌ Solver error: ${result.status}. Please check inputs.</div>`;
+                    return;
+                }
+
+                const finishedCost = computeFinishedCost(result.baseCost, data);
+                const totalPct = data.packagingPct + data.adminPct + data.financialPct + data.profitPct;
+
+                let intSolution = roundToIntegerSolution(data, result.lpSolution);
+                intSolution = tryImproveInteger(data, intSolution);
+                const intBaseCost = intSolution.reduce((sum, x_i, i) => sum + x_i * data.flavors[i].cost, 0);
+                const intTotalWeight = intSolution.reduce((sum, x_i, i) => sum + x_i * data.flavors[i].weight, 0);
+                const intFinishedCost = computeFinishedCost(intBaseCost, data);
+
+                const intFeasible = intTotalWeight <= data.capacity + 1e-9 &&
+                    intSolution.every((x, i) => x >= data.flavors[i].min - 1e-9 && x <= data.flavors[i].max + 1e-9);
+
+                statusArea.innerHTML = `<div class="status-msg success">✅ Optimal solution found using the Simplex algorithm (two-phase method).</div>`;
+
+                displayResults(data, result, finishedCost, totalPct, intSolution, intBaseCost, intTotalWeight,
+                    intFinishedCost, intFeasible);
+                resultsContainer.classList.add('visible');
+
+            } catch (err) {
+                statusArea.innerHTML = `<div class="status-msg error">❌ ${err.message}</div>`;
+                resultsContainer.classList.remove('visible');
+            }
+        }
+
+        function displayResults(data, result, finishedCost, totalPct, intSolution, intBaseCost, intTotalWeight,
+            intFinishedCost, intFeasible) {
+            // LP Solution Table
+            const lpRows = data.flavors.map((f, i) => {
+                const qty = result.lpSolution[i];
+                const isFractional = Math.abs(qty - Math.round(qty)) > 1e-9;
+                const cost = qty * f.cost;
+                const weight = qty * f.weight;
+                return {
+                    name: f.name,
+                    qty: qty.toFixed(4),
+                    isFractional,
+                    cost: cost.toFixed(4),
+                    weight: weight.toFixed(4)
+                };
+            });
+
+            const lpTotalQty = result.lpSolution.reduce((s, v) => s + v, 0);
+            const lpTotalWeight = result.totalWeight;
+            const lpBaseCost = result.baseCost;
+
+            let lpTableHTML = `
+                <table class="result-table">
+                    <thead>
+                        <tr>
+                            <th>Flavor</th>
+                            <th>Optimal Qty</th>
+                            <th>Cost (Toman)</th>
+                            <th>Weight (g)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+            for (const row of lpRows) {
+                const badge = row.isFractional ?
+                    '<span class="fractional-badge">fractional</span>' :
+                    '<span class="integer-badge">integer</span>';
+                lpTableHTML += `
+                    <tr>
+                        <td>${row.name}</td>
+                        <td>${row.qty} ${badge}</td>
+                        <td>${row.cost}</td>
+                        <td>${row.weight}</td>
+                    </tr>
+                `;
+            }
+            lpTableHTML += `
+                    <tr class="total-row">
+                        <td>Total</td>
+                        <td>${lpTotalQty.toFixed(4)}</td>
+                        <td>${lpBaseCost.toFixed(4)} Toman</td>
+                        <td>${lpTotalWeight.toFixed(2)}g</td>
+                    </tr>
+                </tbody>
+            </table>`;
+
+            document.getElementById('solutionTableWrapper').innerHTML = lpTableHTML;
+
+            // Cost breakdown
+            const packagingCost = lpBaseCost * data.packagingPct / 100;
+            const adminCost = lpBaseCost * data.adminPct / 100;
+            const financialCost = lpBaseCost * data.financialPct / 100;
+            const profitAmount = lpBaseCost * data.profitPct / 100;
+
+            document.getElementById('costBreakdownWrapper').innerHTML = `
+                <div class="cost-breakdown">
+                    <div class="cost-item">
+                        <div class="label">Base Cost</div>
+                        <div class="value">${lpBaseCost.toFixed(4)} Toman</div>
+                    </div>
+                    <div class="cost-item">
+                        <div class="label">Packaging (${data.packagingPct}%)</div>
+                        <div class="value">${packagingCost.toFixed(4)} Toman</div>
+                    </div>
+                    <div class="cost-item">
+                        <div class="label">Admin (${data.adminPct}%)</div>
+                        <div class="value">${adminCost.toFixed(4)} Toman</div>
+                    </div>
+                    <div class="cost-item">
+                        <div class="label">Financial (${data.financialPct}%)</div>
+                        <div class="value">${financialCost.toFixed(4)} Toman</div>
+                    </div>
+                    <div class="cost-item">
+                        <div class="label">Profit (${data.profitPct}%)</div>
+                        <div class="value">${profitAmount.toFixed(4)} Toman</div>
+                    </div>
+                    <div class="cost-item" style="background:#f0e6da;border-color:#d4bfa8;">
+                        <div class="label">Finished Cost</div>
+                        <div class="value" style="font-size:1.5rem;">${finishedCost.toFixed(4)} Toman</div>
+                    </div>
+                </div>
+            `;
+
+            // Integer Solution Table
+            const intRows = data.flavors.map((f, i) => {
+                const qty = intSolution[i];
+                const cost = qty * f.cost;
+                const weight = qty * f.weight;
+                return { name: f.name, qty: qty, cost: cost.toFixed(4), weight: weight.toFixed(4) };
+            });
+            const intTotalQty = intSolution.reduce((s, v) => s + v, 0);
+            const intPackaging = intBaseCost * data.packagingPct / 100;
+            const intAdmin = intBaseCost * data.adminPct / 100;
+            const intFinancial = intBaseCost * data.financialPct / 100;
+            const intProfit = intBaseCost * data.profitPct / 100;
+
+            let intTableHTML = `
+                <table class="result-table">
+                    <thead>
+                        <tr>
+                            <th>Flavor</th>
+                            <th>Rounded Qty</th>
+                            <th>Cost (Toman)</th>
+                            <th>Weight (g)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+            for (const row of intRows) {
+                intTableHTML += `
+                    <tr>
+                        <td>${row.name}</td>
+                        <td>${row.qty}</td>
+                        <td>${row.cost}</td>
+                        <td>${row.weight}</td>
+                    </tr>
+                `;
+            }
+            intTableHTML += `
+                    <tr class="total-row">
+                        <td>Total</td>
+                        <td>${intTotalQty}</td>
+                        <td>${intBaseCost.toFixed(4)} Toman</td>
+                        <td>${intTotalWeight.toFixed(2)}g</td>
+                    </tr>
+                </tbody>
+            </table>`;
+
+            const feasibleBadge = intFeasible ?
+                '<span class="status-msg success" style="display:inline-block;padding:4px 12px;margin-top:8px;">✅ Feasible</span>' :
+                '<span class="status-msg error" style="display:inline-block;padding:4px 12px;margin-top:8px;">⚠️ Infeasible (check constraints)</span>';
+
+            document.getElementById('integerTableWrapper').innerHTML = intTableHTML + feasibleBadge;
+
+            document.getElementById('integerCostWrapper').innerHTML = `
+                <div class="cost-breakdown" style="margin-top:12px;">
+                    <div class="cost-item">
+                        <div class="label">Base Cost</div>
+                        <div class="value">${intBaseCost.toFixed(4)} Toman</div>
+                    </div>
+                    <div class="cost-item">
+                        <div class="label">Packaging</div>
+                        <div class="value">${intPackaging.toFixed(4)} Toman</div>
+                    </div>
+                    <div class="cost-item">
+                        <div class="label">Admin</div>
+                        <div class="value">${intAdmin.toFixed(4)} Toman</div>
+                    </div>
+                    <div class="cost-item">
+                        <div class="label">Financial</div>
+                        <div class="value">${intFinancial.toFixed(4)} Toman</div>
+                    </div>
+                    <div class="cost-item">
+                        <div class="label">Profit</div>
+                        <div class="value">${intProfit.toFixed(4)} Toman</div>
+                    </div>
+                    <div class="cost-item" style="background:#f0e6da;border-color:#d4bfa8;">
+                        <div class="label">Finished Cost</div>
+                        <div class="value" style="font-size:1.5rem;">${intFinishedCost.toFixed(4)} Toman</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // ============================================================
+        //  INITIALIZE ON LOAD
+        // ============================================================
+        document.addEventListener('DOMContentLoaded', () => {
+            initTable();
+            document.querySelectorAll('input').forEach(inp => {
+                inp.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter') solve();
+                });
+            });
+        });
+    </script>
+</body>
+</html>
